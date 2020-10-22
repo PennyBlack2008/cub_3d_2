@@ -1,10 +1,8 @@
 #include "cub_21.h"
 #define ROWS 5
 #define COLS 5
-#define WALL 49 // ascii #1
-#define NOT_WALL 48 // ascii #0
 
-void	map_init(t_win *w)
+void				map_init(t_win *w)
 {
 	int i;
 	// 여기서 1 은 흰 색, 0 은 검정색이다.
@@ -33,11 +31,10 @@ void	map_init(t_win *w)
 	// w->map.map[9] = "1111000111";
 	// w->map.map[10] = "1111111111";
 
-
 }
 
 // x는 가로에서 i번 째, y는 세로에서 j번 째
-void	draw_rectangle(t_win *w, int x, int y, int color)
+void				draw_rectangle(t_win *w, int x, int y, int color)
 {
 	int i, j;
 
@@ -59,7 +56,7 @@ void	draw_rectangle(t_win *w, int x, int y, int color)
 	}
 }
 
-void	draw_map(t_win *w)
+void				draw_map(t_win *w)
 {
 	int i, j;
 
@@ -87,10 +84,9 @@ void	draw_map(t_win *w)
 ** 속하는 지 알아보고 map[x * w->wall.length][y * w->wall.length]가 0이면 벽이아니고 1이면 벽으로 결정
 */
 
-int			is_wall(double x, double y, t_win *w)
+int					is_wall(double x, double y, t_win *w)
 {
 	if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == WALL)
 		return (WALL);
-	// printf("w->map.map[%d][%d] = %d\n", (int)(y / w->wall.length), (int)(x / w->wall.length), w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)]);
 	return (NOT_WALL);
 }

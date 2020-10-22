@@ -9,32 +9,28 @@ int					get_which_wall(t_ray *r, t_win *w)
 	if (ray_ang >= M_PI_4 * 7 || ray_ang < M_PI_4)
 	{
 		r->wall_NSEW = EAST;
-		r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;
 		x = r->hit.y - r->wall.y;
-
 	}
-	else if (ray_ang >= M_PI_4 && ray_ang < M_PI_4 * 3)
+	if (ray_ang >= M_PI_4 && ray_ang < M_PI_4 * 3)
 	{
 		r->wall_NSEW = SOUTH;
-		r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
 		x = r->hit.x - r->wall.x;
 	}
-	else if (ray_ang >= M_PI_4 * 3 && ray_ang < M_PI_4 * 5)
+	if (ray_ang >= M_PI_4 * 3 && ray_ang < M_PI_4 * 5)
 	{
 		r->wall_NSEW = WEST;
-		r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;
 		x = r->hit.y - r->wall.y;
 	}
-	else if (ray_ang >= M_PI_4 * 5 && ray_ang < M_PI_4 * 7)
+	if (ray_ang >= M_PI_4 * 5 && ray_ang < M_PI_4 * 7)
 	{
 		r->wall_NSEW = NORTH;
-		r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
 		x = r->hit.x - r->wall.x;
+		// printf("r->hit.x: %f, r->wall.x: %f\n", r->hit.x, r->wall.x);
 	}
 	return (x);
 }
 
-int					get_color_tex(double y, double scale_h, t_ray *r, t_win *w)
+int					get_color_tex(int j, double scale_h, t_ray *r, t_win *w)
 {
 	int				color;
 	double			x;
@@ -44,7 +40,7 @@ int					get_color_tex(double y, double scale_h, t_ray *r, t_win *w)
 	x = get_which_wall(r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
 	scale_w = w->wall.length / 64; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
-	py = floor(y / scale_h);
+	py = floor(j / scale_h);
 	color = w->map.curr_tex[(int)(64 * py + px)];
 	return (color);
 }

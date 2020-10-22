@@ -8,9 +8,9 @@
 
 int					draw_a_ray(t_ray *r, t_win *w)
 {
-	int i;
-	t_plot plot;
-	t_plot plot_player;
+	int				i;
+	t_plot			plot;
+	t_plot			plot_player;
 
 	i = 0;
 	while (i < w->R_width * 2)
@@ -28,16 +28,19 @@ int					draw_a_ray(t_ray *r, t_win *w)
 	}
 	r->hit.x = plot_player.x;
 	r->hit.y = plot_player.y;
-	
+	r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
+	r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;	
 	return (0);
 }
 
 int					draw_rays(t_win *w)
 {
-	t_ray		r[w->R_width];
-	int			i;				i = 0;
-	double		ray_ang;		ray_ang = -1 * w->fov_ang / 2;
-
+	t_ray			r[w->R_width];
+	int				i;
+	double			ray_ang;
+	
+	ray_ang = -1 * w->fov_ang / 2;
+	i = 0;
 	while (ray_ang < w->fov_ang / 2)
 	{
 		r[i].ang = normalize_angle(w->player.ang + ray_ang);

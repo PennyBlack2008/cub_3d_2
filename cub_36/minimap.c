@@ -14,6 +14,7 @@ void				draw_minimap(t_ray *r, t_win *w)
 	while (i < w->R_width)
 	{
 		set_plot(&ray, (r[i].hit.x / 4) + w->mini.plot.x, (r[i].hit.y / 4) + w->mini.plot.y);
+		printf("r[i].hit.x = %f, r[i].wall.x = %f\n", r[i].hit.x, r[i].wall.x);
 		draw_line(player, ray, 0xFF0000, w);
 		i++;
 	}

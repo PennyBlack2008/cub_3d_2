@@ -9,11 +9,11 @@ void				draw_minimap(t_ray *r, t_win *w)
 	// 미니맵 그리기
 	draw_map(w);
 	draw_player(w);
-	set_plot_int(&player, (w->player.x / 4) + w->mini.plot.x, (w->player.y / 4) + w->mini.plot.y);
+	set_plot(&player, (w->player.x / 4) + w->mini.plot.x, (w->player.y / 4) + w->mini.plot.y);
 	i = 0;
 	while (i < w->R_width)
 	{
-		set_plot_int(&ray, (r[i].hit.x / 4) + w->mini.plot.x, (r[i].hit.y / 4) + w->mini.plot.y);
+		set_plot(&ray, (r[i].hit.x / 4) + w->mini.plot.x, (r[i].hit.y / 4) + w->mini.plot.y);
 		draw_line(player, ray, 0xFF0000, w);
 		i++;
 	}
@@ -33,7 +33,7 @@ int					draw_grid(t_win *w)
 		my_mlx_pixel_put(&w->img, x, y, 0x00ccff);
 		x++;
 	}
-	
+
 	y = 0;	x = w->R_width / 2;
 	while (y < w->R_height)
 	{

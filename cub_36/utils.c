@@ -17,7 +17,7 @@ void					my_mlx_pixel_put(t_img *img, int x, int y, int color)
 ** 함수 normalize_angle: 이 함수를 통해 angle 이 음수이거나 360도를 넘어갈 때 생기는 문제점을 해결
 **						해줍니다.
 */ 
-double				normalize_angle(double ang)
+double					normalize_angle(double ang)
 {
 	while (ang >= 2 * M_PI)
 		ang -= 2 * M_PI;
@@ -31,7 +31,7 @@ double				normalize_angle(double ang)
 **					 t_plot(double x, double y) 의 좌표로 만들어준다.
 */
 
-void				set_plot_int(t_plot *plot, int x, int y)
+void					set_plot_int(t_plot *plot, int x, int y)
 {
 	plot->x = x;
 	plot->y = y;
@@ -41,7 +41,7 @@ void				set_plot_int(t_plot *plot, int x, int y)
 ** 함수 set_plot: 이 함수는 double x, double y를 t_plot(double x, double y)의 형식에 맞춰준다.
 */
 
-void				set_plot(t_plot *plot, double x, double y)
+void					set_plot(t_plot *plot, double x, double y)
 {
 	plot->x = x;
 	plot->y = y;
@@ -51,9 +51,9 @@ void				set_plot(t_plot *plot, double x, double y)
 ** 함수 draw_background: 이 함수가 있어서 플레이어가 움직일 때, 움직이기 전의 랜더링을 까맣게 지워줍니다.
 */
 
-int					draw_background(t_win *w)
+int						draw_background(t_win *w)
 {
-	int				x,y;
+	int					x,y;
 
 	x = 0;
 	while (x < w->R_width)

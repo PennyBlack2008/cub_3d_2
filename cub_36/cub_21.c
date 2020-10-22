@@ -96,7 +96,7 @@ int					init_struct_win(t_win *w)
 	w->img.y = 0; 
 
 	// 5. 벽의 크기와 높이 설정
-	w->wall.length = 100;
+	w->wall.length = 128;
 	w->wall.height = 600;
 
 	// 6. map 시작하기
@@ -107,8 +107,8 @@ int					init_struct_win(t_win *w)
 	w->player.height = 500;
 	w->player.ang = 0 * M_PI / 180;
 	// -> player 위치
-	w->player.x = 4.5 * w->wall.length;
-	w->player.y = 5.5 * w->wall.length;
+	w->player.x = 1.5 * w->wall.length;
+	w->player.y = 2 * w->wall.length;
 
 	// 8. minimap
 	w->mini.plot.x = w->R_width - 300;

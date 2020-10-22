@@ -8,16 +8,15 @@
 
 int					draw_a_ray(t_ray *r, t_win *w)
 {
-	int x, y;
+	int i;
 	t_plot plot;
 	t_plot plot_player;
 
-	x = 0;
-	while (x < w->R_width * 2)
+	i = 0;
+	while (i < w->R_width * 2)
 	{
-		y = 0;
-		plot.x = x * cos(r->ang) - y * sin(r->ang);
-		plot.y = x * sin(r->ang) + y * cos(r->ang);
+		plot.x = i * cos(r->ang);
+		plot.y = i * sin(r->ang);
 		plot_player.x = plot.x + w->player.x; // player 좌표를 더한 광선의 값
 		plot_player.y = plot.y + w->player.y; // player 좌표를 더한 광선의 값
 		if (plot_player.x >= 0 && plot_player.y >= 0)
@@ -25,12 +24,10 @@ int					draw_a_ray(t_ray *r, t_win *w)
 			if (is_wall(plot_player.x, plot_player.y, w) == WALL)
 				break ;
 		}
-		x++;
+		i++;
 	}
 	r->hit.x = plot_player.x;
 	r->hit.y = plot_player.y;
-	r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
-	r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;
 	
 	return (0);
 }

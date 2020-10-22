@@ -2,78 +2,50 @@
 
 int					get_which_wall(t_ray *r, t_win *w)
 {
-	int				x;
+	double			x;
 	double			ray_ang;
 
 	ray_ang = normalize_angle(w->player.ang + r->ang);
-	if (ray_ang > M_PI_4 * 7 || ray_ang < M_PI_4)
+	if (ray_ang >= M_PI_4 * 7 || ray_ang < M_PI_4)
 	{
 		r->wall_NSEW = EAST;
+		r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;
 		x = r->hit.y - r->wall.y;
-		// printf("east x location: %f\n", x);
-		// printf("ray_ang: %f\n", ray_ang * 180 / M_PI);
-		// printf("EAST: %f\n", x);
-		if (x < 0)
-		{
-			printf("EAST: %f r->hit.y : %f r->wall.y: %f\n", x, r->hit.y, r->wall.y); // -로 튕기는 경우가 있다.
-			printf("%d\n", (int)(x / w->wall.length) * w->wall.length);
-		}
+
 	}
-	else if (ray_ang > M_PI_4 && ray_ang < M_PI_4 * 3)
+	else if (ray_ang >= M_PI_4 && ray_ang < M_PI_4 * 3)
 	{
 		r->wall_NSEW = SOUTH;
-		
+		r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
 		x = r->hit.x - r->wall.x;
-		// printf("south x location: %f\n", x);
-		// if (x < 0)
-		// {
-		// 	printf("South: %f r->hit.x : %f r->wall.x: %f\n", x, r->hit.x, r->wall.x); // -로 튕기는 경우가 있다.
-		// 	printf("%d\n", (int)(x / w->wall.length) * w->wall.length);
-		// }
 	}
-	else if (ray_ang > M_PI_4 * 3 && ray_ang < M_PI_4 * 5)
+	else if (ray_ang >= M_PI_4 * 3 && ray_ang < M_PI_4 * 5)
 	{
 		r->wall_NSEW = WEST;
+		r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;
 		x = r->hit.y - r->wall.y;
-		// printf("West: %f\n", x);
-		if (x < 0)
-		{
-			printf("WEST: %f r->hit.y : %f r->wall.y: %f\n", x, r->hit.y, r->wall.y); // -로 튕기는 경우가 있다.
-			printf("%d\n", (int)(x / w->wall.length) * w->wall.length);
-		}
 	}
-	else if (ray_ang > M_PI_4 * 5 && ray_ang < M_PI_4 * 7)
+	else if (ray_ang >= M_PI_4 * 5 && ray_ang < M_PI_4 * 7)
 	{
 		r->wall_NSEW = NORTH;
+		r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
 		x = r->hit.x - r->wall.x;
-		// printf("North: %f\n", x);
-		if (x < 0)
-		{
-			printf("North: %f r->hit.x : %f r->wall.x: %f\n", x, r->hit.x, r->wall.x); // -로 튕기는 경우가 있다.
-			printf("%d\n", (int)(x / w->wall.length) * w->wall.length);
-		}
 	}
 	return (x);
 }
 
-int					get_color_tex(double y, double scale, t_ray *r, t_win *w)
+int					get_color_tex(double y, double scale_h, t_ray *r, t_win *w)
 {
 	int				color;
-	double				x;
+	double			x;
 	double			px, py;
+	double			scale_w;
 
-	x = get_which_wall(r, w); // 여기서 x 에 넣어줄 값을 정한다.
-	if (x == 1000)
-	{
-		return (0xff0000);
-	}
-	px = floor(x / (w->wall.length / 64)); // x 에서 받는 scale 은 100 -> 64이다.
-	py = floor(y / scale);
+	x = get_which_wall(r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
+	scale_w = w->wall.length / 64; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
+	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
+	py = floor(y / scale_h);
 	color = w->map.curr_tex[(int)(64 * py + px)];
-	if (x == 0)
-	{
-		return (0x00ff00);
-	}
 	return (color);
 }
 
@@ -96,12 +68,12 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 {
 	double		dist_to_wall;
 	double		pjtd_height;
-	double		scale;
+	double		scale_h;
 	int			color;
 
 	dist_to_wall = hypot(r->hit.x - w->player.x, r->hit.y - w->player.y) * fabs(cos(r->ang - w->player.ang));
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_wall;
-	scale = pjtd_height / 64; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
+	scale_h = pjtd_height / 64; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
 
@@ -110,8 +82,8 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	r->ceiling = w->player.height - k;
 	while (j < pjtd_height) // 벽을 아래로 내리기
 	{
-		color = get_color_tex(j, scale, r, w);
-		my_mlx_pixel_put(&w->img, i, r->ceiling + j - 1, color);
+		color = get_color_tex(j, scale_h, r, w);
+		my_mlx_pixel_put(&w->img, i, r->ceiling + j, color);
 		j++;
 	}
 	r->floor = pjtd_height + r->ceiling;

@@ -4,6 +4,7 @@ double				get_which_wall(int i, t_ray *r, t_win *w)
 {
 	double			x;
 	
+	x = 0;
 	if (r[i].wall_NSEW == EAST)
 	{
 		x = r[i].hit.y - r[i].wall.y;

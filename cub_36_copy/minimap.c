@@ -32,6 +32,9 @@ void				draw_minimap(t_ray *r, t_win *w)
 		{
 			color = 0xF1F740; // 노란색
 		}
+		else if (r[i].wall_NSEW == 5)
+			color =  0xff0000; // 빨간색
+
 		draw_line(player, ray, color, w);
 		i++;
 	}

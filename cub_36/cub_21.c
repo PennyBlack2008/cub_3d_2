@@ -10,7 +10,7 @@ int     render_next_frame(t_win *w)
 	// draw_grid(w);
 	draw_map(w);
 	draw_player(w);
-	draw_rays(w);
+	cast_rays(w);
 	return (0);
 }
 

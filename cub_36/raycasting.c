@@ -1,12 +1,12 @@
 #include "cub_21.h"
 
 /*
-**	함수 draw_a_ray
+**	함수 cast_a_ray
 **	우측 작대기 함수를 약간 변형해서 draw_rays 의 각도를 받아 WIN_WIDTH 의 길이만큼의 광선을 출력하는 함수입니다.
 **	plot은 (0, 0) 의 픽셀에서 각도를 변환하며 계산한 좌표이고, plot_player는 플레이어의 현재위치를 더한 좌표 값입니다.
 */
 
-int					draw_a_ray(t_ray *r, t_win *w)
+int					cast_a_ray(t_ray *r, t_win *w)
 {
 	int				i;
 	t_plot			plot;
@@ -33,7 +33,7 @@ int					draw_a_ray(t_ray *r, t_win *w)
 	return (0);
 }
 
-int					draw_rays(t_win *w)
+int					cast_rays(t_win *w)
 {
 	t_ray			r[w->R_width];
 	int				i;
@@ -44,8 +44,8 @@ int					draw_rays(t_win *w)
 	while (ray_ang < w->fov_ang / 2)
 	{
 		r[i].ang = normalize_angle(w->player.ang + ray_ang);
-		draw_a_ray(&(r[i]), w);
-		draw_a_wall(i, &(r[i]), w);
+		cast_a_ray(&(r[i]), w);
+		draw_a_wall(i, &(r[i]), w); // <-- 이것을 r로 넣어보자!
 		draw_ceiling(i, &(r[i]), w);
 		draw_floor(i, &(r[i]), w);
 		ray_ang += w->fov_ang / (w->R_width - 1);

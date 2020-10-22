@@ -172,8 +172,8 @@ int					move_left(t_win *w);
 int					move_right(t_win *w);
 
 // raycasting.c
-int					draw_a_ray(t_ray *r, t_win *w);
-int					draw_rays(t_win *w);
+int					cast_a_ray(t_ray *r, t_win *w);
+int					cast_rays(t_win *w);
 
 // draw_wall.c
 void				draw_a_wall(int i, t_ray *r, t_win *w);

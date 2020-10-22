@@ -5,7 +5,7 @@ double				get_which_wall(int i, t_ray *r, t_win *w)
 	double			x;
 	double			ray_ang;
 
-	ray_ang = normalize_angle(w->player.ang + r[i].ang);
+	ray_ang = normalize_angle(r[i].ang);
 	if (ray_ang >= M_PI/4 * 7 || ray_ang < M_PI/4)
 	{
 		r[i].wall_NSEW = EAST;

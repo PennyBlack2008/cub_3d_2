@@ -3,6 +3,7 @@
 void				draw_minimap(t_ray *r, t_win *w)
 {
 	int	i;
+	int	color;
 	t_plot player;
 	t_plot ray;
 	
@@ -15,7 +16,23 @@ void				draw_minimap(t_ray *r, t_win *w)
 	{
 		set_plot(&ray, (r[i].hit.x / 4) + w->mini.plot.x, (r[i].hit.y / 4) + w->mini.plot.y);
 		// printf("r[i].hit.x = %f, r[i].wall.x = %f\n", r[i].hit.x, r[i].wall.x);
-		draw_line(player, ray, 0xFF0000, w);
+		if (r[i].ang >= M_PI/4 * 7 || r[i].ang < M_PI/4)
+		{
+			color = 0x40F7D5;
+		}
+		if (r[i].ang >= M_PI/4 && r[i].ang < M_PI/4 * 3)
+		{
+			color = 0x40F759;
+		}
+		if (r[i].ang >= M_PI/4 * 3 && r[i].ang < M_PI/4 * 5)
+		{
+			color = 0xDB40F7;
+		}
+		if (r[i].ang >= M_PI/4 * 5 && r[i].ang < M_PI/4 * 7)
+		{
+			color = 0xF1F740;
+		}
+		draw_line(player, ray, color, w);
 		i++;
 	}
 }

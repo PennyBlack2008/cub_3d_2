@@ -13,8 +13,8 @@ int					draw_player(t_win *w)
 		y = w->player.width / 2 * -1;
 		while (y < w->player.width / 2)
 		{
-			plot.x = x * cos(w->player.ang * -1) + y * sin(w->player.ang * -1);
-			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang * -1);
+			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang);
+			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang);
 			plot_player.x = plot.x + w->player.x;
 			plot_player.y = plot.y + w->player.y;
 			if (plot_player.x >= 0 && plot_player.y >= 0)
@@ -31,8 +31,8 @@ int					draw_player(t_win *w)
 	while (x < w->player.width / 2 + 30)
 	{
 		y = 0;
-		plot.x = x * cos(w->player.ang * -1) + y * sin(w->player.ang * -1);
-		plot.y = x * sin(w->player.ang) + y * cos(w->player.ang * -1);
+		plot.x = x * cos(w->player.ang) - y * sin(w->player.ang);
+		plot.y = x * sin(w->player.ang) + y * cos(w->player.ang);
 		plot_player.x = plot.x + w->player.x;
 		plot_player.y = plot.y + w->player.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)
@@ -48,8 +48,8 @@ int					draw_player(t_win *w)
 	while (y < w->player.width / 2 + 30)
 	{
 		x = 0;
-		plot.x = x * cos(w->player.ang * -1) + y * sin(w->player.ang * -1);
-		plot.y = x * sin(w->player.ang) + y * cos(w->player.ang * -1);
+		plot.x = x * cos(w->player.ang) - y * sin(w->player.ang);
+		plot.y = x * sin(w->player.ang) + y * cos(w->player.ang);
 		plot_player.x = plot.x + w->player.x;
 		plot_player.y = plot.y + w->player.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)

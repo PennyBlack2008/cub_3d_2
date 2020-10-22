@@ -33,7 +33,7 @@ int					draw_grid(t_win *w)
 		my_mlx_pixel_put(&w->img, x, y, 0x00ccff);
 		x++;
 	}
-
+	
 	y = 0;	x = w->R_width / 2;
 	while (y < w->R_height)
 	{

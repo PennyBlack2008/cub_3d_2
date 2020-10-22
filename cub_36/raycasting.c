@@ -16,8 +16,8 @@ int					draw_a_ray(t_ray *r, t_win *w)
 	while (x < w->R_width * 2)
 	{
 		y = 0;
-		plot.x = x * cos(r->ang * -1) + y * sin(r->ang * -1);
-		plot.y = x * sin(r->ang * -1) * -1 + y * cos(r->ang * -1);
+		plot.x = x * cos(r->ang) - y * sin(r->ang);
+		plot.y = x * sin(r->ang) + y * cos(r->ang);
 		plot_player.x = plot.x + w->player.x; // player 좌표를 더한 광선의 값
 		plot_player.y = plot.y + w->player.y; // player 좌표를 더한 광선의 값
 		if (plot_player.x >= 0 && plot_player.y >= 0)

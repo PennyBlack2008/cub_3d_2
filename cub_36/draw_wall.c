@@ -65,6 +65,10 @@ int					get_color_tex(double y, double scale, t_ray *r, t_win *w)
 	px = floor(x / (w->wall.length / 64)); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(y / scale);
 	color = w->map.curr_tex[(int)(64 * py + px)];
+	if (x == 0)
+	{
+		return (0x00ff00);
+	}
 	return (color);
 }
 

@@ -179,7 +179,6 @@ int					cast_rays(t_win *w);
 void				draw_a_wall(int i, t_ray *r, t_win *w);
 void				draw_ceiling(int i, t_ray *r, t_win *w);
 void				draw_floor(int i, t_ray *r, t_win *w);
-int					get_which_wall(t_ray *r, t_win *w);
 
 // player.c
 int					draw_player(t_win *w);

@@ -1,47 +1,54 @@
 #include "cub_21.h"
 
-int					get_which_wall(t_ray *r, t_win *w)
+double				get_which_wall(int i, t_ray *r, t_win *w)
 {
 	double			x;
 	double			ray_ang;
 
-	ray_ang = normalize_angle(w->player.ang + r->ang);
-	if (ray_ang >= M_PI_4 * 7 || ray_ang < M_PI_4)
+	ray_ang = normalize_angle(w->player.ang + r[i].ang);
+	if (ray_ang >= M_PI/4 * 7 || ray_ang < M_PI/4)
 	{
-		r->wall_NSEW = EAST;
-		x = r->hit.y - r->wall.y;
+		r[i].wall_NSEW = EAST;
+		x = r[i].hit.y - r[i].wall.y;
 	}
-	if (ray_ang >= M_PI_4 && ray_ang < M_PI_4 * 3)
+	if (ray_ang >= M_PI/4 && ray_ang < M_PI/4 * 3)
 	{
-		r->wall_NSEW = SOUTH;
-		x = r->hit.x - r->wall.x;
+		r[i].wall_NSEW = SOUTH;
+		x = r[i].hit.x - r[i].wall.x;
 	}
-	if (ray_ang >= M_PI_4 * 3 && ray_ang < M_PI_4 * 5)
+	if (ray_ang >= M_PI/4 * 3 && ray_ang < M_PI/4 * 5)
 	{
-		r->wall_NSEW = WEST;
-		x = r->hit.y - r->wall.y;
+		r[i].wall_NSEW = WEST;
+		x = r[i].hit.y - r[i].wall.y;
 	}
-	if (ray_ang >= M_PI_4 * 5 && ray_ang < M_PI_4 * 7)
+	if (ray_ang >= M_PI/4 * 5 && ray_ang < M_PI/4 * 7)
 	{
-		r->wall_NSEW = NORTH;
-		x = r->hit.x - r->wall.x;
-		// printf("r->hit.x: %f, r->wall.x: %f\n", r->hit.x, r->wall.x);
+		r[i].wall_NSEW = NORTH;
+		x = r[i].hit.x - r[i].wall.x;
 	}
 	return (x);
 }
 
-int					get_color_tex(int j, double scale_h, t_ray *r, t_win *w)
+int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w)
 {
 	int				color;
 	double			x;
 	double			px, py;
 	double			scale_w;
 
-	x = get_which_wall(r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
+	x = get_which_wall(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
 	scale_w = w->wall.length / 64; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);
 	color = w->map.curr_tex[(int)(64 * py + px)];
+	if (r[i].wall_NSEW == NORTH)
+		return (0xF1F740);
+	if (r[i].wall_NSEW == SOUTH)
+		return (0x40F759);
+	if (r[i].wall_NSEW == EAST)
+		return (0x40F7D5);
+	if (r[i].wall_NSEW == WEST)
+		return (0xDB40F7);
 	return (color);
 }
 
@@ -78,7 +85,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	r[i].ceiling = w->player.height - k;
 	while (j < pjtd_height) // 벽을 아래로 내리기
 	{
-		color = get_color_tex(j, scale_h, &(r[i]), w);
+		color = get_color_tex(i, j, scale_h, r, w);
 		my_mlx_pixel_put(&w->img, i, r[i].ceiling + j, color);
 		j++;
 	}

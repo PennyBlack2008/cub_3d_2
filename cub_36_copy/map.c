@@ -1,6 +1,6 @@
 #include "cub_21.h"
-#define ROWS 5
-#define COLS 5
+#define ROWS 11
+#define COLS 10
 
 void				map_init(t_win *w)
 {
@@ -13,23 +13,23 @@ void				map_init(t_win *w)
 		w->map.map[i] = (char *)malloc(sizeof(char) * COLS);
 		i++;
 	}
-	w->map.map[0] = "11111";
-	w->map.map[1] = "10001";
-	w->map.map[2] = "10001";
-	w->map.map[3] = "10101";
-	w->map.map[4] = "11111";
+	// w->map.map[0] = "11111";
+	// w->map.map[1] = "10001";
+	// w->map.map[2] = "10001";
+	// w->map.map[3] = "10101";
+	// w->map.map[4] = "11111";
 
-	// w->map.map[0] = "1111111111";
-	// w->map.map[1] = "1000001011";
-	// w->map.map[2] = "1000100011";
-	// w->map.map[3] = "1010000011";
-	// w->map.map[4] = "1010000011";
-	// w->map.map[5] = "1010000011";
-	// w->map.map[6] = "1010000011";
-	// w->map.map[7] = "1010000001";
-	// w->map.map[8] = "1010000001";
-	// w->map.map[9] = "1111000111";
-	// w->map.map[10] = "1111111111";
+	w->map.map[0] = "1111111111";
+	w->map.map[1] = "1000000011";
+	w->map.map[2] = "1000000011";
+	w->map.map[3] = "1000000011";
+	w->map.map[4] = "1000000011";
+	w->map.map[5] = "1000000011";
+	w->map.map[6] = "1000000011";
+	w->map.map[7] = "1000000001";
+	w->map.map[8] = "1000000001";
+	w->map.map[9] = "1100000111";
+	w->map.map[10] = "1111111111";
 
 }
 

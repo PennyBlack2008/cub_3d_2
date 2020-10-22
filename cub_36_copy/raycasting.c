@@ -2,19 +2,21 @@
 
 int					find_which_wall(t_ray *r, t_win *w)
 {
-	if (r->hit.x == r->wall.x || r->hit.x == r->wall.x + w->wall.length)
+	if (r->hit.x == r->wall.x)
 	{
-		if (r->hit.y == r->wall.y)
-			return (NORTH);
-		else
-			return (SOUTH);
+		return (EAST);
 	}
-	if (r->hit.y == r->wall.y || r->hit.y == r->wall.y + w->wall.length)
+	else if (r->hit.x == r->wall.x + w->wall.length)
 	{
-		if (r->hit.x == r->wall.x)
-			return (EAST);
-		else
-			return (WEST);
+		return (WEST);
+	}
+	else if (r->hit.y == r->wall.y)
+	{
+		return (SOUTH);
+	}
+	else if (r->hit.y == r->wall.y + w->wall.length)
+	{
+		return (NORTH);
 	}
 	return (0);
 }

@@ -8,15 +8,15 @@ double				get_which_wall(int i, t_ray *r, t_win *w)
 	{
 		x = r[i].hit.y - r[i].wall.y;
 	}
-	if (r[i].wall_NSEW == SOUTH)
+	else if (r[i].wall_NSEW == SOUTH)
 	{
 		x = r[i].hit.x - r[i].wall.x;
 	}
-	if (r[i].wall_NSEW == WEST)
+	else if (r[i].wall_NSEW == WEST)
 	{
 		x = r[i].hit.y - r[i].wall.y;
 	}
-	if (r[i].wall_NSEW == NORTH)
+	else if (r[i].wall_NSEW == NORTH)
 	{
 		x = r[i].hit.x - r[i].wall.x;
 	}

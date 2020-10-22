@@ -16,21 +16,21 @@ void				draw_minimap(t_ray *r, t_win *w)
 	{
 		set_plot(&ray, (r[i].hit.x / 4) + w->mini.plot.x, (r[i].hit.y / 4) + w->mini.plot.y);
 		// printf("r[i].hit.x = %f, r[i].wall.x = %f\n", r[i].hit.x, r[i].wall.x);
-		if (r[i].ang >= M_PI/4 * 7 || r[i].ang < M_PI/4)
+		if (r[i].wall_NSEW == EAST)
 		{
-			color = 0x40F7D5;
+			color = 0x40F7D5; // 민트색
 		}
-		if (r[i].ang >= M_PI/4 && r[i].ang < M_PI/4 * 3)
+		if (r[i].wall_NSEW == SOUTH)
 		{
-			color = 0x40F759;
+			color = 0x40F759; // 초록색
 		}
-		if (r[i].ang >= M_PI/4 * 3 && r[i].ang < M_PI/4 * 5)
+		if (r[i].wall_NSEW == WEST)
 		{
-			color = 0xDB40F7;
+			color = 0xDB40F7; // 분홍색
 		}
-		if (r[i].ang >= M_PI/4 * 5 && r[i].ang < M_PI/4 * 7)
+		if (r[i].wall_NSEW == NORTH)
 		{
-			color = 0xF1F740;
+			color = 0xF1F740; // 노란색
 		}
 		draw_line(player, ray, color, w);
 		i++;

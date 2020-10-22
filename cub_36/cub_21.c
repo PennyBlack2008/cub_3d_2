@@ -1,5 +1,8 @@
 #include "cub_21.h"
 
+/*
+** 함수 render_next_frame : 이 함수에 들어 있는 함수 순서대로 윈도우 화면에 랜더링을 시작한다.
+*/
 
 int     render_next_frame(t_win *w)
 {
@@ -7,11 +10,13 @@ int     render_next_frame(t_win *w)
 	// draw_grid(w);
 	draw_map(w);
 	draw_player(w);
-	// draw_line(0, 0, WIN_WIDTH, WIN_HEIGHT, 0x00FF00, w);
 	draw_rays(w);
 	return (0);
 }
 
+/*
+** 함수 key_press : 이 함수를 통해 플레이어가 움직이는 것을 알려준다.
+*/
 int				key_press(int keycode, t_win *w)
 {
 	int			pixel_x, pixel_y;
@@ -71,41 +76,45 @@ int				key_press(int keycode, t_win *w)
 
 int					init_struct_win(t_win *w)
 {
-	// mlx init
+	// 1. mlx 관련 함수 시작
 	w->mlx = mlx_init();
 
-	// 해상도
+	// 2. 해상도 설정
 	w->R_width = WIN_WIDTH;
 	w->R_height = WIN_HEIGHT;
 	w->fov_ang = M_PI / 3; // 60도
 	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
 
-	// 벽
+	// 3. 윈도우 창의 크기 설정
+	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "veryluckymanjinwoo");
+
+	// 4. 윈도우에 넣을 이미지 크기 정하기
+	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);
+	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, &w->img.line_length, &w->img.endian);
+	// -> 이미지의 위치
+	w->img.x = 0;
+	w->img.y = 0; 
+
+	// 5. 벽의 크기와 높이 설정
 	w->wall.length = 100;
 	w->wall.height = 600;
 
-	// 윈도우
-	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "veryluckymanjinwoo");
-
-	// 이미지 size: 30 X 30
-	w->img.ptr = mlx_new_image(w->mlx, WIN_WIDTH, WIN_HEIGHT);		w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, &w->img.line_length, &w->img.endian);
-	w->img.x = 0;		w->img.y = 0; // 이미지의 위치
-
-	// map
+	// 6. map 시작하기
 	map_init(w);
 
-	// player
+	// 7. player
 	w->player.width = w->wall.length / 3;
 	w->player.height = 500;
+	w->player.ang = 0 * M_PI / 180;
+	// -> player 위치
 	w->player.x = 4.5 * w->wall.length;
 	w->player.y = 5.5 * w->wall.length;
-	w->player.ang = 0 * M_PI / 180;
 
-	// minimap
+	// 8. minimap
 	w->mini.plot.x = w->R_width - 300;
 	w->mini.plot.y = w->R_height - 300;
 
-	// texture
+	// 9. texture
 	int i, j;
 	w->tex.ptr = mlx_xpm_file_to_image(w->mlx, "eagle.xpm", &w->tex.width, &w->tex.height);
 	w->tex.addr = (int *)mlx_get_data_addr(w->tex.ptr, &w->tex.bpp, &w->tex.len, &w->tex.endian);

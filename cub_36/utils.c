@@ -1,5 +1,10 @@
 #include "cub_21.h"
 
+/*
+** 함수 my_mlx_pixel_put: 이 함수를 통해서 기존의 일차원 배열에 위치를 계산해서 color를 넣는 불편함을 덜어
+**						 준다.
+*/
+
 void					my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char				*dst;
@@ -8,6 +13,10 @@ void					my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+/*
+** 함수 normalize_angle: 이 함수를 통해 angle 이 음수이거나 360도를 넘어갈 때 생기는 문제점을 해결
+**						해줍니다.
+*/ 
 double				normalize_angle(double ang)
 {
 	while (ang >= 2 * M_PI)
@@ -17,11 +26,20 @@ double				normalize_angle(double ang)
 	return (ang);
 }
 
+/*
+** 함수 set_plot_int: 이 함수는 int 형의 좌표를 bresenhem.c 의 함수에 들어갈 수 있도록
+**					 t_plot(double x, double y) 의 좌표로 만들어준다.
+*/
+
 void				set_plot_int(t_plot *plot, int x, int y)
 {
 	plot->x = x;
 	plot->y = y;
 }
+
+/*
+** 함수 set_plot: 이 함수는 double x, double y를 t_plot(double x, double y)의 형식에 맞춰준다.
+*/
 
 void				set_plot(t_plot *plot, double x, double y)
 {
@@ -30,7 +48,7 @@ void				set_plot(t_plot *plot, double x, double y)
 }
 
 /*
-** draw_background 함수는 검정화면을 출력하기 위한 함수입니다. 이 함수가 있어서 플레이어가 움직일 때, 움직이기 전의 위치의 픽셀을 까맣게 지워줍니다.
+** 함수 draw_background: 이 함수가 있어서 플레이어가 움직일 때, 움직이기 전의 랜더링을 까맣게 지워줍니다.
 */
 
 int					draw_background(t_win *w)

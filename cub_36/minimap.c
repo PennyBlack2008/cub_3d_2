@@ -5,6 +5,7 @@ void				draw_minimap(t_ray *r, t_win *w)
 	int	i;
 	t_plot player;
 	t_plot ray;
+	
 	// 미니맵 그리기
 	draw_map(w);
 	draw_player(w);

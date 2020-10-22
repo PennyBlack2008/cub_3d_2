@@ -20,15 +20,15 @@ void				draw_minimap(t_ray *r, t_win *w)
 		{
 			color = 0x40F7D5; // 민트색
 		}
-		if (r[i].wall_NSEW == SOUTH)
+		else if (r[i].wall_NSEW == SOUTH)
 		{
 			color = 0x40F759; // 초록색
 		}
-		if (r[i].wall_NSEW == WEST)
+		else if (r[i].wall_NSEW == WEST)
 		{
 			color = 0xDB40F7; // 분홍색
 		}
-		if (r[i].wall_NSEW == NORTH)
+		else if (r[i].wall_NSEW == NORTH)
 		{
 			color = 0xF1F740; // 노란색
 		}

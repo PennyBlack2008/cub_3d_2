@@ -2,22 +2,27 @@
 
 int					find_which_wall(t_ray *r, t_win *w)
 {
-	if (r->hit.x == r->wall.x)
+	double ray_ang;
+	r->wall_NSEW = 5;
+
+	ray_ang = normalize_angle(r->ang);
+	if ((int)r->hit.x == (int)r->wall.x)
 	{
 		return (EAST);
 	}
-	else if (r->hit.x == r->wall.x + w->wall.length)
+	else if ((int)r->hit.x == (int)(r->wall.x + w->wall.length))
 	{
 		return (WEST);
 	}
-	else if (r->hit.y == r->wall.y)
+	else if ((int)r->hit.y == (int)r->wall.y)
 	{
 		return (SOUTH);
 	}
-	else if (r->hit.y == r->wall.y + w->wall.length)
+	else if ((int)r->hit.y == (int)r->wall.y + w->wall.length)
 	{
 		return (NORTH);
 	}
+	printf("wrong : %d\n", r->wall_NSEW);
 	return (0);
 }
 

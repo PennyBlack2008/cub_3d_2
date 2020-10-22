@@ -160,6 +160,8 @@ void					draw_line(t_plot p1, t_plot p2, int color, t_win *w);
 // map.c
 int						is_wall(double x, double y, t_win *w);
 void					draw_rectangle(t_win *w, int x, int y, int color);
+void					draw_map(t_win *w);
+void					map_init(t_win *w);
 
 // move.c
 int						rotate_right(t_win *w);

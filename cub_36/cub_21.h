@@ -151,29 +151,46 @@ typedef struct 			s_win
 	t_tex				tex;
 }						t_win;
 
-void					my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int						draw_player(t_win *w);
-int						draw_grid(t_win *w);
-int						draw_background(t_win *w);
+
+
+
+// bresenhem.c
 void					draw_line(t_plot p1, t_plot p2, int color, t_win *w);
-void					map_init(t_win *w);
-void					draw_map(t_win *w);
-void					draw_rectangle(t_win *w, int x, int y, int color);
+
+// map.c
 int						is_wall(double x, double y, t_win *w);
+void					draw_rectangle(t_win *w, int x, int y, int color);
+
+// move.c
 int						rotate_right(t_win *w);
 int						rotate_left(t_win *w);
 int						move_forward(t_win *w);
 int						move_back(t_win *w);
 int						move_left(t_win *w);
 int						move_right(t_win *w);
+
+// raycasting.c
 int						draw_a_ray(t_ray *r, t_win *w);
 int						draw_rays(t_win *w);
+
+// draw_wall.c
 void					draw_a_wall(int i, t_ray *r, t_win *w);
-void					draw_minimap(t_ray *r, t_win *w);
 void					draw_ceiling(int i, t_ray *r, t_win *w);
 void					draw_floor(int i, t_ray *r, t_win *w);
+int						get_which_wall(t_ray *r, t_win *w);
+
+// player.c
+int						draw_player(t_win *w);
+
+// minimap.c
+void					draw_minimap(t_ray *r, t_win *w);
+int						draw_grid(t_win *w);
+
+// utils.c
 double					normalize_angle(double ang);
 void					set_plot_int(t_plot *plot, int x, int y);
-int						get_which_wall(t_ray *r, t_win *w);
+void					set_plot(t_plot *plot, double x, double y);
+int						draw_background(t_win *w);
+void					my_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 #endif

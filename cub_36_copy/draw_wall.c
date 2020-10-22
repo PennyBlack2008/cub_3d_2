@@ -3,27 +3,21 @@
 double				get_which_wall(int i, t_ray *r, t_win *w)
 {
 	double			x;
-	double			ray_ang;
-
-	ray_ang = normalize_angle(r[i].ang);
-	if (ray_ang >= M_PI/4 * 7 || ray_ang < M_PI/4)
+	
+	if (r[i].wall_NSEW == EAST)
 	{
-		r[i].wall_NSEW = EAST;
 		x = r[i].hit.y - r[i].wall.y;
 	}
-	if (ray_ang >= M_PI/4 && ray_ang < M_PI/4 * 3)
+	if (r[i].wall_NSEW == SOUTH)
 	{
-		r[i].wall_NSEW = SOUTH;
 		x = r[i].hit.x - r[i].wall.x;
 	}
-	if (ray_ang >= M_PI/4 * 3 && ray_ang < M_PI/4 * 5)
+	if (r[i].wall_NSEW == WEST)
 	{
-		r[i].wall_NSEW = WEST;
 		x = r[i].hit.y - r[i].wall.y;
 	}
-	if (ray_ang >= M_PI/4 * 5 && ray_ang < M_PI/4 * 7)
+	if (r[i].wall_NSEW == NORTH)
 	{
-		r[i].wall_NSEW = NORTH;
 		x = r[i].hit.x - r[i].wall.x;
 	}
 	return (x);
@@ -41,14 +35,14 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w)
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);
 	color = w->map.curr_tex[(int)(64 * py + px)];
-	if (r[i].wall_NSEW == NORTH)
-		return (0xF1F740);
-	if (r[i].wall_NSEW == SOUTH)
-		return (0x40F759);
-	if (r[i].wall_NSEW == EAST)
-		return (0x40F7D5);
-	if (r[i].wall_NSEW == WEST)
-		return (0xDB40F7);
+	// if (r[i].wall_NSEW == NORTH)
+	// 	return (0xF1F740);
+	// if (r[i].wall_NSEW == SOUTH)
+	// 	return (0x40F759);
+	// if (r[i].wall_NSEW == EAST)
+	// 	return (0x40F7D5);
+	// if (r[i].wall_NSEW == WEST)
+	// 	return (0xDB40F7);
 	return (color);
 }
 

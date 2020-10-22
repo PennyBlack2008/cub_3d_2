@@ -151,9 +151,6 @@ typedef struct 		s_win
 	t_tex			tex;
 }					t_win;
 
-
-
-
 // bresenhem.c
 void				draw_line(t_plot p1, t_plot p2, int color, t_win *w);
 

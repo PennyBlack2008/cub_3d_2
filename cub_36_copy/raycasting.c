@@ -1,5 +1,24 @@
 #include "cub_21.h"
 
+int					find_which_wall(t_ray *r, t_win *w)
+{
+	if (r->hit.x == r->wall.x || r->hit.x == r->wall.x + w->wall.length)
+	{
+		if (r->hit.y == r->wall.y)
+			return (NORTH);
+		else
+			return (SOUTH);
+	}
+	if (r->hit.y == r->wall.y || r->hit.y == r->wall.y + w->wall.length)
+	{
+		if (r->hit.x == r->wall.x)
+			return (EAST);
+		else
+			return (WEST);
+	}
+	return (0);
+}
+
 /*
 **	함수 cast_a_ray
 **	우측 작대기 함수를 약간 변형해서 draw_rays 의 각도를 받아 WIN_WIDTH 의 길이만큼의 광선을 출력하는 함수입니다.
@@ -30,6 +49,7 @@ int					cast_a_ray(t_ray *r, t_win *w)
 	r->hit.y = plot_player.y;
 	r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
 	r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;	
+	r->wall_NSEW = find_which_wall(r, w);
 	return (0);
 }
 

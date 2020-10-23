@@ -1,81 +1,21 @@
 #include "cub_21.h"
 
-// int					find_which_wall(t_ray *r, t_win *w)
-// {
-// 	double ray_ang;
-// 	r->wall_NSEW = 5;
-
-// 	ray_ang = normalize_angle(r->ang);
-// 	if ((int)r->hit.x == (int)r->wall.x)
-// 	{
-// 		return (EAST); // 민트색
-// 	}
-// 	else if ((int)r->hit.x == (int)(r->wall.x + w->wall.length))
-// 	{
-// 		return (WEST); // 분홍색
-// 	}
-// 	else if ((int)r->hit.y == (int)r->wall.y)
-// 	{
-// 		return (SOUTH); // 초록색
-// 	}
-// 	else if ((int)r->hit.y == (int)r->wall.y + w->wall.length)
-// 	{
-// 		return (NORTH); // 노란색
-// 	}
-// 	printf("wrong : %d\n", r->wall_NSEW);
-// 	return (0);
-// }
-
-// int					find_which_wall(t_ray *r, t_win *w)
-// {
-// 	double ray_ang;
-// 	int		a, b, c, d;
-// 	a = ((int)r->hit.x == (int)r->wall.x);
-// 	b = ((int)r->hit.x == (int)(r->wall.x + w->wall.length));
-// 	c = ((int)r->hit.y == (int)r->wall.y);
-// 	d = ((int)r->hit.y == (int)(r->wall.y + w->wall.length));
-// 	ray_ang = normalize_angle(r->ang);
-// 	r->wall_NSEW = 5;
-
-// 	ray_ang = normalize_angle(r->ang);
-// 	if ((a || b) && (ray_ang >= M_PI_2 * 3 || ray_ang < M_PI_2))
-// 	{
-// 		if ()
-// 		return (EAST); // 민트색 <- 정상
-// 	}
-// 	else if ((a || b) && (ray_ang < M_PI_2 * 3 && ray_ang >= M_PI_2))
-// 	{
-// 		return (WEST); // 분홍색
-// 	}
-// 	else if ((c || d) && r->ang < M_PI)
-// 	{
-// 		return (SOUTH); // 초록색 <- 정상
-// 	}
-// 	else if ((c || d) && r->ang >= M_PI)
-// 	{
-// 		return (NORTH); // 노란색
-// 	}
-// 	printf("wrong : %d\n", r->wall_NSEW);
-// 	return (5);
-// }
-
 int					find_which_wall(t_ray *r, t_win *w)
 {
 	double ray_ang;
 	int		a, c;
 	int		b, d;
-	a = ((int)r->hit.x == (int)r->wall.x);
-	c = ((int)r->hit.y == (int)r->wall.y);
-	b = (fabs((r->hit.x - r->wall.x - w->wall.length)) < 1);
-	d = (fabs((r->hit.y - r->wall.y - w->wall.length)) < 1);
+	a = (fabs(r->hit.x - r->wall.x) < 1);
+	c = (fabs(r->hit.y - r->wall.y) < 1);
+	b = (fabs(r->hit.x - r->wall.x - w->wall.length) < 1);
+	d = (fabs(r->hit.y - r->wall.y - w->wall.length) < 1);
 	ray_ang = normalize_angle(r->ang);
 	r->wall_NSEW = 5;
 
 	ray_ang = normalize_angle(r->ang);
 	if (a)
 	{
-		if (ray_ang >= M_PI_2 * 3 || ray_ang < M_PI_2)
-			return (EAST); // 민트색 <- 정상
+		return (EAST); // 민트색 <- 정상
 	}
 	else if (b)
 	{
@@ -83,7 +23,6 @@ int					find_which_wall(t_ray *r, t_win *w)
 	}
 	else if (c)
 	{
-		if (r->ang < M_PI)
 			return (SOUTH); // 초록색 <- 정상
 	}
 	else if (d)
@@ -91,7 +30,6 @@ int					find_which_wall(t_ray *r, t_win *w)
 	printf("r->hit.x: %f r->wall.x: %f r->hit.y: %f r->wall.y: %f r->wall_NSEW: %d\n", r->hit.x, r->wall.x, r->hit.y, r->wall.y, r->wall_NSEW);
 	return (5);
 }
-
 
 /*
 **	함수 cast_a_ray

@@ -96,7 +96,7 @@ int					init_struct_win(t_win *w)
 	w->img.y = 0; 
 
 	// 5. 벽의 크기와 높이 설정
-	w->wall.length = 128;
+	w->wall.length = 64;
 	w->wall.height = 600;
 
 	// 6. map 시작하기

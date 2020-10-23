@@ -72,8 +72,8 @@ int					cast_rays(t_win *w)
 		r[i].ang = normalize_angle(w->player.ang + ray_ang);
 		cast_a_ray(&(r[i]), w);
 		draw_a_wall(i, r, w); // <-- 이것을 r로 넣어보자!
-		draw_ceiling(i, &(r[i]), w);
-		draw_floor(i, &(r[i]), w);
+		// draw_ceiling(i, &(r[i]), w);
+		// draw_floor(i, &(r[i]), w);
 		ray_ang += w->fov_ang / (w->R_width - 1);
 		i++;
 	}

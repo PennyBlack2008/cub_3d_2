@@ -74,35 +74,18 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	scale_h = pjtd_height / 64; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
-	int k;		k = w->R_height / 2; // 배열의 중간 값 계산
-	int	j;
-	// w->player.height 는 standard
-	j = w->player.height;
-	while (k >= 0) // 위로 올리기
+	
+	// 중간인 500 은 위쪽 while 에서 처리
+	while (j < pjtd_height / 2)
 	{
-		if (j < 0)
-		{
-			r[i].ceiling = j;
-			break ;
-		}
-		color = get_color_tex(i, j, scale_h, r, w);
-		my_mlx_pixel_put(&w->img, i, j, color);
-		j--;
+		my_mlx_pixel_put(&w->img, i, 500 + j, 0x00ff00);
+		j++;
+	}
+	while (k > 0)
+	{
+		my_mlx_pixel_put(&w->img, i, 500 - k, 0x00ff00);
 		k--;
 	}
-	k = w->R_height / 2;
-	j = w->player.height;
-	while (k < w->R_height) // height 가 끝날 때 멈춰야하는 데... 그렇지 않다.
-	{
-		color = get_color_tex(i, j, scale_h, r, w);
-		my_mlx_pixel_put(&w->img, i, j, color);
-		j++;
-		if (j > pjtd_height)
-			break ;
-		k++;
-	}
-	k++;
-	r[i].floor = k;
 }
 
 void		draw_ceiling(int i, t_ray *r, t_win *w)

@@ -78,8 +78,28 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	int	j;
 	// w->player.height 는 standard
 	j = w->player.height;
-
-
+	while (k >= 0) // 위로 올리기
+	{
+		if (j < 0)
+		{
+			r[i].ceiling = j;
+			break ;
+		}
+		color = get_color_tex(i, j, scale_h, r, w);
+		my_mlx_pixel_put(&w->img, i, j, color);
+		j--;
+		k--;
+	}
+	k = w->R_height / 2;
+	j = w->player.height;
+	while (k < w->R_height)
+	{
+		color = get_color_tex(i, j, scale_h, r, w);
+		my_mlx_pixel_put(&w->img, i, j, color);
+		j++;
+		k++;
+	}
+	r[i].floor = j;
 }
 
 void		draw_ceiling(int i, t_ray *r, t_win *w)

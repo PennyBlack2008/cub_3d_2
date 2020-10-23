@@ -9,7 +9,7 @@ int main(void)
 {
 	int a[31];
 	int	i;
-	int b[10];
+	int b[10]; // pixel
 	int	j;
 	int	k;
 	int standard; // w->player.height
@@ -26,11 +26,11 @@ int main(void)
 	//--------- 시작
 	k = 10 / 2; // 배열의 중간값 계산
 	j = standard;
-	while (k >= 0)
+	while (k >= 0) // 중간에서 위로 올리기
 	{
-		if (j < 0)
+		if (j < 0) // 천장 찍기
 			j = 0;
-		b[k] = j;
+		b[k] = j; // j를 중심을 픽셀 찍기
 		j--;
 		k--;
 	}

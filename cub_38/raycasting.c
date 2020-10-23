@@ -14,17 +14,11 @@ int					find_which_wall(t_ray *r, t_win *w)
 
 	ray_ang = normalize_angle(r->ang);
 	if (a)
-	{
 		return (EAST); // 민트색 <- 정상
-	}
 	else if (b)
-	{
 		return (WEST); // 분홍색
-	}
 	else if (c)
-	{
-			return (SOUTH); // 초록색 <- 정상
-	}
+		return (SOUTH); // 초록색 <- 정상
 	else if (d)
 		return (NORTH); // 노란색
 	printf("r->hit.x: %f r->wall.x: %f r->hit.y: %f r->wall.y: %f r->wall_NSEW: %d\n", r->hit.x, r->wall.x, r->hit.y, r->wall.y, r->wall_NSEW);

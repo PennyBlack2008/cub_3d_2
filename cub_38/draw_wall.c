@@ -78,6 +78,11 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
 
 	r[i].ceiling = w->player.height - k;
+	while (r[i].ceiling < 0)
+	{
+		r[i].ceiling++;
+		j++;
+	}
 	while (j < pjtd_height) // 벽을 아래로 내리기
 	{
 		color = get_color_tex(i, j, scale_h, r, w);

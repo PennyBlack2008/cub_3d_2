@@ -80,22 +80,20 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	
 	r[i].ceiling = (w->player.height - pjtd_height) / 2;
 	// 중간인 500 은 위쪽 while 에서 처리
-	while (j < pjtd_height / 2) // 아래로 내리기
+	j = 0;
+	while (j < pjtd_height / 2) // 아래 쪽
 	{
-		color = get_color_tex(i, j, scale_h, r, w);
+		color = get_color_tex(i, pjtd_height / 2 + j, scale_h, r, w);
 		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
-		// my_mlx_pixel_put(&w->img, i, 500 + j, 0x00ff00);
 		j++;
 	}
-	l = 0;
-	while (l < k) // 위로 올리기
+	k = (pjtd_height / 2) - 1;
+	while (k > 0) // 위 쪽
 	{
-		color = get_color_tex(i, l, scale_h, r, w);
-		my_mlx_pixel_put(&w->img, i, w->player.height - l, color);
-		// my_mlx_pixel_put(&w->img, i, 500 - k, 0x00ff00);
-		l++;
+		color = get_color_tex(i, pjtd_height / 2 - k, scale_h, r, w);
+		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
+		k--;
 	}
-	r[i].floor = w->R_height - r[i].ceiling;
 }
 
 void		draw_ceiling(int i, t_ray *r, t_win *w)

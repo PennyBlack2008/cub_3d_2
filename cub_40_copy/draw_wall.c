@@ -54,19 +54,11 @@ int					get_color_spr(int i, int j, double scale_h, t_ray *r, t_win *w)
 	double			px, py;
 	double			scale_w;
 
-	x = get_which_wall(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
-	scale_w = w->wall.length / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
+	scale_w = 64 / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);
-	color = w->map.curr_tex[(int)(64 * py + px)];
-	// if (r[i].wall_NSEW == NORTH)
-	// 	return (0xF1F740);
-	// if (r[i].wall_NSEW == SOUTH)
-	// 	return (0x40F759);
-	// if (r[i].wall_NSEW == EAST)
-	// 	return (0x40F7D5);
-	// if (r[i].wall_NSEW == WEST)
-	// 	return (0xDB40F7);
+	color = w->map.curr_spr[(int)(64 * py + px)];
+	
 	return (color);
 }
 
@@ -160,7 +152,7 @@ void		draw_sprite(int i, t_ray *r, t_win *w)
 	k = 0;
 	while (k < pjtd_height)
 	{
-		color = get_color_spr(i, orjn_pjtd_height / 2 + j, scale_h, r, w);
+		color = get_color_spr(i, k, scale_h, r, w);
 		my_mlx_pixel_put(&w->img, i, k + w->player.height, color);
 		k++;
 	}

@@ -1,0 +1,4 @@
+*.swp
+*.o
+result.out
+result

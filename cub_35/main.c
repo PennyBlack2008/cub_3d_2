@@ -92,7 +92,7 @@ int					main()
 	mlx_destroy_image(win.mlx, win.tex.ptr);
 
 	// 두 번째 이미지를 윈도우에 출력해보기
-	scale_w = 4;	scale_h = 8;
+	scale_w = 6.3;	scale_h = 8;
 	i = 0;
 	while (i < 64 * scale_w) // width
 	{

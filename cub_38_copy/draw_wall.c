@@ -95,7 +95,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
 		k--;
 	}
-	r[i].floor = pjtd_height + r[i].ceiling;
+	r[i].floor = orjn_pjtd_height + r[i].ceiling;
 }
 
 void		draw_ceiling(int i, t_ray *r, t_win *w)

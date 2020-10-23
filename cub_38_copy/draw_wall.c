@@ -92,7 +92,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	}
 	k = w->R_height / 2;
 	j = w->player.height;
-	while (k < w->R_height)
+	while (k < w->R_height) // height 가 끝날 때 멈춰야하는 데... 그렇지 않다.
 	{
 		color = get_color_tex(i, j, scale_h, r, w);
 		my_mlx_pixel_put(&w->img, i, j, color);

@@ -97,9 +97,12 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 		color = get_color_tex(i, j, scale_h, r, w);
 		my_mlx_pixel_put(&w->img, i, j, color);
 		j++;
+		if (j > pjtd_height)
+			break ;
 		k++;
 	}
-	r[i].floor = j;
+	k++;
+	r[i].floor = k;
 }
 
 void		draw_ceiling(int i, t_ray *r, t_win *w)

@@ -39,7 +39,7 @@
 # define NOT_WALL	48 // ascii #0
 
 // SPRITE
-# define SPRITE		2
+# define SPRITE		50
 
 // NSEW
 # define NORTH		0

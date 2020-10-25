@@ -145,15 +145,31 @@ void		draw_sprite(int i, t_ray *r, t_win *w)
 	double		scale_h;
 	int			k;
 	int			color;
-
-	dist_to_spr = hypot(r[i].spr.x - w->player.x, r[i].spr.y - w->player.y) * fabs(cos(r[i].ang - w->player.ang));
-	pjtd_height = 64 * w->player.projected_plane / dist_to_spr;
-	scale_h = 64 / 64;
-	k = 0;
-	while (k < pjtd_height)
+	// printf("r[i].spr.x == %f, r[i].spr.y == %f\n", r[i].spr.x, r[i].spr.y);
+	if (!(r[i].spr.x == 0 && r[i].spr.y == 0))
 	{
-		color = get_color_spr(i, k, scale_h, r, w);
-		my_mlx_pixel_put(&w->img, i, k + w->player.height, color);
-		k++;
+		dist_to_spr = hypot(r[i].spr.x - w->player.x, r[i].spr.y - w->player.y) * fabs(cos(r[i].ang - w->player.ang));
+		pjtd_height = 300 * w->player.projected_plane / dist_to_spr;
+		// printf("dist_to_spr: %f\n", dist_to_spr);
+		printf("pjtd_height: %f\n", pjtd_height);
+		if (pjtd_height > w->R_height)
+			pjtd_height = w->R_height;
+		scale_h = 300 / 64;
+		int j;		j = 0;
+		while (j < pjtd_height / 2) // 아래 쪽
+		{
+			color = get_color_spr(i, pjtd_height / 2 + j, scale_h, r, w);
+			my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
+			// my_mlx_pixel_put(&w->img, i, w->player.height + j, 0x00ff00);
+			j++;
+		}
+		k = (pjtd_height / 2) - 1;
+		while (k > 0) // 위 쪽
+		{
+			color = get_color_spr(i, pjtd_height / 2 - k, scale_h, r, w);
+			my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
+			// my_mlx_pixel_put(&w->img, i, w->player.height - k, 0x00ff00);
+			k--;
+		}
 	}
 }

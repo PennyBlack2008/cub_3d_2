@@ -19,6 +19,12 @@
 #define SUCCESS 1
 #define FILEEND 0
 
+// NSEW
+# define NORTH		0
+# define SOUTH		1
+# define EAST		2
+# define WEST		3
+
 // KEY
 # define KEY_W			13
 # define KEY_A			0
@@ -57,12 +63,6 @@ typedef struct			s_wall
 	int					height;
 }						t_wall;
 
-typedef struct			s_sprite
-{
-	int					length;
-	int					height;
-}						t_sprite;
-
 typedef struct	s_minimap
 {
 	t_plot		plot;
@@ -86,6 +86,23 @@ typedef struct			s_player
 	char*				str_KEY_D; // 파란색 끝에 적어줄 글자
 }						t_player;
 
+typedef struct		s_sprite
+{
+	void			*ptr;
+	int				*addr;
+	int				bpp;
+	int				len;
+	int				endian;
+
+	// xpm image size
+	int				size_x;
+	int				size_y;
+
+	// 실제 크기
+	double			width;
+	double			height;
+}					t_sprite;
+
 typedef struct  s_img
 {
     void        *ptr;
@@ -104,6 +121,7 @@ typedef struct	s_map
 	char		**map;
 	int			i;
 	int			j;
+	int			*curr_spr;
 }				t_map;
 
 typedef struct	s_ray
@@ -111,7 +129,7 @@ typedef struct	s_ray
 	t_plot		hit; // 벽에 부딛힌 좌표
 	t_plot		spr; // sprite에 부딛힌 좌표
 	double		ang; // 플레이어 기준에서 ray 의 고유한 각도
-	int			wall_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
+	int			spr_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
 	int			ceiling;
 	int			floor;
 }				t_ray;
@@ -129,7 +147,7 @@ typedef struct 			s_win
 	t_player			player;
 	t_wall				wall;
 	t_minimap			mini;
-	t_sprite			spr;
+	t_sprite			sprite;
 }						t_win;
 
 void					my_mlx_pixel_put(t_img *img, int x, int y, int color);

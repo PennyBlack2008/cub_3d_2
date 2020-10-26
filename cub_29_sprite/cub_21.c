@@ -112,8 +112,29 @@ int					init_struct_win(t_win *w)
 	w->mini.plot.x = w->R_width - 300;
 	w->mini.plot.y = w->R_height - 300;
 
+	// sprite image pull
+	int i, j;
+
+	w->sprite.ptr = mlx_xpm_file_to_image(w->mlx, "eagle.xpm", &w->sprite.size_x, &w->sprite.size_y);
+	w->sprite.addr = (int *)mlx_get_data_addr(w->sprite.ptr, &w->sprite.bpp, &w->sprite.len, &w->sprite.endian);
+	w->map.curr_spr = (int *)ft_calloc((w->sprite.size_y * w->sprite.size_x), sizeof(int));
+	i = 0;
+	while (i < w->sprite.size_y)
+	{
+		j = 0;
+		while (j < w->sprite.size_x)
+		{
+			w->map.curr_spr[(int)w->sprite.size_x * i + j] = w->sprite.addr[(int)w->sprite.size_x * i + j];
+			j++;
+		}
+		i++;
+	}
+	mlx_destroy_image(w->mlx, w->sprite.ptr);
+	
 	// sprite
-	w->spr.height = 300;
+	w->sprite.height = 300;
+	w->sprite.width = 300;
+
 
 	return (0);
 }

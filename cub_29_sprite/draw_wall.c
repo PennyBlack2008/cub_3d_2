@@ -1,5 +1,44 @@
 #include "cub_21.h"
 
+double				get_which_spr(int i, t_ray *r, t_win *w)
+{
+	double			x;
+	
+	x = 0;
+	if (r[i].spr_NSEW == EAST)
+	{
+		x = r[i].hit.y - r[i].spr.y; // spr.y 도 처리해주어야함
+	}
+	else if (r[i].spr_NSEW == SOUTH)
+	{
+		x = r[i].hit.x - r[i].spr.x;
+	}
+	else if (r[i].spr_NSEW == WEST)
+	{
+		x = r[i].hit.y - r[i].spr.y;
+	}
+	else if (r[i].spr_NSEW == NORTH)
+	{
+		x = r[i].hit.x - r[i].spr.x;
+	}
+	return (x);
+}
+
+int					get_color_sprite(int i, int j, double scale_h, t_ray *r, t_win *w)
+{
+	int				color;
+	double			x;
+	double			px, py;
+	double			scale_w;
+
+	scale_w = w->sprite.width / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
+	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
+	py = floor(j / scale_h);
+	color = w->map.curr_spr[(int)(64.0 * py + px)];
+	
+	return (color);
+}
+
 /*
 ** draw_wall
 ** https://permadi.com/1996/05/ray-casting-tutorial-9/
@@ -19,17 +58,10 @@ void		draw_a_wall(int i, t_ray *r, t_win *w)
 	double dist_to_wall;
 	double pjtd_height;
 
-	// printf("%d 번째: r->hit.x is %f, r->hit.y if %f\n", i, r->hit.x, r->hit.y);
 	dist_to_wall = hypot(r->hit.x - w->player.x, r->hit.y - w->player.y) * fabs(cos(r->ang - w->player.ang));
-	// dist_to_wall = hypot(r->hit.x - w->player.x, r->hit.y - w->player.y);
-	// dist_to_wall = hypot(r->x - w->player.x, r->y - w->player.y);
-	// printf("dist_to_wall : %f\n", dist_to_wall);
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_wall;
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
-	// printf("pjtd_height : %f\n", pjtd_height);
-	// printf("w->player.projected_plane : %f\n", w->player.projected_plane);
-
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
 
 	r->ceiling = w->player.height - k;
@@ -49,32 +81,35 @@ void		draw_a_wall(int i, t_ray *r, t_win *w)
 
 void		draw_a_sprite(int i, t_ray *r, t_win *w)
 {
-	double dist_to_spr;
+	double dist_to_sprite;
+	double orjn_pjtd_height;
 	double pjtd_height;
+	double scale_h;
+	int color;
 
 	if (r->spr.x == 0 && r->spr.y == 0)
 		return ;
-	printf("%d 번째: r->spr.x is %f, r->spr.y if %f\n", i, r->spr.x, r->spr.y);
-	dist_to_spr = hypot(r->spr.x - w->player.x, r->spr.y - w->player.y) * fabs(cos(r->ang - w->player.ang));
-	// dist_to_spr = hypot(r->spr.x - w->player.x, r->spr.y - w->player.y);
-	printf("dist_to_spr : %f\n", dist_to_spr);
-	pjtd_height = w->spr.height * w->player.projected_plane / dist_to_spr;
+	dist_to_sprite = hypot(r->spr.x - w->player.x, r->spr.y - w->player.y) * fabs(cos(r->ang - w->player.ang));
+	pjtd_height = w->sprite.height * w->player.projected_plane / dist_to_sprite;
+	orjn_pjtd_height = pjtd_height;
+	scale_h = orjn_pjtd_height / 64;
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
-	// printf("pjtd_height : %f\n", pjtd_height);
-	// printf("w->player.projected_plane : %f\n", w->player.projected_plane);
-
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
 
 	// 중간인 500 은 위쪽 while 에서 처리
 	while (j < pjtd_height / 2)
 	{
-		my_mlx_pixel_put(&w->img, i, w->player.height + j, 0x58D68D);
+		color = get_color_sprite(i, orjn_pjtd_height / 2 + j, scale_h, r, w);orjn_pjtd_height = pjtd_height;
+		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
+		// my_mlx_pixel_put(&w->img, i, w->player.height + j, 0x58D68D);
 		j++;
 	}
 	while (k > 0)
 	{
-		my_mlx_pixel_put(&w->img, i, w->player.height - k, 0x58D68D);
+		color = get_color_sprite(i, orjn_pjtd_height / 2 - k, scale_h, r, w);
+		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
+		// my_mlx_pixel_put(&w->img, i, w->player.height - k, 0x58D68D);
 		k--;
 	}
 }

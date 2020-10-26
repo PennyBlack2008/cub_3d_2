@@ -15,6 +15,29 @@ void				set_plot_int(t_plot *plot, int x, int y)
 	plot->y = y;
 }
 
+int					find_which_spr(t_ray *r, t_win *w)
+{
+	double ray_ang;
+	int		a, c;
+	int		b, d;
+	a = (fabs(r->hit.x - r->spr.x) < 1);
+	c = (fabs(r->hit.y - r->spr.y) < 1);
+	b = (fabs(r->hit.x - r->spr.x - w->wall.length) < 1);
+	d = (fabs(r->hit.y - r->spr.y - w->wall.length) < 1);
+	ray_ang = normalize_angle(r->ang);
+	r->spr_NSEW = 5;
+	if (a)
+		return (EAST); // 민트색 <- 정상
+	else if (b)
+		return (WEST); // 분홍색
+	else if (c)
+		return (SOUTH); // 초록색 <- 정상
+	else if (d)
+		return (NORTH); // 노란색
+	// printf("r->hit.x: %f r->wall.x: %f r->hit.y: %f r->wall.y: %f r->wall_NSEW: %d\n", r->hit.x, r->wall.x, r->hit.y, r->wall.y, r->wall_NSEW);
+	return (5);
+}
+
 void				draw_minimap(t_ray *r, t_win *w)
 {
 	int	i;
@@ -66,6 +89,9 @@ int					draw_a_ray(t_ray *r, t_win *w)
 			{
 				r->spr.x = plot_player.x;
 				r->spr.y = plot_player.y;
+				r->spr_arr.x = (int)(r->spr.x / w->sprite.width);
+				r->spr_arr.y = (int)(r->spr.y / w->sprite.height);
+				r->spr_NSEW = find_which_spr(r, w);
 			}
 		}
 		x++;

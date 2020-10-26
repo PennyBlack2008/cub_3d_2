@@ -7,19 +7,19 @@ double				get_which_spr(int i, t_ray *r, t_win *w)
 	x = 0;
 	if (r[i].spr_NSEW == EAST)
 	{
-		x = r[i].hit.y - r[i].spr.y; // spr.y 도 처리해주어야함
+		x = r[i].spr.y - r[i].spr_arr.y; // spr.y 도 처리해주어야함 wall.y 처럼
 	}
 	else if (r[i].spr_NSEW == SOUTH)
 	{
-		x = r[i].hit.x - r[i].spr.x;
+		x = r[i].spr.x - r[i].spr_arr.x;
 	}
 	else if (r[i].spr_NSEW == WEST)
 	{
-		x = r[i].hit.y - r[i].spr.y;
+		x = r[i].spr.y - r[i].spr_arr.y;
 	}
 	else if (r[i].spr_NSEW == NORTH)
 	{
-		x = r[i].hit.x - r[i].spr.x;
+		x = r[i].spr.x - r[i].spr_arr.x;
 	}
 	return (x);
 }
@@ -31,6 +31,8 @@ int					get_color_sprite(int i, int j, double scale_h, t_ray *r, t_win *w)
 	double			px, py;
 	double			scale_w;
 
+	x = 0;
+	x = get_which_spr(i, r, w);
 	scale_w = w->sprite.width / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);

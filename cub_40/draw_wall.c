@@ -1,9 +1,9 @@
 #include "cub_21.h"
 
-double				get_which_wall(int i, t_ray *r, t_win *w)
+double				get_render_spot(int i, t_ray *r, t_win *w)
 {
 	double			x;
-	
+
 	x = 0;
 	if (r[i].wall_NSEW == EAST)
 	{
@@ -31,7 +31,7 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w)
 	double			px, py;
 	double			scale_w;
 
-	x = get_which_wall(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
+	x = get_render_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
 	scale_w = w->wall.length / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);
@@ -78,7 +78,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 		pjtd_height = w->R_height;
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
 	int l;		l = 0;
-	
+
 	r[i].ceiling = (w->R_height - orjn_pjtd_height) / 2;
 	// 중간인 500 은 위쪽 while 에서 처리
 	j = 0;

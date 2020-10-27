@@ -66,25 +66,24 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 {
 	double		dist_to_wall;
 	double		pjtd_height;
-	double		orjn_pjtd_height;
+	double		orgn_pjtd_height;
 	double		scale_h;
 	int			color;
 
 	dist_to_wall = hypot(r[i].hit.x - w->player.x, r[i].hit.y - w->player.y) * fabs(cos(r[i].ang - w->player.ang));
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_wall;
-	orjn_pjtd_height = pjtd_height;
-	scale_h = orjn_pjtd_height / 64; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
+	orgn_pjtd_height = pjtd_height;
+	scale_h = orgn_pjtd_height / 64.0; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
-	int l;		l = 0;
 
-	r[i].ceiling = (w->R_height - orjn_pjtd_height) / 2;
+	r[i].ceiling = (w->R_height - orgn_pjtd_height) / 2;
 	// 중간인 500 은 위쪽 while 에서 처리
 	j = 0;
 	while (j < pjtd_height / 2) // 아래 쪽
 	{
-		color = get_color_tex(i, orjn_pjtd_height / 2 + j, scale_h, r, w);
+		color = get_color_tex(i, orgn_pjtd_height / 2 + j, scale_h, r, w);
 		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
 		// printf("w->player.height + j : %d\n", w->player.height + j);
 		j++;
@@ -92,12 +91,12 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	k = (pjtd_height / 2) - 1;
 	while (k > 0) // 위 쪽
 	{
-		color = get_color_tex(i, orjn_pjtd_height / 2 - k, scale_h, r, w);
+		color = get_color_tex(i, orgn_pjtd_height / 2 - k, scale_h, r, w);
 		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
 		// printf("w->player.height - k : %d\n", w->player.height - k);
 		k--;
 	}
-	r[i].floor = orjn_pjtd_height + r[i].ceiling;
+	r[i].floor = orgn_pjtd_height + r[i].ceiling;
 }
 
 void		draw_ceiling(int i, t_ray *r, t_win *w)

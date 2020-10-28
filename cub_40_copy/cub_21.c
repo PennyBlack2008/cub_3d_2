@@ -133,6 +133,24 @@ int					init_struct_win(t_win *w)
 	}
 	mlx_destroy_image(w->mlx, w->tex[k].ptr);
 
+	// 10. sprite
+	k = 1;
+	w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, "pillar.xpm", &w->tex[k].width, &w->tex[k].height);
+	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
+	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
+	i = 0;
+	while (i < w->tex[k].height)
+	{
+		j = 0;
+		while (j < w->tex[k].width)
+		{
+			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
+			j++;
+		}
+		i++;
+	}
+	mlx_destroy_image(w->mlx, w->tex[k].ptr);
+
 	return (0);
 }
 

@@ -92,16 +92,16 @@ void				draw_a_sprite(t_win *w)
 	sprite.y = 550;
 
 	w->player.ang = normalize_angle(w->player.ang);
-	int	k;		k = 50;
-	while (k < 100)
+	int	k;		k = 0;
+	while (k < 50)
 	{
 		sprite_plot.x = sprite.x - k * sin(w->player.ang);
 		sprite_plot.y = sprite.y + k * cos(w->player.ang);
 		my_mlx_pixel_put(&w->img, sprite_plot.x, sprite_plot.y, 0x00ff00);
 		k++;
 	}
-	k = 50;
-	while (k >= 0)
+	k = 0;
+	while (k >= -50)
 	{
 		sprite_plot.x = sprite.x - k * sin(w->player.ang);
 		sprite_plot.y = sprite.y + k * cos(w->player.ang);

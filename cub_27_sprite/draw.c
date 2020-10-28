@@ -46,8 +46,8 @@ int					draw_a_ray(t_ray *r, t_win *w)
 				is_sprite(plot_player, r, w);
 				if (r->sprite.x != 0 && r->sprite.y != 0)
 				{
-					// draw_line(player, r->sprite, 0x00ff00, w);
-					printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
+					draw_line(player, r->sprite, 0x0000ff, w);
+					// printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
 				}
 			}
 		}
@@ -123,19 +123,26 @@ void				draw_a_sprite(t_plot sprite, t_win *w)
 int					is_sprite(t_plot plot, t_ray *r, t_win *w)
 {
 	t_plot			sprite_plot;
+
+	r->sprite.x = 0;
+	r->sprite.y = 0;
+	// printf("x: %f, y: %f\n", plot.x, plot.y);
 	// sprite group(군)의 대표 좌표 구하기 (왼쪽 위쪽 끝 좌표)
 	r->spr_group.x = (int)(plot.x / w->wall.length) * w->wall.length;
 	r->spr_group.y = (int)(plot.y / w->wall.length) * w->wall.length;
 
+	// printf("r->spr_group.x : %f, r->spr_group.y : %f\n", r->spr_group.x, r->spr_group.y);
 	int	k;	k = 0;
 	while (k < 50)
 	{
-		sprite_plot.x = r->spr_group.x - k * sin(w->player.ang);
-		sprite_plot.y = r->spr_group.y + k * cos(w->player.ang);
-		if ((fabs(sprite_plot.x - plot.x) < 0.1) && (fabs(sprite_plot.y - plot.y) < 0.1))
+		sprite_plot.x = (int)(r->spr_group.x - k * sin(w->player.ang));
+		sprite_plot.y = (int)(r->spr_group.y + k * cos(w->player.ang));
+		// && !(sprite_plot.x < 0 || sprite_plot.y < 0)
+		if ((fabs(sprite_plot.x - plot.x) < 0.5) && (fabs(sprite_plot.y - plot.y) < 0.5))
 		{
 			r->sprite.x = plot.x;
 			r->sprite.y = plot.y;
+			// printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
 			return (1);
 		}
 		k++;
@@ -143,12 +150,13 @@ int					is_sprite(t_plot plot, t_ray *r, t_win *w)
 	k = 0;
 	while (k >= -50)
 	{
-		sprite_plot.x = r->spr_group.x - k * sin(w->player.ang);
-		sprite_plot.y = r->spr_group.y + k * cos(w->player.ang);
+		sprite_plot.x = (int)(r->spr_group.x - k * sin(w->player.ang));
+		sprite_plot.y = (int)(r->spr_group.y + k * cos(w->player.ang));
 		if ((fabs(sprite_plot.x - plot.x) < 0.5) && (fabs(sprite_plot.y - plot.y) < 0.5))
 		{
 			r->sprite.x = plot.x;
 			r->sprite.y = plot.y;
+			// printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
 			return (1);
 		}
 		k--;

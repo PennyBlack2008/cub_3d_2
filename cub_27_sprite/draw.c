@@ -12,12 +12,12 @@ double				normalize_angle(double ang)
 }
 
 /*
-**	함수 draw_ray
-**	우측 작대기 함수를 약간 변형해서 draw_rays 의 각도를 받아 WIN_WIDTH 의 길이만큼의 광선을 출력하는 함수입니다.
+**	함수 draw_a_ray
+**	우측 작대기 함수를 약간 변형해서 draw_a_rays 의 각도를 받아 WIN_WIDTH 의 길이만큼의 광선을 출력하는 함수입니다.
 **	plot은 (0, 0) 의 픽셀에서 각도를 변환하며 계산한 좌표이고, plot_player는 플레이어의 현재위치를 더한 좌표 값입니다.
 */
 
-int					draw_ray(t_ray *r, t_win *w)
+int					draw_a_ray(t_ray *r, t_win *w)
 {
 	int x, y;
 	t_plot plot;
@@ -34,6 +34,7 @@ int					draw_ray(t_ray *r, t_win *w)
 		if (plot_player.x >= 0 && plot_player.y >= 0)
 		{
 			my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0xFF0000);
+			// 여기에 sprite 인지 확인하는 함수를 넣어야한다.
 			if (is_wall(plot_player.x, plot_player.y, w) == WALL)
 				break ;
 		}
@@ -51,7 +52,7 @@ int					draw_rays(t_win *w)
 	while (ray_ang < M_PI / 6)
 	{
 		r[i].ang = normalize_angle(w->player.ang + ray_ang);
-		draw_ray(&(r[i]), w);
+		draw_a_ray(&(r[i]), w);
 		ray_ang += M_PI / 3 / 999;
 		i++;
 	}
@@ -85,9 +86,6 @@ int					draw_background(t_win *w)
 void				draw_a_sprite(t_win *w, t_plot sprite)
 {
 	t_plot			sprite_plot;
-	// wall 좌표임. 가운데는 550 550 이겠지?
-	// sprite.x = 550;
-	// sprite.y = 550;
 
 	w->player.ang = normalize_angle(w->player.ang);
 	int	k;		k = 0;

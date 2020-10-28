@@ -131,7 +131,7 @@ int						move_forward(t_win *w);
 int						move_back(t_win *w);
 int						move_left(t_win *w);
 int						move_right(t_win *w);
-int						draw_ray(t_ray *r, t_win *w);
+int						draw_a_ray(t_ray *r, t_win *w);
 int						draw_rays(t_win *w);
 void					draw_a_sprite(t_win *w, t_plot sprite);
 void					draw_map_sprite(t_win *w);

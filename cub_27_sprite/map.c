@@ -67,13 +67,6 @@ void	draw_map(t_win *w)
 			else
 			{
 				draw_rectangle(w, i, j, 0x000000);
-				// if (w->map.map[i][j] == '2')
-				// {
-				// 	// 여기서 sprite.x, sprite.y 를 저장하자
-				// 	sprite.x = j * w->wall.length + w->wall.length / 2;
-				// 	sprite.y = i * w->wall.length + w->wall.length / 2;
-				// 	draw_a_sprite(w, sprite);
-				// }
 			}
 
 			j++;
@@ -82,6 +75,9 @@ void	draw_map(t_win *w)
 	}
 }
 
+// draw_a_ray 이후에 draw_map_sprite 가 작동해야한다.
+// 여기에 ray를 적용해야 ray에 r->spr.x, r->spr.y 를 받을 수 있다.
+// 현재는 render_next_frame(t_win *w) 안에 넣어 반복실행 중입니다.
 void	draw_map_sprite(t_win *w)
 {
 	int i, j;
@@ -106,6 +102,8 @@ void	draw_map_sprite(t_win *w)
 		i++;
 	}
 }
+
+
 
 /*
 ** int						is_wall(int x, int y, t_win *w)

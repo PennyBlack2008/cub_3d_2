@@ -22,7 +22,10 @@ int					draw_a_ray(t_ray *r, t_win *w)
 	int x, y;
 	t_plot plot;
 	t_plot plot_player;
+	t_plot player;
 
+	player.x = w->player.x;
+	player.y = w->player.y;
 	x = 0;
 	while (x < WIN_WIDTH * 2)
 	{
@@ -37,6 +40,16 @@ int					draw_a_ray(t_ray *r, t_win *w)
 			// 여기에 sprite 인지 확인하는 함수를 넣어야한다.
 			if (is_wall(plot_player.x, plot_player.y, w) == WALL)
 				break ;
+			else if (is_wall(plot_player.x, plot_player.y, w) == SPRITE)
+			{
+				// 여기에 sprite 인지 확인하는 함수를 넣어야한다.
+				is_sprite(plot_player, r, w);
+				if (r->sprite.x != 0 && r->sprite.y != 0)
+				{
+					// draw_line(player, r->sprite, 0x00ff00, w);
+					printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
+				}
+			}
 		}
 		x++;
 	}
@@ -83,7 +96,7 @@ int					draw_background(t_win *w)
 	return (0);
 }
 
-void				draw_a_sprite(t_win *w, t_plot sprite)
+void				draw_a_sprite(t_plot sprite, t_win *w)
 {
 	t_plot			sprite_plot;
 
@@ -107,6 +120,41 @@ void				draw_a_sprite(t_win *w, t_plot sprite)
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 }
 
+int					is_sprite(t_plot plot, t_ray *r, t_win *w)
+{
+	t_plot			sprite_plot;
+	// sprite group(군)의 대표 좌표 구하기 (왼쪽 위쪽 끝 좌표)
+	r->spr_group.x = (int)(plot.x / w->wall.length) * w->wall.length;
+	r->spr_group.y = (int)(plot.y / w->wall.length) * w->wall.length;
+
+	int	k;	k = 0;
+	while (k < 50)
+	{
+		sprite_plot.x = r->spr_group.x - k * sin(w->player.ang);
+		sprite_plot.y = r->spr_group.y + k * cos(w->player.ang);
+		if ((fabs(sprite_plot.x - plot.x) < 0.1) && (fabs(sprite_plot.y - plot.y) < 0.1))
+		{
+			r->sprite.x = plot.x;
+			r->sprite.y = plot.y;
+			return (1);
+		}
+		k++;
+	}
+	k = 0;
+	while (k >= -50)
+	{
+		sprite_plot.x = r->spr_group.x - k * sin(w->player.ang);
+		sprite_plot.y = r->spr_group.y + k * cos(w->player.ang);
+		if ((fabs(sprite_plot.x - plot.x) < 0.5) && (fabs(sprite_plot.y - plot.y) < 0.5))
+		{
+			r->sprite.x = plot.x;
+			r->sprite.y = plot.y;
+			return (1);
+		}
+		k--;
+	}
+	return (0);
+}
 
 int					draw_player(t_win *w)
 {

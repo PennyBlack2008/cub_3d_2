@@ -95,7 +95,7 @@ void	draw_map_sprite(t_win *w)
 				// 여기서 sprite.x, sprite.y 를 저장하자
 				sprite.x = j * w->wall.length + w->wall.length / 2;
 				sprite.y = i * w->wall.length + w->wall.length / 2;
-				draw_a_sprite(w, sprite);
+				draw_a_sprite(sprite, w);
 			}
 			j++;
 		}

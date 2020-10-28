@@ -98,7 +98,8 @@ typedef struct	s_map
 typedef struct	s_ray
 {
 	t_plot		hit; // 벽에 부딛힌 좌표
-	t_plot		sprite;
+	t_plot		sprite; // sprite 에 부딛힌 좌표
+	t_plot		spr_group; // sprite 그룹군 좌표
 	double		ang; // 플레이어 기준에서 ray 의 고유한 각도
 	int			wall_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
 }				t_ray;
@@ -133,7 +134,8 @@ int						move_left(t_win *w);
 int						move_right(t_win *w);
 int						draw_a_ray(t_ray *r, t_win *w);
 int						draw_rays(t_win *w);
-void					draw_a_sprite(t_win *w, t_plot sprite);
+void					draw_a_sprite(t_plot sprite, t_win *w);
 void					draw_map_sprite(t_win *w);
+int						is_sprite(t_plot plot, t_ray *r, t_win *w);
 
 #endif

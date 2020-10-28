@@ -80,8 +80,50 @@ void				draw_map(t_win *w)
 		{
 			if (w->map.map[i][j] == '1')
 				draw_rectangle(w, i, j, 0xFFFFFF);
-			else if (w->map.map[i][j] == '0')
+			else
 				draw_rectangle(w, i, j, 0x000000);
+			j++;
+		}
+		i++;
+	}
+}
+
+// x는 가로에서 i번 째, y는 세로에서 j번 째
+void	draw_spr_rectangle(t_win *w, int x, int y, int color)
+{
+	int i, j;
+
+	// x, y 는 각각 원점에서 대각선 위치에 있는 점의 x, y 좌표가 된다. x는 사각형의 너비, y는 사각형의 높이
+	x *= w->wall.length; // ROWS: 4
+	y *= w->wall.length; // COLS: 10
+	// printf("x :%d, y: %d \n", x, y);
+	// 초기값 x
+	i = 0;
+	while (i < w->wall.length / 3)
+	{
+		j = 0;
+		while (j < w->wall.length / 3)
+		{
+			my_mlx_pixel_put(&w->img, (y + i + w->wall.length / 3) / 4 + w->mini.plot.x, (x + j + w->wall.length / 3) / 4 + w->mini.plot.y, color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_sprite_in_minimap(t_win *w)
+{
+	int i, j;
+
+	i = 0;
+	// 가로쪽으로 증가하면서 찍으려면 j < COLS 의 while 문이 먼저 나와야 한다.
+	while (i < ROWS)
+	{
+		j = 0;
+		while (j < COLS)
+		{
+			if (w->map.map[i][j] == '2')
+				draw_spr_rectangle(w, i, j, 0x58D68D);
 			j++;
 		}
 		i++;
@@ -99,5 +141,7 @@ int					is_wall(double x, double y, t_win *w)
 {
 	if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == WALL)
 		return (WALL);
+	else if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == SPRITE)
+		return (SPRITE);
 	return (NOT_WALL);
 }

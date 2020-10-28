@@ -38,6 +38,7 @@ void				draw_minimap(t_ray *r, t_win *w)
 		draw_line(player, ray, color, w);
 		i++;
 	}
+	draw_sprite_in_minimap(w);
 }
 
 /*

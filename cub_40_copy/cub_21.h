@@ -37,6 +37,7 @@
 // WALL
 # define WALL 		49 // ascii #1
 # define NOT_WALL	48 // ascii #0
+# define SPRITE		50 // ascii #2
 
 // NSEW
 # define NORTH		0
@@ -122,7 +123,7 @@ typedef struct		s_map
 	char			**map;
 	int				i;
 	int				j;
-	int				*curr_tex;
+	int				*curr_tex[2];
 }					t_map;
 
 typedef struct		s_ray
@@ -148,7 +149,7 @@ typedef struct 		s_win
 	t_player		player;
 	t_wall			wall;
 	t_minimap		mini;
-	t_tex			tex;
+	t_tex			tex[2];
 }					t_win;
 
 // bresenhem.c
@@ -159,6 +160,7 @@ int					is_wall(double x, double y, t_win *w);
 void				draw_rectangle(t_win *w, int x, int y, int color);
 void				draw_map(t_win *w);
 void				map_init(t_win *w);
+void				draw_sprite_in_minimap(t_win *w);
 
 // move.c
 int					rotate_right(t_win *w);

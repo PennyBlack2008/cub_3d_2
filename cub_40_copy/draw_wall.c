@@ -24,7 +24,7 @@ double				get_render_spot(int i, t_ray *r, t_win *w)
 	return (x);
 }
 
-int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w)
+int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
 {
 	int				color;
 	double			x;
@@ -35,7 +35,7 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w)
 	scale_w = w->wall.length / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);
-	color = w->map.curr_tex[(int)(64 * py + px)];
+	color = w->map.curr_tex[k][(int)(64 * py + px)];
 	// if (r[i].wall_NSEW == NORTH)
 	// 	return (0xF1F740);
 	// if (r[i].wall_NSEW == SOUTH)
@@ -83,7 +83,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	j = 0;
 	while (j < pjtd_height / 2) // 아래 쪽
 	{
-		color = get_color_tex(i, orgn_pjtd_height / 2 + j, scale_h, r, w);
+		color = get_color_tex(i, orgn_pjtd_height / 2 + j, scale_h, r, w, 0);
 		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
 		// printf("w->player.height + j : %d\n", w->player.height + j);
 		j++;
@@ -91,7 +91,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	k = (pjtd_height / 2) - 1;
 	while (k > 0) // 위 쪽
 	{
-		color = get_color_tex(i, orgn_pjtd_height / 2 - k, scale_h, r, w);
+		color = get_color_tex(i, orgn_pjtd_height / 2 - k, scale_h, r, w, 0);
 		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
 		// printf("w->player.height - k : %d\n", w->player.height - k);
 		k--;

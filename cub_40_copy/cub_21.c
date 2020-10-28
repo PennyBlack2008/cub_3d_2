@@ -115,22 +115,23 @@ int					init_struct_win(t_win *w)
 	w->mini.plot.y = w->R_height - 300;
 
 	// 9. texture
-	int i, j;
-	w->tex.ptr = mlx_xpm_file_to_image(w->mlx, "eagle.xpm", &w->tex.width, &w->tex.height);
-	w->tex.addr = (int *)mlx_get_data_addr(w->tex.ptr, &w->tex.bpp, &w->tex.len, &w->tex.endian);
-	w->map.curr_tex = (int *)ft_calloc((w->tex.height * w->tex.width), sizeof(int));
+	int i, j, k;
+	k = 0;
+	w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, "eagle.xpm", &w->tex[k].width, &w->tex[k].height);
+	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
+	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
 	i = 0;
-	while (i < w->tex.height)
+	while (i < w->tex[k].height)
 	{
 		j = 0;
-		while (j < w->tex.width)
+		while (j < w->tex[k].width)
 		{
-			w->map.curr_tex[(int)w->tex.width * i + j] = w->tex.addr[(int)w->tex.width * i + j];
+			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
 			j++;
 		}
 		i++;
 	}
-	mlx_destroy_image(w->mlx, w->tex.ptr);
+	mlx_destroy_image(w->mlx, w->tex[k].ptr);
 
 	return (0);
 }

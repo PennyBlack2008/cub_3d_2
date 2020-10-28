@@ -16,6 +16,7 @@ int     render_next_frame(t_win *w)
 	draw_player(w);
 	// draw_line(0, 0, WIN_WIDTH, WIN_HEIGHT, 0x00FF00, w);
 	draw_rays(w);
+	draw_map_sprite(w);
 	return (0);
 }
 

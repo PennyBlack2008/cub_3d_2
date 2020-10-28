@@ -1,8 +1,6 @@
 #include "cub_21.h"
 #define ROWS 11
 #define COLS 10
-#define WALL 49 // ascii #1
-#define NOT_WALL 48 // ascii #0
 
 void	map_init(t_win *w)
 {
@@ -16,14 +14,14 @@ void	map_init(t_win *w)
 		i++;
 	}
 	w->map.map[0] = "1111111111"; //<--------- 여기 문법에서 세그폴트난다.
-	w->map.map[1] = "1000001011";
+	w->map.map[1] = "1000201011";
 	w->map.map[2] = "1000100011";
 	w->map.map[3] = "1010111011";
 	w->map.map[4] = "1010001011";
-	w->map.map[5] = "1010001011";
-	w->map.map[6] = "1010001011";
+	w->map.map[5] = "1012001011";
+	w->map.map[6] = "1010001211";
 	w->map.map[7] = "1011100001";
-	w->map.map[8] = "1010000001";
+	w->map.map[8] = "1010200001";
 	w->map.map[9] = "1111111111";
 
 
@@ -55,6 +53,7 @@ void	draw_rectangle(t_win *w, int x, int y, int color)
 void	draw_map(t_win *w)
 {
 	int i, j;
+	t_plot sprite;
 
 	i = 0;
 	// 가로쪽으로 증가하면서 찍으려면 j < COLS 의 while 문이 먼저 나와야 한다.
@@ -63,18 +62,49 @@ void	draw_map(t_win *w)
 		j = 0;
 		while (j < COLS)
 		{
-			// printf("%c\n", w->map.map[i][j]);
-			// printf("j: %d\n", j);
-			// printf("i: %d j: %d\n", i, j);
 			if (w->map.map[i][j] == '1')
 				draw_rectangle(w, i, j, 0xFFFFFF);
-			else if (w->map.map[i][j] == '0')
+			else
+			{
 				draw_rectangle(w, i, j, 0x000000);
+				// if (w->map.map[i][j] == '2')
+				// {
+				// 	// 여기서 sprite.x, sprite.y 를 저장하자
+				// 	sprite.x = j * w->wall.length + w->wall.length / 2;
+				// 	sprite.y = i * w->wall.length + w->wall.length / 2;
+				// 	draw_a_sprite(w, sprite);
+				// }
+			}
+
 			j++;
 		}
 		i++;
 	}
-	// mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
+}
+
+void	draw_map_sprite(t_win *w)
+{
+	int i, j;
+	t_plot sprite;
+
+	i = 0;
+	// 가로쪽으로 증가하면서 찍으려면 j < COLS 의 while 문이 먼저 나와야 한다.
+	while (i < ROWS)
+	{
+		j = 0;
+		while (j < COLS)
+		{
+			if (w->map.map[i][j] == '2')
+			{
+				// 여기서 sprite.x, sprite.y 를 저장하자
+				sprite.x = j * w->wall.length + w->wall.length / 2;
+				sprite.y = i * w->wall.length + w->wall.length / 2;
+				draw_a_sprite(w, sprite);
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 /*
@@ -88,6 +118,10 @@ int			is_wall(double x, double y, t_win *w)
 {
 	if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == WALL)
 		return (WALL);
-	// printf("w->map.map[%d][%d] = %d\n", (int)(y / w->wall.length), (int)(x / w->wall.length), w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)]);
+	else if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == SPRITE)
+	{
+		// 여기서 sprite.x, sprite.y 를 얻어보자
+		return (SPRITE);
+	}
 	return (NOT_WALL);
 }

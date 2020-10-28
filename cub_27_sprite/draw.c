@@ -55,7 +55,6 @@ int					draw_rays(t_win *w)
 		ray_ang += M_PI / 3 / 999;
 		i++;
 	}
-	draw_a_sprite(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 	return (0);
 }
@@ -83,13 +82,12 @@ int					draw_background(t_win *w)
 	return (0);
 }
 
-void				draw_a_sprite(t_win *w)
+void				draw_a_sprite(t_win *w, t_plot sprite)
 {
-	t_plot			sprite;
 	t_plot			sprite_plot;
 	// wall 좌표임. 가운데는 550 550 이겠지?
-	sprite.x = 550;
-	sprite.y = 550;
+	// sprite.x = 550;
+	// sprite.y = 550;
 
 	w->player.ang = normalize_angle(w->player.ang);
 	int	k;		k = 0;
@@ -108,7 +106,7 @@ void				draw_a_sprite(t_win *w)
 		my_mlx_pixel_put(&w->img, sprite_plot.x, sprite_plot.y, 0x00ff00);
 		k--;
 	}
-
+	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 }
 
 

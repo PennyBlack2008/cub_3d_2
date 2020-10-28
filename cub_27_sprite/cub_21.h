@@ -35,9 +35,9 @@
 # define KEY_ESC		53
 
 // WALL
-# define WALL 49 // ascii #1
-# define NOT_WALL 48 // ascii #0
-
+#define WALL 49 // ascii #1
+#define NOT_WALL 48 // ascii #0
+#define SPRITE 50 // ascii #2
 /*
 ** Center of the Projection Plane = (160,100)
 ** Distance to the Projection Plane = 277 units
@@ -133,6 +133,7 @@ int						move_left(t_win *w);
 int						move_right(t_win *w);
 int						draw_ray(t_ray *r, t_win *w);
 int						draw_rays(t_win *w);
-void					draw_a_sprite(t_win *w);
+void					draw_a_sprite(t_win *w, t_plot sprite);
+void					draw_map_sprite(t_win *w);
 
 #endif

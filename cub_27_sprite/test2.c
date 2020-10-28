@@ -1,6 +1,4 @@
 #include "cub_21.h"
-#define WALL 49 // ascii #1
-#define NOT_WALL 48 // ascii #0
 
 double				normalize_angle(double ang)
 {

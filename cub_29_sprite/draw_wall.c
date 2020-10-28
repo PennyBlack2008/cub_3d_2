@@ -1,5 +1,6 @@
 #include "cub_21.h"
 
+// x 의 정도에 따라 여백을 결정할 수 있다.
 double				get_which_spr(int i, t_ray *r, t_win *w)
 {
 	double			x;
@@ -81,6 +82,8 @@ void		draw_a_wall(int i, t_ray *r, t_win *w)
 	r->floor = w->player.height + j;
 }
 
+// i 를 컨트롤 하면 가로 높이 조절 가능 그렇다면 i의 정도를 알아야한다.
+
 void		draw_a_sprite(int i, t_ray *r, t_win *w)
 {
 	double dist_to_sprite;
@@ -97,20 +100,22 @@ void		draw_a_sprite(int i, t_ray *r, t_win *w)
 	scale_h = orjn_pjtd_height / 64;
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
+	// j 와 k 를 control 하면 세로 높이 조절 가능 
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
 
-	// 중간인 500 은 위쪽 while 에서 처리
-	while (j < pjtd_height / 2)
+	while (j < pjtd_height / 2) // 중간에서 밑으로 늘리기
 	{
-		color = get_color_sprite(i, orjn_pjtd_height / 2 + j, scale_h, r, w);orjn_pjtd_height = pjtd_height;
-		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
+		color = get_color_sprite(i, orjn_pjtd_height / 2 + j, scale_h, r, w);
+		if (color != 0)
+			my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
 		// my_mlx_pixel_put(&w->img, i, w->player.height + j, 0x58D68D);
 		j++;
 	}
-	while (k > 0)
+	while (k > 0) // 중간에서 위로 늘리기
 	{
 		color = get_color_sprite(i, orjn_pjtd_height / 2 - k, scale_h, r, w);
-		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
+		if (color != 0)
+			my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
 		// my_mlx_pixel_put(&w->img, i, w->player.height - k, 0x58D68D);
 		k--;
 	}

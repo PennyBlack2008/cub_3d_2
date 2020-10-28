@@ -47,23 +47,25 @@ void					my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	printf("%d\n", color);
 }
 
-int					get_color_tex(double x, double y, double scale_w, double scale_h, t_win *w)
+int					round_num(double num)
 {
-	int				color;
-	double			px, py;
+	if (num >= 0.5)
+		num = (int)num + 1;
+	else
+		num = (int)num;
 
-	px = floor(x / scale_w);
-	py = floor(y / scale_h);
-	color = w->curr_tex[(int)(w->tex.height * py + px)];
-	return (color);
+	return (num);
 }
 
 int					main()
 {
 	t_win			win;
-	int				i, j;
-	double			scale_w, scale_h;
-	int				color;
+	int				h;
+	int				w;
+	int				i, j, k;
+	double			px, py;
+	double			scale_w;
+	double			scale_h;
 
 	// window 설정
 	win.mlx = mlx_init();
@@ -74,7 +76,7 @@ int					main()
 	win.img.addr = mlx_get_data_addr(win.img.ptr, &win.img.bpp, &win.img.len, &win.img.endian);
 
 	// 두 번째 이미지(텍스쳐 이미지 받아오는 것 담당): 이미지 값을 win.curr_tex에 저장하고 win.tex.ptr 은 폐기
-	win.tex.ptr = mlx_xpm_file_to_image(win.mlx, "pillar.xpm", &win.tex.width, &win.tex.height);
+	win.tex.ptr = mlx_xpm_file_to_image(win.mlx, "wall_1.xpm", &win.tex.width, &win.tex.height);
 	win.tex.addr = (int *)mlx_get_data_addr(win.tex.ptr, &win.tex.bpp, &win.tex.len, &win.tex.endian);
 
 	win.curr_tex = (int *)ft_calloc((win.tex.height * win.tex.width), sizeof(int));
@@ -92,15 +94,13 @@ int					main()
 	mlx_destroy_image(win.mlx, win.tex.ptr);
 
 	// 두 번째 이미지를 윈도우에 출력해보기
-	scale_w = 2;	scale_h = 2;
 	i = 0;
-	while (i < win.tex.width * scale_w) // width
+	while (i < 64)
 	{
 		j = 0;
-		while (j < win.tex.height * scale_h) // height
+		while (j < 64)
 		{
-			color = get_color_tex(i, j, scale_w, scale_h, &win);
-			my_mlx_pixel_put(&win.img, i, j, color);
+			my_mlx_pixel_put(&win.img, j, i, win.curr_tex[(int)64 * i + j]);
 			j++;
 		}
 		i++;

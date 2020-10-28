@@ -132,24 +132,6 @@ int					init_struct_win(t_win *w)
 	}
 	mlx_destroy_image(w->mlx, w->tex.ptr);
 
-	// 10. sprite
-	// int i, j;
-	w->sprite.ptr = mlx_xpm_file_to_image(w->mlx, "cake.xpm", &w->sprite.width, &w->sprite.height);
-	w->sprite.addr = (int *)mlx_get_data_addr(w->sprite.ptr, &w->sprite.bpp, &w->sprite.len, &w->sprite.endian);
-	w->map.curr_spr = (int *)ft_calloc((w->sprite.height * w->sprite.width), sizeof(int));
-	i = 0;
-	while (i < w->sprite.height)
-	{
-		j = 0;
-		while (j < w->sprite.width)
-		{
-			w->map.curr_spr[(int)w->sprite.width * i + j] = w->sprite.addr[(int)w->sprite.width * i + j];
-			j++;
-		}
-		i++;
-	}
-	mlx_destroy_image(w->mlx, w->sprite.ptr);
-
 	return (0);
 }
 

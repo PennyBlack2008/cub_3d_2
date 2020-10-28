@@ -33,12 +33,12 @@ void				map_init(t_win *w)
 
 	w->map.map[0] = "11111111111";
 	w->map.map[1] = "10000000011";
-	w->map.map[2] = "10020000011";
+	w->map.map[2] = "10000000011";
 	w->map.map[3] = "10000000011";
 	w->map.map[4] = "10000000011";
-	w->map.map[5] = "10000100011";
+	w->map.map[5] = "10000000011";
 	w->map.map[6] = "10000000011";
-	w->map.map[7] = "10000002001";
+	w->map.map[7] = "10000000001";
 	w->map.map[8] = "10000000001";
 	w->map.map[9] = "11000001011";
 	w->map.map[10] = "11111111111";
@@ -99,7 +99,5 @@ int					is_wall(double x, double y, t_win *w)
 {
 	if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == WALL)
 		return (WALL);
-	else if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == SPRITE)
-		return (SPRITE);
 	return (NOT_WALL);
 }

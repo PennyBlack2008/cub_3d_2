@@ -1,6 +1,6 @@
 #include "cub_21.h"
 
-int					find_which_wall(t_ray *r, t_win *w)
+int					find_cardinal_dir_wall(t_ray *r, t_win *w)
 {
 	double ray_ang;
 	int		a, c;
@@ -12,7 +12,6 @@ int					find_which_wall(t_ray *r, t_win *w)
 	ray_ang = normalize_angle(r->ang);
 	r->wall_NSEW = 5;
 
-	ray_ang = normalize_angle(r->ang);
 	if (a)
 		return (EAST); // 민트색 <- 정상
 	else if (b)
@@ -37,9 +36,6 @@ int					cast_a_ray(t_ray *r, t_win *w)
 	t_plot			plot;
 	t_plot			plot_player;
 
-	// sprite 초기화: spr 에 값이 없을 때가 있으므로
-	r->spr.x = 0.0;
-	r->spr.y = 0.0;
 	i = 0;
 	while (i < w->R_width * 2)
 	{
@@ -51,20 +47,14 @@ int					cast_a_ray(t_ray *r, t_win *w)
 		{
 			if (is_wall(plot_player.x, plot_player.y, w) == WALL)
 				break ;
-			if (is_wall(plot_player.x, plot_player.y, w) == SPRITE)
-			{
-				r->spr.x = plot_player.x;
-				r->spr.y = plot_player.y;
-			}
 		}
 		i++;
 	}
 	r->hit.x = plot_player.x;
 	r->hit.y = plot_player.y;
 	r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
-	r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;	
-	r->wall_NSEW = find_which_wall(r, w);
-
+	r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;
+	r->wall_NSEW = find_cardinal_dir_wall(r, w);
 	return (0);
 }
 
@@ -73,7 +63,7 @@ int					cast_rays(t_win *w)
 	t_ray			r[w->R_width];
 	int				i;
 	double			ray_ang;
-	
+
 	ray_ang = -1 * w->fov_ang / 2;
 	i = 0;
 	while (ray_ang < w->fov_ang / 2)
@@ -81,9 +71,8 @@ int					cast_rays(t_win *w)
 		r[i].ang = normalize_angle(w->player.ang + ray_ang);
 		cast_a_ray(&(r[i]), w);
 		draw_a_wall(i, r, w); // <-- 이것을 r로 넣어보자!
-		// draw_ceiling(i, &(r[i]), w);
-		// draw_floor(i, &(r[i]), w);
-		draw_sprite(i, r, w);
+		draw_ceiling(i, &(r[i]), w);
+		draw_floor(i, &(r[i]), w);
 		ray_ang += w->fov_ang / (w->R_width - 1);
 		i++;
 	}

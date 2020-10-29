@@ -32,8 +32,8 @@ int					cast_a_ray(t_ray *r, t_win *w)
 			else if (is_wall(plot_player.x, plot_player.y, w) == SPRITE)
 			{
 				is_sprite(plot_player, r, w);
-				if (r->sprite.x != 0 && r->sprite.y != 0)
-					draw_line(w->player.plot, r->sprite, 0x0000ff, w);
+				// if (r->sprite.x != 0 && r->sprite.y != 0)
+				// 	draw_line(w->player.plot, r->sprite, 0x0000ff, w);
 			}
 		}
 		x++;
@@ -55,8 +55,8 @@ int					cast_rays(t_win *w)
 		r[i].sprite.x = 0;
 		r[i].sprite.y = 0;
 		cast_a_ray(&(r[i]), w);
-		// if (r[i].sprite.x != 0 && r[i].sprite.y != 0)
-		// 	draw_line(w->player.plot, r[i].sprite, 0x0000ff, w);
+		if (r[i].sprite.x != 0 && r[i].sprite.y != 0)
+			draw_line(w->player.plot, r[i].sprite, 0x0000ff, w);
 		ray_ang += M_PI / 3 / 999;
 		i++;
 	}

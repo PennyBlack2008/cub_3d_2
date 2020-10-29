@@ -59,6 +59,7 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
 		x = get_render_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
 	if (k == 1)
 		x = get_render_sprite_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
+	// sacle_w = w->wall.length * (cos(w->player.ang) + sin(w->player.ang)) / 64.0 <-- 벽의 두 면이 하나가 되면 적용될 수 있음
 	scale_w = w->wall.length / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);

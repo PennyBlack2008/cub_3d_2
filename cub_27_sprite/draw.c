@@ -1,6 +1,4 @@
 #include "cub_21.h"
-#define WALL 49 // ascii #1
-#define NOT_WALL 48 // ascii #0
 
 double				normalize_angle(double ang)
 {
@@ -30,8 +28,8 @@ int					draw_a_ray(t_ray *r, t_win *w)
 	while (x < WIN_WIDTH * 2)
 	{
 		y = 0;
-		plot.x = x * cos(r->ang * -1) + y * sin(r->ang * -1);
-		plot.y = x * sin(r->ang * -1) * -1 + y * cos(r->ang * -1);
+		plot.x = x * cos(r->ang);
+		plot.y = x * sin(r->ang);
 		plot_player.x = plot.x + w->player.x;
 		plot_player.y = plot.y + w->player.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)

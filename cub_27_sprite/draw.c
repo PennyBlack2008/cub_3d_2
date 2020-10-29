@@ -132,6 +132,7 @@ int					is_sprite(t_plot plot, t_ray *r, t_win *w)
 	r->spr_center.y = (int)(plot.y / w->wall.length) * w->wall.length + w->wall.length / 2;
 	// printf("x: %f, y: %f\n", r->spr_center.x, r->spr_center.y);
 	// printf("x: %f, y: %f\n", plot.x, plot.y);
+	// 0.5 가 제일 적당하다.
 	if (fabs(r->spr_center.x - plot.x) < 0.5 && fabs(r->spr_center.y - plot.y) < 0.5)
 	{
 		r->sprite.x = plot.x;

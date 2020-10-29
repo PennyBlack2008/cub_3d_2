@@ -13,16 +13,16 @@ int					cast_a_ray(t_ray *r, t_win *w)
 	t_plot plot_player;
 	t_plot player;
 
-	player.x = w->player.x;
-	player.y = w->player.y;
+	player.x = w->player.plot.x;
+	player.y = w->player.plot.y;
 	x = 0;
 	while (x < w->R_width * 2)
 	{
 		y = 0;
 		plot.x = x * cos(r->ang);
 		plot.y = x * sin(r->ang);
-		plot_player.x = plot.x + w->player.x;
-		plot_player.y = plot.y + w->player.y;
+		plot_player.x = plot.x + w->player.plot.x;
+		plot_player.y = plot.y + w->player.plot.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)
 		{
 			// my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0xFF0000);

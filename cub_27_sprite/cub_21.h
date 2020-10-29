@@ -73,8 +73,7 @@ typedef struct			s_player
 	int					pdj;
 
 	// player 위치
-	int					x;
-	int					y;
+	t_plot				plot;
 	char*				str_KEY_W; // 빨간색 끝에 적어줄 글자
 	char*				str_KEY_D; // 파란색 끝에 적어줄 글자
 }						t_player;

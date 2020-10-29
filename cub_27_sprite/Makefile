@@ -7,6 +7,10 @@ SRCS			=	cub_21.c\
 					bresenhem.c\
 					map.c\
 					move.c\
+					raycasting.c\
+					sprite.c\
+					utils.c\
+					player.c\
 					./../get_next_line/get_next_line.c\
 					./../get_next_line/get_next_line_utils.c\
 
@@ -17,6 +21,10 @@ OBJS			=	cub_21.o\
 					bresenhem.o\
 					map.o\
 					move.o\
+					raycasting.o\
+					sprite.o\
+					utils.o\
+					player.o\
 					get_next_line.o\
 					get_next_line_utils.o\
 

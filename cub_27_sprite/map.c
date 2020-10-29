@@ -1,6 +1,4 @@
 #include "cub_21.h"
-#define ROWS 11
-#define COLS 10
 
 void	map_init(t_win *w)
 {
@@ -75,36 +73,6 @@ void	draw_map(t_win *w)
 	}
 }
 
-// draw_a_ray 이후에 draw_map_sprite 가 작동해야한다.
-// 여기에 ray를 적용해야 ray에 r->spr.x, r->spr.y 를 받을 수 있다.
-// 현재는 render_next_frame(t_win *w) 안에 넣어 반복실행 중입니다.
-void	draw_map_sprite(t_win *w)
-{
-	int i, j;
-	t_plot sprite;
-
-	i = 0;
-	// 가로쪽으로 증가하면서 찍으려면 j < COLS 의 while 문이 먼저 나와야 한다.
-	while (i < ROWS)
-	{
-		j = 0;
-		while (j < COLS)
-		{
-			if (w->map.map[i][j] == '2')
-			{
-				// 여기서 sprite.x, sprite.y 를 저장하자
-				sprite.x = j * w->wall.length + w->wall.length / 2;
-				sprite.y = i * w->wall.length + w->wall.length / 2;
-				draw_a_sprite(sprite, w);
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-
-
 /*
 ** int						is_wall(int x, int y, t_win *w)
 ** 확인하고자 하는 픽셀의 좌표를 넣으면 그 픽셀이 벽인지 확인 해주는 함수, 1이면 벽, 0이면 벽이 아니다.
@@ -117,9 +85,6 @@ int			is_wall(double x, double y, t_win *w)
 	if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == WALL)
 		return (WALL);
 	else if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == SPRITE)
-	{
-		// 여기서 sprite.x, sprite.y 를 얻어보자
 		return (SPRITE);
-	}
 	return (NOT_WALL);
 }

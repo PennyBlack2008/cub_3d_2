@@ -15,8 +15,9 @@ int     render_next_frame(t_win *w)
 	draw_map(w);
 	draw_player(w);
 	// draw_line(0, 0, WIN_WIDTH, WIN_HEIGHT, 0x00FF00, w);
-	draw_rays(w);
+	cast_rays(w);
 	draw_map_sprite(w);
+
 	return (0);
 }
 
@@ -105,7 +106,6 @@ int					init_struct_win(t_win *w)
 	w->player.x = 4.5 * w->wall.length;
 	w->player.y = 5.5 * w->wall.length;
 	w->player.ang = 0 * M_PI / 180;
-
 	
 	return (0);
 }

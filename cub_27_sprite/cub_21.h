@@ -9,6 +9,10 @@
 #include <math.h>
 #include <stdlib.h>
 
+// 잠시 컨트롤을 편하게 하기위해 관련 파일: sprite.c, map.c
+#define ROWS 11 
+#define COLS 10
+
 // WIN SPEC
 #define WIN_WIDTH 1000
 #define WIN_HEIGHT 1000
@@ -99,7 +103,6 @@ typedef struct	s_ray
 {
 	t_plot		hit; // 벽에 부딛힌 좌표
 	t_plot		sprite; // sprite 에 부딛힌 좌표
-	t_plot		spr_group; // sprite 그룹군 좌표
 	t_plot		spr_center; // sprite 그룹군 중점 좌표
 	double		ang; // 플레이어 기준에서 ray 의 고유한 각도
 	int			wall_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
@@ -133,10 +136,11 @@ int						move_forward(t_win *w);
 int						move_back(t_win *w);
 int						move_left(t_win *w);
 int						move_right(t_win *w);
-int						draw_a_ray(t_ray *r, t_win *w);
-int						draw_rays(t_win *w);
+int						cast_a_ray(t_ray *r, t_win *w);
+int						cast_rays(t_win *w);
 void					draw_a_sprite(t_plot sprite, t_win *w);
 void					draw_map_sprite(t_win *w);
 int						is_sprite(t_plot plot, t_ray *r, t_win *w);
+double					normalize_angle(double ang);
 
 #endif

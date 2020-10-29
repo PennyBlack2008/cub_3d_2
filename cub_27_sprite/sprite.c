@@ -62,10 +62,11 @@ int					is_sprite(t_plot plot, t_ray *r, t_win *w)
 {
 	t_plot			sprite_plot;
 
+	// 초기화 반드시 해주어야한다!!
 	r->sprite.x = 0;
 	r->sprite.y = 0;
-	r->spr_center.x = (int)(plot.x / w->wall.length) * w->wall.length + w->wall.length / 2;
-	r->spr_center.y = (int)(plot.y / w->wall.length) * w->wall.length + w->wall.length / 2;
+	r->spr_center.x = (int)(plot.x / w->wall.length) * w->wall.length + w->wall.length / 2.0;
+	r->spr_center.y = (int)(plot.y / w->wall.length) * w->wall.length + w->wall.length / 2.0;
 	// printf("x: %f, y: %f\n", r->spr_center.x, r->spr_center.y);
 	// printf("x: %f, y: %f\n", plot.x, plot.y);
 	// 0.5 가 제일 적당하다.

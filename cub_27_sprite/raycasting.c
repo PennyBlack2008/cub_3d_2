@@ -31,13 +31,9 @@ int					cast_a_ray(t_ray *r, t_win *w)
 				break ;
 			else if (is_wall(plot_player.x, plot_player.y, w) == SPRITE)
 			{
-				// 여기에 sprite 인지 확인하는 함수를 넣어야한다.
 				is_sprite(plot_player, r, w);
 				if (r->sprite.x != 0 && r->sprite.y != 0)
-				{
-					draw_line(player, r->sprite, 0x0000ff, w);
-					// printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
-				}
+					draw_line(w->player.plot, r->sprite, 0x0000ff, w);
 			}
 		}
 		x++;
@@ -51,10 +47,16 @@ int					cast_rays(t_win *w)
 	int			i;				i = 0;
 	double		ray_ang;		ray_ang = -1 * M_PI / 6;
 
+	
 	while (ray_ang < M_PI / 6)
 	{
 		r[i].ang = normalize_angle(w->player.ang + ray_ang);
+		// 초기화 반드시 해주어야한다!! cast_a_ray 에 들어가기전에 초기화 해주어야한다.
+		r[i].sprite.x = 0;
+		r[i].sprite.y = 0;
 		cast_a_ray(&(r[i]), w);
+		// if (r[i].sprite.x != 0 && r[i].sprite.y != 0)
+		// 	draw_line(w->player.plot, r[i].sprite, 0x0000ff, w);
 		ray_ang += M_PI / 3 / 999;
 		i++;
 	}

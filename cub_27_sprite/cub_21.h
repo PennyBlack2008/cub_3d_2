@@ -100,6 +100,7 @@ typedef struct	s_ray
 	t_plot		hit; // 벽에 부딛힌 좌표
 	t_plot		sprite; // sprite 에 부딛힌 좌표
 	t_plot		spr_group; // sprite 그룹군 좌표
+	t_plot		spr_center; // sprite 그룹군 중점 좌표
 	double		ang; // 플레이어 기준에서 ray 의 고유한 각도
 	int			wall_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
 }				t_ray;

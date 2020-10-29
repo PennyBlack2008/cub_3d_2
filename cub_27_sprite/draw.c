@@ -34,7 +34,7 @@ int					draw_a_ray(t_ray *r, t_win *w)
 		plot_player.y = plot.y + w->player.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)
 		{
-			my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0xFF0000);
+			// my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0xFF0000);
 			// 여기에 sprite 인지 확인하는 함수를 넣어야한다.
 			if (is_wall(plot_player.x, plot_player.y, w) == WALL)
 				break ;
@@ -94,6 +94,7 @@ int					draw_background(t_win *w)
 	return (0);
 }
 
+// minimap 에 sprite를 그리는 초록색 선들
 void				draw_a_sprite(t_plot sprite, t_win *w)
 {
 	t_plot			sprite_plot;
@@ -118,46 +119,25 @@ void				draw_a_sprite(t_plot sprite, t_win *w)
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 }
 
+/*
+** 일단 sprite 중점에 광선이 닿았는 지 확인하고 중점을 중심으로 sprite를 그린다.
+*/
 int					is_sprite(t_plot plot, t_ray *r, t_win *w)
 {
 	t_plot			sprite_plot;
 
 	r->sprite.x = 0;
 	r->sprite.y = 0;
+	r->spr_center.x = (int)(plot.x / w->wall.length) * w->wall.length + w->wall.length / 2;
+	r->spr_center.y = (int)(plot.y / w->wall.length) * w->wall.length + w->wall.length / 2;
+	// printf("x: %f, y: %f\n", r->spr_center.x, r->spr_center.y);
 	// printf("x: %f, y: %f\n", plot.x, plot.y);
-	// sprite group(군)의 대표 좌표 구하기 (왼쪽 위쪽 끝 좌표)
-	r->spr_group.x = (int)(plot.x / w->wall.length) * w->wall.length;
-	r->spr_group.y = (int)(plot.y / w->wall.length) * w->wall.length;
-
-	// printf("r->spr_group.x : %f, r->spr_group.y : %f\n", r->spr_group.x, r->spr_group.y);
-	int	k;	k = 0;
-	while (k < 50)
+	if (fabs(r->spr_center.x - plot.x) < 0.5 && fabs(r->spr_center.y - plot.y) < 0.5)
 	{
-		sprite_plot.x = (int)(r->spr_group.x - k * sin(w->player.ang));
-		sprite_plot.y = (int)(r->spr_group.y + k * cos(w->player.ang));
-		// && !(sprite_plot.x < 0 || sprite_plot.y < 0)
-		if ((fabs(sprite_plot.x - plot.x) < 0.5) && (fabs(sprite_plot.y - plot.y) < 0.5))
-		{
-			r->sprite.x = plot.x;
-			r->sprite.y = plot.y;
-			// printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
-			return (1);
-		}
-		k++;
-	}
-	k = 0;
-	while (k >= -50)
-	{
-		sprite_plot.x = (int)(r->spr_group.x - k * sin(w->player.ang));
-		sprite_plot.y = (int)(r->spr_group.y + k * cos(w->player.ang));
-		if ((fabs(sprite_plot.x - plot.x) < 0.5) && (fabs(sprite_plot.y - plot.y) < 0.5))
-		{
-			r->sprite.x = plot.x;
-			r->sprite.y = plot.y;
-			// printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
-			return (1);
-		}
-		k--;
+		r->sprite.x = plot.x;
+		r->sprite.y = plot.y;
+		// printf("x: %f, y: %f\n", r->sprite.x, r->sprite.y);
+		return (1);
 	}
 	return (0);
 }

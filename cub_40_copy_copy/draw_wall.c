@@ -31,12 +31,15 @@ double				get_render_sprite_spot(int i, t_ray *r, t_win *w)
 	t_plot			spr_center;
 	double			dist_to_center;
 	double			dist_spr_center_to_spr_hit;
+	double			sprite_width;
+	double			k;
 
+	sprite_width = w->wall.length * (cos(w->player.ang) + sin(w->player.ang));
 	spr_center.x = r[i].spr_map.x + w->wall.length / 2;
 	spr_center.y = r[i].spr_map.y + w->wall.length / 2;
 	
 	dist_spr_center_to_spr_hit = hypot(spr_center.x - r[i].spr_hit.x, spr_center.y - r[i].spr_hit.y);
-	
+
 	x = 0;
 	if (r[i].wall_NSEW == EAST)
 	{
@@ -44,8 +47,15 @@ double				get_render_sprite_spot(int i, t_ray *r, t_win *w)
 	}
 	else if (r[i].wall_NSEW == SOUTH) // 이 것을 중점 중심으로 x를 변경해볼까?
 	{
-		// x = r[i].spr_hit.x - r[i].spr_map.x;
-		dist_to_center = hypot(spr_center.x - r[i].spr_hit.x, spr_center.y - r[i].spr_hit.y);
+		k = r[i].spr_hit.x - r[i].spr_map.x;
+		if (k > 0)
+		{
+
+		}
+		else if (k > 0)
+		{
+
+		}
 		x = dist_to_center;
 	}
 	else if (r[i].wall_NSEW == WEST)

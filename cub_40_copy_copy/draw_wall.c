@@ -24,49 +24,30 @@ double				get_render_spot(int i, t_ray *r, t_win *w)
 	return (x);
 }
 
-// sprite 정 사각형의 중점에서 얼마나 떨어져 있느냐가 x 의 랜더링 위치를 잡으면 될 듯
-double				get_render_sprite_spot(int i, t_ray *r, t_win *w)
+int					get_color_spr(int l, int j, double scale_h, t_win *w)
 {
+	int				color;
 	double			x;
-	t_plot			spr_center;
-	double			dist_to_center;
-	double			dist_spr_center_to_spr_hit;
-	double			sprite_width;
-	double			k;
+	double			px, py;
+	double			scale_w;
 
-	sprite_width = w->wall.length * (cos(w->player.ang) + sin(w->player.ang));
-	spr_center.x = r[i].spr_map.x + w->wall.length / 2;
-	spr_center.y = r[i].spr_map.y + w->wall.length / 2;
-	
-	dist_spr_center_to_spr_hit = hypot(spr_center.x - r[i].spr_hit.x, spr_center.y - r[i].spr_hit.y);
 
-	x = 0;
-	if (r[i].wall_NSEW == EAST)
-	{
-		x = r[i].spr_hit.y - r[i].spr_map.y;
-	}
-	else if (r[i].wall_NSEW == SOUTH) // 이 것을 중점 중심으로 x를 변경해볼까?
-	{
-		k = r[i].spr_hit.x - r[i].spr_map.x;
-		if (k > 0)
-		{
-
-		}
-		else if (k > 0)
-		{
-
-		}
-		x = dist_to_center;
-	}
-	else if (r[i].wall_NSEW == WEST)
-	{
-		x = r[i].spr_hit.y - r[i].spr_map.y;
-	}
-	else if (r[i].wall_NSEW == NORTH)
-	{
-		x = r[i].spr_hit.x - r[i].spr_map.x;
-	}
-	return (x);
+	if (k == 1)
+		x = get_render_sprite_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
+	scale_w = w->wall.length / 64.0; //<-- 벽의 두 면이 하나가 되면 적용될 수 있음
+	// scale_w = w->wall.length / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
+	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
+	py = floor(j / scale_h);
+	color = w->map.curr_tex[k][(int)(64.0 * py + px)];
+	// if (r[i].wall_NSEW == NORTH)
+	// 	return (0xF1F740);
+	// if (r[i].wall_NSEW == SOUTH)
+	// 	return (0x40F759);
+	// if (r[i].wall_NSEW == EAST)
+	// 	return (0x40F7D5);
+	// if (r[i].wall_NSEW == WEST)
+	// 	return (0xDB40F7);
+	return (color);
 }
 
 int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
@@ -78,8 +59,6 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
 
 	if (k == 0)
 		x = get_render_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
-	if (k == 1)
-		x = get_render_sprite_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
 	scale_w = w->wall.length / 64.0; //<-- 벽의 두 면이 하나가 되면 적용될 수 있음
 	// scale_w = w->wall.length / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
@@ -188,7 +167,7 @@ void			draw_a_sprite(int i, t_ray *r, t_win *w)
 	// printf("pjtd_height: %f\n", pjtd_height);
 	orgn_pjtd_height = pjtd_height;
 	// orgn_pjtd_width = pjtd_height * w->aspect_ratio; // 가로 세로 비율을 통해 
-	pjtd_width = 300 * w->player.projected_plane / dist_to_spr;
+	pjtd_width = 400 * w->player.projected_plane / dist_to_spr;
 	orgn_pjtd_width = pjtd_width;
 	// printf("orgn_pjtd_width: %f\n", orgn_pjtd_width);
 	scale_h = orgn_pjtd_height / 64.0; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
@@ -208,6 +187,7 @@ void			draw_a_sprite(int i, t_ray *r, t_win *w)
 		j = 0;
 		while (j < pjtd_height / 2 && i + l > 0) // 아래 쪽
 		{
+			color = get_color_spr(l, w);
 			my_mlx_pixel_put(&w->img, i + l, w->player.height + j, 0x47E9EE);
 			j++;
 		}
@@ -219,7 +199,7 @@ void			draw_a_sprite(int i, t_ray *r, t_win *w)
 		}
 		if (i + l > w->R_width)
 			break ;
-		printf("i + l: %d\n", i + l);
+		// printf("i + l: %d\n", i + l);
 		l++;
 	}
 }

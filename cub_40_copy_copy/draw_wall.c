@@ -188,7 +188,7 @@ void			draw_a_sprite(int i, t_ray *r, t_win *w)
 	// printf("pjtd_height: %f\n", pjtd_height);
 	orgn_pjtd_height = pjtd_height;
 	// orgn_pjtd_width = pjtd_height * w->aspect_ratio; // 가로 세로 비율을 통해 
-	pjtd_width = 1000 * w->player.projected_plane / dist_to_spr;
+	pjtd_width = 300 * w->player.projected_plane / dist_to_spr;
 	orgn_pjtd_width = pjtd_width;
 	// printf("orgn_pjtd_width: %f\n", orgn_pjtd_width);
 	scale_h = orgn_pjtd_height / 64.0; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
@@ -201,20 +201,20 @@ void			draw_a_sprite(int i, t_ray *r, t_win *w)
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
 
 	// 중간인 500 은 위쪽 while 에서 처리
-	int l;		l = 0;
-	// printf("%d\n", l);
-	while (l < pjtd_width)
+	int l;		l = -1 * pjtd_width / 2;
+	printf("%d\n", l);
+	while (l < pjtd_width / 2)
 	{
 		j = 0;
 		while (j < pjtd_height / 2 && i + l > 0) // 아래 쪽
 		{
-			my_mlx_pixel_put(&w->img, i + l - 1, w->player.height + j, 0x47E9EE);
+			my_mlx_pixel_put(&w->img, i + l, w->player.height + j, 0x47E9EE);
 			j++;
 		}
 		k = (pjtd_height / 2) - 1;
 		while (k > 0 && i + l > 0) // 위 쪽
 		{
-			my_mlx_pixel_put(&w->img, i + l - 1, w->player.height - k, 0x47E9EE);
+			my_mlx_pixel_put(&w->img, i + l, w->player.height - k, 0x47E9EE);
 			k--;
 		}
 		if (i + l > w->R_width)

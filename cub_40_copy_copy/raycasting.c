@@ -51,7 +51,7 @@ int					cast_a_ray(t_ray *r, t_win *w)
 			{
 				r->spr_hit.x = plot_player.x;
 				r->spr_hit.y = plot_player.y;
-				printf("여기\n");
+				// printf("여기\n");
 			}
 		}
 		i++;
@@ -74,6 +74,8 @@ int					cast_rays(t_win *w)
 	i = 0;
 	while (ray_ang < w->fov_ang / 2)
 	{
+		r[i].spr_hit.x = 0;
+		r[i].spr_hit.y = 0;
 		r[i].ang = normalize_angle(w->player.ang + ray_ang);
 		cast_a_ray(&(r[i]), w);
 		draw_a_wall(i, r, w);
@@ -85,8 +87,6 @@ int					cast_rays(t_win *w)
 	i = 0;
 	while (i < w->R_width)
 	{
-		r[i].spr_hit.x = 0;
-		r[i].spr_hit.y = 0;
 		if (r[i].spr_hit.x != 0 || r[i].spr_hit.y != 0)
 			draw_a_sprite(i, r, w);
 		i++;

@@ -48,6 +48,9 @@ int					cast_rays(t_win *w)
 		r[i].sprite.x = 0;
 		r[i].sprite.y = 0;
 		cast_a_ray(&(r[i]), w);
+		draw_a_wall(i, &(r[i]), w);
+		draw_ceiling(i, &(r[i]), w);
+		draw_floor(i, &(r[i]), w);
 		ray_ang += M_PI / 3 / 999;
 		i++;
 	}

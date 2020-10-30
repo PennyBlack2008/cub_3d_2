@@ -6,10 +6,8 @@ int					draw_player(t_win *w)
 	int	x, y;
 	t_plot	plot;
 	t_plot	plot_player;
-	
-	width = w->player.width;
-	height = w->player.height;
 
+	width = w->player.width;
 	// 돌리는 건 성공했는 데, 애초에 사각형의 끝점을 중심으로 그렸기 때문에 내가 원하는 공식을 쓸 수가 없다.
 	x = width / 2 * -1;
 	while (x < width / 2)
@@ -49,7 +47,7 @@ int					draw_player(t_win *w)
 
 	// 우측 작대기
 	y = 0;
-	while (y < height / 2 + 30)
+	while (y < width / 2 + 30)
 	{
 		x = 0;
 		plot.x = -1 * y * sin(w->player.ang);

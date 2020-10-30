@@ -117,6 +117,7 @@ typedef struct 			s_win
 	void				*win;
 	int					R_width;
 	int					R_height;
+	double				fov_ang;
 	t_img				img;
 	t_map				map;
 	t_player			player;
@@ -147,5 +148,8 @@ int						is_sprite(t_plot plot, t_ray *r, t_win *w);
 double					normalize_angle(double ang);
 void					set_plot(t_plot *plot, double x, double y);
 void					draw_minimap(t_ray *r, t_win *w);
+void					draw_a_wall(int i, t_ray *r, t_win *w);
+void					draw_ceiling(int i, t_ray *r, t_win *w);
+void					draw_floor(int i, t_ray *r, t_win *w);
 
 #endif

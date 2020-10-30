@@ -12,6 +12,7 @@ SRCS			=	cub_21.c\
 					utils.c\
 					player.c\
 					draw_minimap.c\
+					draw_wall.c\
 					./../get_next_line/get_next_line.c\
 					./../get_next_line/get_next_line_utils.c\
 
@@ -27,6 +28,7 @@ OBJS			=	cub_21.o\
 					utils.o\
 					player.o\
 					draw_minimap.o\
+					draw_wall.o\
 					get_next_line.o\
 					get_next_line_utils.o\
 

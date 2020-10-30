@@ -12,8 +12,8 @@ int					rotate_right(t_win *w)
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{
-		y = w->player.height / 2 * -1;
-		while (y < w->player.height / 2)
+		y = w->player.width / 2 * -1;
+		while (y < w->player.width / 2)
 		{
 			plot.x = x * cos(new_angle) - y * sin(new_angle);
 			plot.y = x * sin(new_angle) + y * cos(new_angle);
@@ -44,8 +44,8 @@ int					rotate_left(t_win *w)
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{
-		y = w->player.height / 2 * -1;
-		while (y < w->player.height / 2)
+		y = w->player.width / 2 * -1;
+		while (y < w->player.width / 2)
 		{
 			plot.x = x * cos(new_angle) - y * sin(new_angle);
 			plot.y = x * sin(new_angle) + y * cos(new_angle);
@@ -74,8 +74,8 @@ int					move_forward(t_win *w)
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{
-		y = w->player.height / 2 * -1;
-		while (y < w->player.height / 2)
+		y = w->player.width / 2 * -1;
+		while (y < w->player.width / 2)
 		{
 			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang);
 			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang);
@@ -105,8 +105,8 @@ int					move_back(t_win *w)
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{
-		y = w->player.height / 2 * -1;
-		while (y < w->player.height / 2)
+		y = w->player.width / 2 * -1;
+		while (y < w->player.width / 2)
 		{
 			plot.x = x * cos(w->player.ang) + y * sin(w->player.ang);
 			plot.y = x * sin(w->player.ang) * -1 + y * cos(w->player.ang);
@@ -136,8 +136,8 @@ int					move_left(t_win *w)
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{
-		y = w->player.height / 2 * -1;
-		while (y < w->player.height / 2)
+		y = w->player.width / 2 * -1;
+		while (y < w->player.width / 2)
 		{
 			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang);
 			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang);
@@ -167,8 +167,8 @@ int					move_right(t_win *w)
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{
-		y = w->player.height / 2 * -1;
-		while (y < w->player.height / 2)
+		y = w->player.width / 2 * -1;
+		while (y < w->player.width / 2)
 		{
 			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang);
 			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang);

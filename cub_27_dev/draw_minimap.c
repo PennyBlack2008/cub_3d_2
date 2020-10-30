@@ -21,5 +21,5 @@ void				draw_minimap(t_ray *r, t_win *w)
 		i++;
 	}
 	draw_map_sprite(w);
-	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
+	// mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 }

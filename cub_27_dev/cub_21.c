@@ -85,9 +85,12 @@ int					init_struct_win(t_win *w)
 	// 해상도
 	w->R_width = WIN_WIDTH;
 	w->R_height = WIN_HEIGHT;
+	w->fov_ang = M_PI / 3; // 60도
+	w->player.projected_plane = w->R_width / 2 * atan(M_PI_2 / 3);
 
 	// 벽
 	w->wall.length = 100;
+	w->wall.height = 600;
 
 	// 윈도우
 	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "veryluckymanjinwoo");
@@ -101,7 +104,7 @@ int					init_struct_win(t_win *w)
 
 	// player
 	w->player.width = w->wall.length / 3;
-	w->player.height = w->wall.length / 3;
+	w->player.height = 500;
 	w->player.plot.x = 4.5 * w->wall.length;
 	w->player.plot.y = 5.5 * w->wall.length;
 	w->player.ang = 0 * M_PI / 180;

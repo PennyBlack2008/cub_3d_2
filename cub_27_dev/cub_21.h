@@ -146,5 +146,6 @@ void					draw_map_sprite(t_win *w);
 int						is_sprite(t_plot plot, t_ray *r, t_win *w);
 double					normalize_angle(double ang);
 void					set_plot(t_plot *plot, double x, double y);
+void					draw_minimap(t_ray *r, t_win *w);
 
 #endif

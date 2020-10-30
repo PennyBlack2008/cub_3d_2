@@ -23,7 +23,7 @@ int					draw_player(t_win *w)
 			plot_player.y = plot.y + w->player.plot.y;
 			if (plot_player.x >= 0 && plot_player.y >= 0)
 			{
-				my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0xbbccff);
+				my_mlx_pixel_put(&w->img, plot_player.x / 4 + w->mini.plot.x, plot_player.y / 4 + w->mini.plot.y, 0xbbccff);
 				// printf("%d %d\n", round_num_AND_int(plot_player.x), round_num_AND_int(plot_player.y));
 			}
 			y++;
@@ -41,7 +41,7 @@ int					draw_player(t_win *w)
 		plot_player.y = plot.y + w->player.plot.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)
 		{
-			my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0xFF0000);
+			my_mlx_pixel_put(&w->img, plot_player.x / 4 + w->mini.plot.x, plot_player.y / 4 + w->mini.plot.y, 0xFF0000);
 			// printf("%d %d\n", round_num_AND_int(plot_player.x), round_num_AND_int(plot_player.y));
 		}
 		x++;
@@ -58,7 +58,7 @@ int					draw_player(t_win *w)
 		plot_player.y = plot.y + w->player.plot.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)
 		{
-			my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0x0000FF);
+			my_mlx_pixel_put(&w->img, plot_player.x / 4 + w->mini.plot.x, plot_player.y / 4 + w->mini.plot.y, 0x0000FF);
 			// printf("%d %d\n", round_num_AND_int(plot_player.x), round_num_AND_int(plot_player.y));
 		}
 		y++;

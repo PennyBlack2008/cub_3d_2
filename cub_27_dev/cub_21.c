@@ -12,12 +12,11 @@ int     render_next_frame(t_win *w)
 {
 	draw_background(w);
 	// draw_grid(w);
-	draw_map(w);
-	draw_player(w);
+	// draw_map(w);
+	// draw_player(w);
 	// draw_line(0, 0, WIN_WIDTH, WIN_HEIGHT, 0x00FF00, w);
 	cast_rays(w);
-	draw_map_sprite(w);
-
+	
 	return (0);
 }
 
@@ -107,6 +106,10 @@ int					init_struct_win(t_win *w)
 	w->player.plot.y = 5.5 * w->wall.length;
 	w->player.ang = 0 * M_PI / 180;
 	
+	// minimap
+	w->mini.plot.x = w->R_width - 300;
+	w->mini.plot.y = w->R_height - 300;
+
 	return (0);
 }
 

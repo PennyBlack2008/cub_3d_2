@@ -11,10 +11,7 @@ int					cast_a_ray(t_ray *r, t_win *w)
 	int x, y;
 	t_plot plot;
 	t_plot plot_player;
-	t_plot player;
 
-	player.x = w->player.plot.x;
-	player.y = w->player.plot.y;
 	x = 0;
 	while (x < w->R_width * 2)
 	{
@@ -25,18 +22,14 @@ int					cast_a_ray(t_ray *r, t_win *w)
 		plot_player.y = plot.y + w->player.plot.y;
 		if (plot_player.x >= 0 && plot_player.y >= 0)
 		{
-			// my_mlx_pixel_put(&w->img, plot_player.x, plot_player.y, 0xFF0000);
-			// 여기에 sprite 인지 확인하는 함수를 넣어야한다.
 			if (is_wall(plot_player.x, plot_player.y, w) == WALL)
 				break ;
 			else if (is_wall(plot_player.x, plot_player.y, w) == SPRITE)
-			{
 				is_sprite(plot_player, r, w);
-				// if (r->sprite.x != 0 && r->sprite.y != 0)
-				// 	draw_line(w->player.plot, r->sprite, 0x0000ff, w);
-			}
 		}
 		x++;
+		r->hit.x = plot_player.x;
+		r->hit.y = plot_player.y;
 	}
 	return (0);
 }
@@ -55,11 +48,10 @@ int					cast_rays(t_win *w)
 		r[i].sprite.x = 0;
 		r[i].sprite.y = 0;
 		cast_a_ray(&(r[i]), w);
-		if (r[i].sprite.x != 0 && r[i].sprite.y != 0)
-			draw_line(w->player.plot, r[i].sprite, 0x0000ff, w);
 		ray_ang += M_PI / 3 / 999;
 		i++;
 	}
+	draw_minimap(r, w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 	return (0);
 }

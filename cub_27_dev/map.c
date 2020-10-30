@@ -41,7 +41,7 @@ void	draw_rectangle(t_win *w, int x, int y, int color)
 		j = 0;
 		while (j < w->wall.length)
 		{
-			my_mlx_pixel_put(&w->img, y + i, x + j, color);
+			my_mlx_pixel_put(&w->img, (y + i) / 4 + w->mini.plot.x, (x + j) / 4 + w->mini.plot.y, color);
 			j++;
 		}
 		i++;

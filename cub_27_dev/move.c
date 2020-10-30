@@ -7,7 +7,7 @@ int					rotate_right(t_win *w)
 	t_plot	plot;
 	t_plot	plot_player;
 	double new_angle;
-
+ 
 	new_angle = w->player.ang - 30 * M_PI / 180;
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)

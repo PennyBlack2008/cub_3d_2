@@ -1,7 +1,5 @@
 #include "cub_21.h"
 
-
-
 // draw_a_ray 이후에 draw_map_sprite 가 작동해야한다.
 // 여기에 ray를 적용해야 ray에 r->spr.x, r->spr.y 를 받을 수 있다.
 // 현재는 render_next_frame(t_win *w) 안에 넣어 반복실행 중입니다.
@@ -41,7 +39,7 @@ void				draw_a_sprite(t_plot sprite, t_win *w)
 	{
 		sprite_plot.x = sprite.x - k * sin(w->player.ang);
 		sprite_plot.y = sprite.y + k * cos(w->player.ang);
-		my_mlx_pixel_put(&w->img, sprite_plot.x, sprite_plot.y, 0x00ff00);
+		my_mlx_pixel_put(&w->img, sprite_plot.x / 4 + w->mini.plot.x, sprite_plot.y / 4 + w->mini.plot.y, 0x00ff00);
 		k++;
 	}
 	k = 0;
@@ -49,10 +47,10 @@ void				draw_a_sprite(t_plot sprite, t_win *w)
 	{
 		sprite_plot.x = sprite.x - k * sin(w->player.ang);
 		sprite_plot.y = sprite.y + k * cos(w->player.ang);
-		my_mlx_pixel_put(&w->img, sprite_plot.x, sprite_plot.y, 0x00ff00);
+		my_mlx_pixel_put(&w->img, sprite_plot.x / 4 + w->mini.plot.x, sprite_plot.y / 4  + w->mini.plot.y, 0x00ff00);
 		k--;
 	}
-	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
+	// mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 }
 
 /*

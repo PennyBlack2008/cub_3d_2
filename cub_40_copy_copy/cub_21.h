@@ -147,6 +147,7 @@ typedef struct 		s_win
 	int				R_width;
 	int				R_height;
 	double			fov_ang;
+	double			aspect_ratio;
 	t_img			img;
 	t_map			map;
 	t_player		player;

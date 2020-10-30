@@ -82,6 +82,7 @@ int					init_struct_win(t_win *w)
 	// 2. 해상도 설정
 	w->R_width = WIN_WIDTH;
 	w->R_height = WIN_HEIGHT;
+	w->aspect_ratio = w->R_height / w->R_width;
 	w->fov_ang = M_PI / 3; // 60도
 	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
 

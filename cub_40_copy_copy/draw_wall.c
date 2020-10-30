@@ -80,7 +80,7 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
 		x = get_render_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
 	if (k == 1)
 		x = get_render_sprite_spot(i, r, w); // 100의 크기로 환산, 여기서 x 에 넣어줄 값을 정한다.
-	scale_w = w->wall.length * (cos(w->player.ang) + sin(w->player.ang)) / 64.0; //<-- 벽의 두 면이 하나가 되면 적용될 수 있음
+	scale_w = w->wall.length / 64.0; //<-- 벽의 두 면이 하나가 되면 적용될 수 있음
 	// scale_w = w->wall.length / 64.0; // 여기가 문제이다. 미리 옆의 길이를 구하고 할 수 있으면 좋은데... 그게 안된다. 이건
 	px = floor(x / scale_w); // x 에서 받는 scale 은 100 -> 64이다.
 	py = floor(j / scale_h);
@@ -172,37 +172,54 @@ void		draw_floor(int i, t_ray *r, t_win *w)
 	}
 }
 
+// 이것을 가로로 넓혀야겠다.
 void			draw_a_sprite(int i, t_ray *r, t_win *w)
 {
 	double		dist_to_spr;
 	double		pjtd_height;
+	double		pjtd_width;
 	double		orgn_pjtd_height;
+	double		orgn_pjtd_width;
 	double		scale_h;
 	int			color;
 
 	dist_to_spr = hypot(r[i].spr_hit.x - w->player.x, r[i].spr_hit.y - w->player.y) * fabs(cos(r[i].ang - w->player.ang));
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_spr;
+	// printf("pjtd_height: %f\n", pjtd_height);
 	orgn_pjtd_height = pjtd_height;
+	// orgn_pjtd_width = pjtd_height * w->aspect_ratio; // 가로 세로 비율을 통해 
+	pjtd_width = 1000 * w->player.projected_plane / dist_to_spr;
+	orgn_pjtd_width = pjtd_width;
+	// printf("orgn_pjtd_width: %f\n", orgn_pjtd_width);
 	scale_h = orgn_pjtd_height / 64.0; // <--- segfault 날 수도.. 스케일은 해상도를 넘어가는 벽 높이를 해상도에 맞게 조정하기 전에 랜더링을 해야하기 때문에 이 상태에서 스케일 값을 저장.
+	
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
+	if (pjtd_width > w->R_width)
+		pjtd_width = w->R_width;
+	
 	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
 
 	// 중간인 500 은 위쪽 while 에서 처리
-	j = 0;
-	while (j < pjtd_height / 2) // 아래 쪽
+	int l;		l = 0;
+	// printf("%d\n", l);
+	while (l < pjtd_width)
 	{
-		color = get_color_tex(i, orgn_pjtd_height / 2 + j, scale_h, r, w, 1);
-		if (color != 0)
-			my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
-		j++;
-	}
-	k = (pjtd_height / 2) - 1;
-	while (k > 0) // 위 쪽
-	{
-		color = get_color_tex(i, orgn_pjtd_height / 2 - k, scale_h, r, w, 1);
-		if (color != 0)
-			my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
-		k--;
+		j = 0;
+		while (j < pjtd_height / 2 && i + l > 0) // 아래 쪽
+		{
+			my_mlx_pixel_put(&w->img, i + l - 1, w->player.height + j, 0x47E9EE);
+			j++;
+		}
+		k = (pjtd_height / 2) - 1;
+		while (k > 0 && i + l > 0) // 위 쪽
+		{
+			my_mlx_pixel_put(&w->img, i + l - 1, w->player.height - k, 0x47E9EE);
+			k--;
+		}
+		if (i + l > w->R_width)
+			break ;
+		printf("i + l: %d\n", i + l);
+		l++;
 	}
 }

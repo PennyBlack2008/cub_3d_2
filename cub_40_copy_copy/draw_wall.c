@@ -173,7 +173,7 @@ void			draw_a_sprite(int i, t_ray *r, t_win *w)
 		j = 0;
 		while (j < pjtd_height / 2 && i + l > 0) // 아래 쪽
 		{
-			color = get_color_spr(pjtd_width / 2 + l, j, scale_w, scale_h, w, 1);
+			color = get_color_spr(pjtd_width / 2 + l, orgn_pjtd_height / 2 + j, scale_w, scale_h, w, 1);
 			// my_mlx_pixel_put(&w->img, i + l, w->player.height + j, 0x47E9EE);
 			if (color != 0)
 				my_mlx_pixel_put(&w->img, i + l, w->player.height + j, color);
@@ -182,7 +182,7 @@ void			draw_a_sprite(int i, t_ray *r, t_win *w)
 		k = (pjtd_height / 2) - 1;
 		while (k > 0 && i + l > 0) // 위 쪽
 		{
-			color = get_color_spr(pjtd_width / 2 + l, j, scale_w, scale_h, w, 1);
+			color = get_color_spr(pjtd_width / 2 + l, orgn_pjtd_height / 2 - k, scale_w, scale_h, w, 1);
 			// my_mlx_pixel_put(&w->img, i + l, w->player.height - k, 0x47E9EE);
 			if (color != 0)
 				my_mlx_pixel_put(&w->img, i + l, w->player.height - k, color);

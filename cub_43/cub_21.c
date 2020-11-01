@@ -7,7 +7,6 @@
 int     render_next_frame(t_win *w)
 {
 	draw_background(w);
-	// draw_grid(w);
 	draw_map(w);
 	draw_player(w);
 	cast_rays(w);
@@ -19,62 +18,29 @@ int     render_next_frame(t_win *w)
 */
 int				key_press(int keycode, t_win *w)
 {
-	int			pixel_x, pixel_y;
-	double		a, b, c, h;
-	double		angle;
-
 	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_image(w->mlx, w->img.ptr);
 		mlx_destroy_window(w->mlx, w->win);
 		exit(1);
 	}
-	if (keycode == KEY_W) // 위로
-	{
-		// w->player.y -= 10;
-		if (move_forward(w) == WALL)
-			printf("벽을 뚫고 지나가지 못합니다.\n");
-	}
+	if (keycode == KEY_W)
+		move_forward(w);
 	if (keycode == KEY_A) // 왼쪽으로
-	{
-		// w->player.x -= 10;
-		if (move_left(w) == WALL)
-			printf("벽을 뚫고 지나가지 못합니다.\n");
-	}
+		move_left(w);
 	if (keycode == KEY_S) // 밑으로
-	{
-		// w->player.y += 10;
-		if (move_back(w) == WALL)
-			printf("벽을 뚫고 지나가지 못합니다.\n");
-	}
+		move_back(w);
 	if (keycode == KEY_D) // 오른쪽으로
-	{
-		// w->player.x += 10;
-		if (move_right(w) == WALL)
-			printf("벽을 뚫고 지나가지 못합니다.\n");
-	}
+		move_right(w);
 	if (keycode == KEY_LEFT) // 각도 왼쪽으로
-	{
-		if (rotate_left(w) == WALL)
-			printf("벽을 뚫고 회전하지 못합니다.\n");
-	}
+		rotate_left(w);
 	if (keycode == KEY_RIGHT) // 각도 오른쪽으로
-	{
-		if (rotate_right(w) == WALL)
-			printf("벽을 뚫고 회전하지 못합니다.\n");
-	}
-	if (keycode == KEY_H)
-	{
-	}
-	if (keycode == KEY_G)
-	{
-		mlx_clear_window(w->mlx, w->win);
-	}
+		rotate_right(w);
 
 	return (0);
 }
 
-int					init_struct_win(t_win *w)
+void				init_window(t_win *w)
 {
 	// 1. mlx 관련 함수 시작
 	w->mlx = mlx_init();
@@ -83,7 +49,7 @@ int					init_struct_win(t_win *w)
 	w->R_width = WIN_WIDTH;
 	w->R_height = WIN_HEIGHT;
 	w->aspect_ratio = w->R_height / w->R_width;
-	w->fov_ang = M_PI / 3; // 60도
+	w->fov_ang = M_PI / 3;
 	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
 
 	// 3. 윈도우 창의 크기 설정
@@ -100,9 +66,10 @@ int					init_struct_win(t_win *w)
 	w->wall.length = 100;
 	w->wall.height = 600;
 
-	// 6. map 시작하기
-	map_init(w);
+}
 
+void				init_player(t_win *w)
+{
 	// 7. player
 	w->player.width = w->wall.length / 3;
 	w->player.height = 500;
@@ -110,47 +77,53 @@ int					init_struct_win(t_win *w)
 	// -> player 위치
 	w->player.x = 1.5 * w->wall.length;
 	w->player.y = 2 * w->wall.length;
+}
+
+void				init_texture(t_win *w)
+{
+	// 9. texture
+	int				i;
+	int				j;
+	int				k;
+
+	w->tex[0].ptr = mlx_xpm_file_to_image(w->mlx, "./texture/wall_1.xpm", &w->tex[k].width, &w->tex[k].height);
+	w->tex[1].ptr = mlx_xpm_file_to_image(w->mlx, "./texture/wall_2.xpm", &w->tex[k].width, &w->tex[k].height);
+	w->tex[2].ptr = mlx_xpm_file_to_image(w->mlx, "./texture/wall_3.xpm", &w->tex[k].width, &w->tex[k].height);
+	w->tex[3].ptr = mlx_xpm_file_to_image(w->mlx, "./texture/wall_4.xpm", &w->tex[k].width, &w->tex[k].height);
+	w->tex[4].ptr = mlx_xpm_file_to_image(w->mlx, "./texture/pillar.xpm", &w->tex[k].width, &w->tex[k].height);
+	k = 0;
+	while (k < 5)
+	{	
+		w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
+		w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
+		i = 0;
+		while (i < w->tex[k].height)
+		{
+			j = 0;
+			while (j < w->tex[k].width)
+			{
+				w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
+				j++;
+			}
+			i++;
+		}
+		mlx_destroy_image(w->mlx, w->tex[k].ptr);
+	}
+}
+
+int					init_struct_win(t_win *w)
+{
+	init_window(w);
+
+	// 6. map 시작하기
+	map_init(w);
 
 	// 8. minimap
 	w->mini.plot.x = w->R_width - 300;
 	w->mini.plot.y = w->R_height - 300;
 
-	// 9. texture
-	int i, j, k;
-	k = 0;
-	w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, "eagle.xpm", &w->tex[k].width, &w->tex[k].height);
-	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
-	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
-	i = 0;
-	while (i < w->tex[k].height)
-	{
-		j = 0;
-		while (j < w->tex[k].width)
-		{
-			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
-			j++;
-		}
-		i++;
-	}
-	mlx_destroy_image(w->mlx, w->tex[k].ptr);
-
-	// 10. sprite
-	k = 1;
-	w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, "pillar.xpm", &w->tex[k].width, &w->tex[k].height);
-	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
-	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
-	i = 0;
-	while (i < w->tex[k].height)
-	{
-		j = 0;
-		while (j < w->tex[k].width)
-		{
-			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
-			j++;
-		}
-		i++;
-	}
-	mlx_destroy_image(w->mlx, w->tex[k].ptr);
+	// texture 및 sprite
+	init_texture(w);
 
 	return (0);
 }
@@ -159,7 +132,6 @@ int main(void)
 {
 	t_win	w;					init_struct_win(&w);
 
-	// mlx_key_hook(w.win, key_press, &w); // 여기는 키를 누르는 것만 받고
 	mlx_hook(w.win, 2, 0,key_press, &w);
 	mlx_loop_hook(w.mlx, render_next_frame, &w);
 	mlx_loop(w.mlx);

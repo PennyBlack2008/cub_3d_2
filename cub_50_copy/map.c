@@ -8,11 +8,11 @@ void				map_init(t_win *w)
 	// 여기서 1 은 흰 색, 0 은 검정색이다.
 	w->map.map = (char **)malloc(sizeof(char *) * ROWS);
 	i = 0;
-	while (i < ROWS)
-	{
-		w->map.map[i] = (char *)malloc(sizeof(char) * COLS);
-		i++;
-	}
+	// while (i < ROWS)
+	// {
+	// 	w->map.map[i] = (char *)malloc(sizeof(char) * COLS);
+	// 	i++;
+	// }
 	// w->map.map[0] = "11111";
 	// w->map.map[1] = "10001";
 	// w->map.map[2] = "10001";
@@ -30,97 +30,97 @@ void				map_init(t_win *w)
 	// w->map.map[8] = "1000000001";
 	// w->map.map[9] = "1100000111";
 	// w->map.map[10] = "1111111111";
-
-	w->map.map[0] = "11111111111";
-	w->map.map[1] = "10000000011";
-	w->map.map[2] = "10000000011";
-	w->map.map[3] = "10000000011";
-	w->map.map[4] = "10000000011";
-	w->map.map[5] = "10000000011";
-	w->map.map[6] = "10002000011";
-	w->map.map[7] = "10000000001";
-	w->map.map[8] = "10000000001";
-	w->map.map[9] = "11000001011";
-	w->map.map[10] = "11111111111";
+	w->map.map[0] = ft_strdup("11111111111");
+	// w->map.map[0] = "11111111111";
+	w->map.map[1] = ft_strdup("10000000011");
+	w->map.map[2] = ft_strdup("10000000011");
+	w->map.map[3] = ft_strdup("10000000011");
+	w->map.map[4] = ft_strdup("10000000011");
+	w->map.map[5] = ft_strdup("10000000011");
+	w->map.map[6] = ft_strdup("10002000011");
+	w->map.map[7] = ft_strdup("10000000001");
+	w->map.map[8] = ft_strdup("10000000001");
+	w->map.map[9] = ft_strdup("11000001011");
+	w->map.map[10] = ft_strdup("11111111111");
 }
 
-void				draw_rectangle(t_win *w, int x, int y, int color)
-{
-	int i, j;
+// void				draw_rectangle(t_win *w, int x, int y, int color)
+// {
+// 	int i, j;
 
-	x *= w->wall.length;
-	y *= w->wall.length;
-	i = 0;
-	while (i < w->wall.length)
-	{
-		j = 0;
-		while (j < w->wall.length)
-		{
-			my_mlx_pixel_put(&w->img, (y + i) / 4 + w->mini.plot.x, (x + j) / 4 + w->mini.plot.y, color);
-			j++;
-		}
-		i++;
-	}
-}
+// 	x *= w->wall.length;
+// 	y *= w->wall.length;
+// 	i = 0;
+// 	while (i < w->wall.length)
+// 	{
+// 		j = 0;
+// 		while (j < w->wall.length)
+// 		{
+// 			my_mlx_pixel_put(&w->img, (y + i) / 4 + w->mini.plot.x, (x + j) / 4 + w->mini.plot.y, color);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
-void				draw_map(t_win *w)
-{
-	int i, j;
+// void				draw_map(t_win *w)
+// {
+// 	int i, j;
 
-	i = 0;
-	// 가로쪽으로 증가하면서 찍으려면 j < COLS 의 while 문이 먼저 나와야 한다.
-	while (i < ROWS)
-	{
-		j = 0;
-		while (j < COLS)
-		{
-			if (w->map.map[i][j] == '1')
-				draw_rectangle(w, i, j, 0xFFFFFF);
-			else
-				draw_rectangle(w, i, j, 0x000000);
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	// 가로쪽으로 증가하면서 찍으려면 j < COLS 의 while 문이 먼저 나와야 한다.
+// 	while (i < ROWS)
+// 	{
+// 		j = 0;
+// 		while (j < COLS)
+// 		{
+// 			if (w->map.map[i][j] == '1')
+// 				draw_rectangle(w, i, j, 0xFFFFFF);
+// 			else
+// 				draw_rectangle(w, i, j, 0x000000);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 
-void	draw_spr_rectangle(t_win *w, int x, int y, int color)
-{
-	int i, j;
+// void	draw_spr_rectangle(t_win *w, int x, int y, int color)
+// {
+// 	int i, j;
 
-	x *= w->wall.length;
-	y *= w->wall.length;
-	i = 0;
-	while (i < w->wall.length / 3)
-	{
-		j = 0;
-		while (j < w->wall.length / 3)
-		{
-			my_mlx_pixel_put(&w->img, (y + i + w->wall.length / 3) / 4 + w->mini.plot.x, (x + j + w->wall.length / 3) / 4 + w->mini.plot.y, color);
-			j++;
-		}
-		i++;
-	}
-}
+// 	x *= w->wall.length;
+// 	y *= w->wall.length;
+// 	i = 0;
+// 	while (i < w->wall.length / 3)
+// 	{
+// 		j = 0;
+// 		while (j < w->wall.length / 3)
+// 		{
+// 			my_mlx_pixel_put(&w->img, (y + i + w->wall.length / 3) / 4 + w->mini.plot.x, (x + j + w->wall.length / 3) / 4 + w->mini.plot.y, color);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
-void	draw_sprite_in_minimap(t_win *w)
-{
-	int i, j;
+// void	draw_sprite_in_minimap(t_win *w)
+// {
+// 	int i, j;
 
-	i = 0;
-	while (i < ROWS)
-	{
-		j = 0;
-		while (j < COLS)
-		{
-			if (w->map.map[i][j] == '2')
-				draw_spr_rectangle(w, i, j, 0x58D68D);
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < ROWS)
+// 	{
+// 		j = 0;
+// 		while (j < COLS)
+// 		{
+// 			if (w->map.map[i][j] == '2')
+// 				draw_spr_rectangle(w, i, j, 0x58D68D);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 /*
 ** int						is_wall(int x, int y, t_win *w)

@@ -37,7 +37,7 @@ OBJS			=	cub_3d.o\
 
 CC				=	gcc
 
-CFLAG			=	-g
+CFLAG			=	-Wall -Werror -Wextra -g
 
 RM				=	rm -f
 

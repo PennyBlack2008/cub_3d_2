@@ -40,9 +40,11 @@ static void			draw_part_down(int i, double o_pjtd_height, double pjtd_height, do
 	j = 0;
 	while (j < pjtd_height / 2)
 	{
-		color = get_color_tex(i, o_pjtd_height / 2 + j, scale_h, r, w, r[i].wall_NSEW);
+		if (r[i].wall_NSEW != 5)
+			color = get_color_tex(i, o_pjtd_height / 2 + j, scale_h, r, w, r[i].wall_NSEW);
+		else
+			color = 0;
 		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
-	
 		j++;
 	}
 }
@@ -52,10 +54,13 @@ static void			draw_part_up(int i, double o_pjtd_height, double pjtd_height, doub
 	int			k;
 	int			color;
 	
-	k = (pjtd_height / 2) - 1;
+	k = pjtd_height / 2;
 	while (k > 0) // 위 쪽
 	{
-		color = get_color_tex(i, o_pjtd_height / 2 - k, scale_h, r, w, r[i].wall_NSEW);
+		if (r[i].wall_NSEW != 5)
+			color = get_color_tex(i, o_pjtd_height / 2 - k, scale_h, r, w, r[i].wall_NSEW);
+		else
+			color = 0;
 		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
 		k--;
 	}
@@ -89,7 +94,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	scale_h = o_pjtd_height / w->tex[r[i].wall_NSEW].height;
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
-	r[i].ceiling = (w->R_height - o_pjtd_height) / 2;
+	r[i].ceiling = (w->R_height - o_pjtd_height) / 2.0;
 	draw_part_down(i, o_pjtd_height, pjtd_height, scale_h, r, w);
 	draw_part_up(i ,o_pjtd_height, pjtd_height, scale_h, r, w);
 	r[i].floor = o_pjtd_height + r[i].ceiling;

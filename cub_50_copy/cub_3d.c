@@ -7,8 +7,6 @@
 int     render_next_frame(t_win *w)
 {
 	draw_background(w);
-	draw_map(w);
-	draw_player(w);
 	cast_rays(w);
 	return (0);
 }
@@ -51,8 +49,8 @@ void				init_window(t_win *w)
 	w->mlx = mlx_init();
 
 	// 2. 해상도 설정
-	w->R_width = WIN_WIDTH;
-	w->R_height = WIN_HEIGHT;
+	w->R_width = 800;
+	w->R_height = 1080;
 	w->aspect_ratio = w->R_height / w->R_width;
 	w->fov_ang = M_PI / 3; // 60도
 	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
@@ -77,7 +75,7 @@ void				init_player(t_win *w)
 {
 	// 7. player
 	w->player.width = w->wall.length / 3;
-	w->player.height = 500;
+	w->player.height = w->R_height / 2;
 	w->player.ang = 0 * M_PI / 180;
 	// -> player 위치
 	w->player.x = 1.5 * w->wall.length;
@@ -101,10 +99,10 @@ int					init_struct_win(t_win *w)
 	int i, j, k;
 	char *list[5];
 
-	list[0] = "./texture/wall_1.xpm";
-	list[1] = "./texture/wall_2.xpm";
-	list[2] = "./texture/wall_3.xpm";
-	list[3] = "./texture/wall_4.xpm";
+	list[0] = "./texture/wall_1.xpm"; // NORTH
+	list[1] = "./texture/wall_2.xpm"; // SOUTH
+	list[2] = "./texture/wall_3.xpm"; // EAST
+	list[3] = "./texture/wall_4.xpm"; // WEST
 	list[4] = "./texture/pillar.xpm";
 
 	k = 0;

@@ -65,8 +65,8 @@ typedef struct		s_plot_int
 
 typedef struct		s_wall
 {
-	int				length;
-	int				height;
+	double			length;
+	double			height;
 }					t_wall;
 
 typedef struct		s_minimap
@@ -135,8 +135,8 @@ typedef struct		s_ray
 	t_plot			spr_map;
 	double			ang; // 플레이어 기준에서 ray 의 고유한 각도
 	int				wall_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
-	int				ceiling;
-	int				floor;
+	double			ceiling;
+	double			floor;
 }					t_ray;
 
 

@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 
 double				get_render_spot(int i, t_ray *r, t_win *w)
 {

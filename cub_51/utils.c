@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 
 /*
 ** 함수 my_mlx_pixel_put: 이 함수를 통해서 기존의 일차원 배열에 위치를 계산해서 color를 넣는 불편함을 덜어

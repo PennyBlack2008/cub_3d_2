@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 
 void		draw_ceiling(int i, t_ray *r, t_win *w)
 {

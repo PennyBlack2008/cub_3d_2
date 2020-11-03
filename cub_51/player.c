@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 
 int					draw_player(t_win *w)
 {

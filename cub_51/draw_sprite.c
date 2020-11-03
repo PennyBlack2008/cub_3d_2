@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 
 int					get_color_spr(double x, double y, double scale_w, double scale_h, t_win *w, int k)
 {

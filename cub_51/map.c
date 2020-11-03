@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 #define ROWS 11
 #define COLS 11
 

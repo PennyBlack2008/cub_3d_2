@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bresenhem.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jikang <jikang@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/02 18:42:58 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/02 18:46:19 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/03 21:30:06 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub_3d.h"
+#include "cub3d.h"
 
 /*
 **	bresenhem algorithm

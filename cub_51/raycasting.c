@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 
 
 int					find_cardinal_dir_wall(t_ray *r, t_win *w)

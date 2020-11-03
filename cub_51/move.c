@@ -1,4 +1,4 @@
-#include "cub_3d.h"
+#include "cub3d.h"
 
 // 화살표 오른쪽 방향키 누르면 시계 방향으로 회전
 int					rotate_right(t_win *w)

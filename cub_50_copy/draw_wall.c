@@ -32,7 +32,7 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
 	return (color);
 }
 
-void			draw_part_down(int i, double o_pjtd_height, double pjtd_height, double scale_h, t_ray *r, t_win *w)
+static void			draw_part_down(int i, double o_pjtd_height, double pjtd_height, double scale_h, t_ray *r, t_win *w)
 {
 	int			j;
 	int			color;
@@ -47,7 +47,7 @@ void			draw_part_down(int i, double o_pjtd_height, double pjtd_height, double sc
 	}
 }
 
-void			draw_part_up(int i, double o_pjtd_height, double pjtd_height, double scale_h, t_ray *r, t_win *w)
+static void			draw_part_up(int i, double o_pjtd_height, double pjtd_height, double scale_h, t_ray *r, t_win *w)
 {
 	int			k;
 	int			color;

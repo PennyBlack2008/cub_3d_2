@@ -13,6 +13,11 @@ int     render_next_frame(t_win *w)
 	return (0);
 }
 
+int				shut_down(t_win *w)
+{
+	exit(0);
+}
+
 /*
 ** 함수 key_press : 이 함수를 통해 플레이어가 움직이는 것을 알려준다.
 */
@@ -23,7 +28,7 @@ int				key_press(int keycode, t_win *w)
 	{
 		mlx_destroy_image(w->mlx, w->img.ptr);
 		mlx_destroy_window(w->mlx, w->win);
-		exit(1);
+		exit(0);
 	}
 	if (keycode == KEY_W) // 위로
 		move_forward(w);
@@ -130,7 +135,8 @@ int main(void)
 	t_win	w;					init_struct_win(&w);
 
 	// mlx_key_hook(w.win, key_press, &w); // 여기는 키를 누르는 것만 받고
-	mlx_hook(w.win, 2, 0,key_press, &w);
+	mlx_hook(w.win, 2, 0, key_press, &w);
+	mlx_hook(w.win, 17, 0, shut_down, &w);
 	mlx_loop_hook(w.mlx, render_next_frame, &w);
 	mlx_loop(w.mlx);
 

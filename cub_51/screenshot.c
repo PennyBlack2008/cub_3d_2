@@ -1,7 +1,6 @@
 #include "cub3d.h"
 
-static void
-	set_int_in_char(unsigned char *start, int value)
+static void				set_int_in_char(unsigned char *start, int value)
 {
 	start[0] = (unsigned char)(value);
 	start[1] = (unsigned char)(value >> 8);
@@ -9,12 +8,11 @@ static void
 	start[3] = (unsigned char)(value >> 24);
 }
 
-static int
-	write_bmp_header(int fd, int filesize, t_win *win)
+static int				write_bmp_header(int fd, int filesize, t_win *win)
 {
-	int				i;
-	int				tmp;
-	unsigned char	bmpfileheader[54];
+	int					i;
+	int					tmp;
+	unsigned char		bmpfileheader[54];
 
 	i = 0;
 	while (i < 54)
@@ -33,11 +31,10 @@ static int
 	return (!(write(fd, bmpfileheader, 54) < 0));
 }
 
-static int
-	get_color(t_win *w, int x, int y)
+static int				get_color(t_win *w, int x, int y)
 {
-	int	rgb;
-	int	color;
+	int					rgb;
+	int					color;
 
 	color = *(int*)(w->img.ptr
 			+ (4 * (int)w->R_width * ((int)w->R_height - 1 - y))
@@ -46,8 +43,7 @@ static int
 	return (rgb);
 }
 
-static int
-	write_bmp_data(int file, t_win *w, int pad)
+static int				write_bmp_data(int file, t_win *w, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
 	int					i;

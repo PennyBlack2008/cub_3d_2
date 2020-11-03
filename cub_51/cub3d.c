@@ -128,10 +128,19 @@ int					init_struct_win(t_win *w)
 	return (0);
 }
 
-int main(void)
+int					main(int argc, char **argv)
 {
-	t_win	w;					init_struct_win(&w);
-
+	t_win	w;
+	int		save_opt;
+	
+	save_opt = (argc >= 2 && !ft_strcmp(argv[1], "-save"));
+	if (argc < (2 + save_opt))
+		return (exit_error(&w, "Error:\nno map specified.\n"));
+	init_struct_win(&w);
+	if (save_opt == 1)
+	{
+		
+	}
 	// mlx_key_hook(w.win, key_press, &w); // 여기는 키를 누르는 것만 받고
 	mlx_hook(w.win, 2, 0, key_press, &w);
 	mlx_hook(w.win, 17, 0, shut_down, &w);

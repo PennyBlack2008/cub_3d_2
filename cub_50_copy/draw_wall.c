@@ -32,6 +32,35 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
 	return (color);
 }
 
+void			draw_part_down(int i, double o_pjtd_height, double pjtd_height, double scale_h, t_ray *r, t_win *w)
+{
+	int			j;
+	int			color;
+
+	j = 0;
+	while (j < pjtd_height / 2)
+	{
+		color = get_color_tex(i, o_pjtd_height / 2 + j, scale_h, r, w, r[i].wall_NSEW);
+		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
+	
+		j++;
+	}
+}
+
+void			draw_part_up(int i, double o_pjtd_height, double pjtd_height, double scale_h, t_ray *r, t_win *w)
+{
+	int			k;
+	int			color;
+	
+	k = (pjtd_height / 2) - 1;
+	while (k > 0) // 위 쪽
+	{
+		color = get_color_tex(i, o_pjtd_height / 2 - k, scale_h, r, w, r[i].wall_NSEW);
+		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
+		k--;
+	}
+}
+
 /*
 ** draw_wall
 ** https://permadi.com/1996/05/ray-casting-tutorial-9/
@@ -50,38 +79,18 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 {
 	double		dist_to_wall;
 	double		pjtd_height;
-	double		orgn_pjtd_height;
+	double		o_pjtd_height;
 	double		scale_h;
 	int			color;
 
 	dist_to_wall = hypot(r[i].hit.x - w->player.x, r[i].hit.y - w->player.y) * fabs(cos(r[i].ang - w->player.ang));
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_wall;
-	orgn_pjtd_height = pjtd_height;
-	// scale_h = orgn_pjtd_height / 64.0;
-	scale_h = orgn_pjtd_height / w->tex[r[i].wall_NSEW].height;
+	o_pjtd_height = pjtd_height;
+	scale_h = o_pjtd_height / w->tex[r[i].wall_NSEW].height;
 	if (pjtd_height > w->R_height)
 		pjtd_height = w->R_height;
-	int j;		j = 0;		int k;		k = (pjtd_height / 2) - 1;
-
-	r[i].ceiling = (w->R_height - orgn_pjtd_height) / 2;
-	// 중간인 500 은 위쪽 while 에서 처리
-	j = 0;
-	while (j < pjtd_height / 2) // 아래 쪽
-	{
-		color = get_color_tex(i, orgn_pjtd_height / 2 + j, scale_h, r, w, r[i].wall_NSEW);
-		// color = get_color_tex(i, orgn_pjtd_height / 2 + j, scale_h, r, w, 2);
-		my_mlx_pixel_put(&w->img, i, w->player.height + j, color);
-		// printf("w->player.height + j : %d\n", w->player.height + j);
-		j++;
-	}
-	k = (pjtd_height / 2) - 1;
-	while (k > 0) // 위 쪽
-	{
-		color = get_color_tex(i, orgn_pjtd_height / 2 - k, scale_h, r, w, r[i].wall_NSEW);
-		// color = get_color_tex(i, orgn_pjtd_height / 2 - k, scale_h, r, w, 2);
-		my_mlx_pixel_put(&w->img, i, w->player.height - k, color);
-		// printf("w->player.height - k : %d\n", w->player.height - k);
-		k--;
-	}
-	r[i].floor = orgn_pjtd_height + r[i].ceiling;
+	r[i].ceiling = (w->R_height - o_pjtd_height) / 2;
+	draw_part_down(i, o_pjtd_height, pjtd_height, scale_h, r, w);
+	draw_part_up(i ,o_pjtd_height, pjtd_height, scale_h, r, w);
+	r[i].floor = o_pjtd_height + r[i].ceiling;
 }

@@ -132,15 +132,14 @@ int					main(int argc, char **argv)
 {
 	t_win	w;
 	int		save_opt;
-	
-	save_opt = (argc >= 2 && !ft_strcmp(argv[1], "-save"));
-	if (argc < (2 + save_opt))
+
+	// 나중에 여기 argc 2로 만들고 argv 1로 만들기
+	save_opt = (argc >= 1 && !ft_memcmp(argv[0], "-save", 6));
+	if (argc < (1 + save_opt))
 		return (exit_error(&w, "Error:\nno map specified.\n"));
 	init_struct_win(&w);
-	if (save_opt == 1)
-	{
-		
-	}
+	if (save_opt)
+		return (screenshot(&w));
 	// mlx_key_hook(w.win, key_press, &w); // 여기는 키를 누르는 것만 받고
 	mlx_hook(w.win, 2, 0, key_press, &w);
 	mlx_hook(w.win, 17, 0, shut_down, &w);

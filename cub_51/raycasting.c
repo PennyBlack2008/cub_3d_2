@@ -6,8 +6,8 @@ int					find_cardinal_dir_wall(t_ray *r, t_win *w)
 	double ray_ang;
 	int		a, c;
 	int		b, d;
-	a = (fabs(r->hit.x - r->wall.x) < 1.5);
-	c = (fabs(r->hit.y - r->wall.y) < 1.5);
+	a = (fabs(r->hit.x - r->wall.x) < 1.5); // EAST
+	c = (fabs(r->hit.y - r->wall.y) < 1.5); // SOUTH
 	b = (fabs(r->hit.x - r->wall.x - w->wall.length) < 1.5);
 	d = (fabs(r->hit.y - r->wall.y - w->wall.length) < 1.5);
 	ray_ang = normalize_angle(r->ang);

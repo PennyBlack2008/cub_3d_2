@@ -14,6 +14,7 @@ SRCS			=	cub3d.c\
 					raycasting.c\
 					utils.c\
 					player.c\
+					screenshot.c\
 					./../get_next_line/get_next_line.c\
 					./../get_next_line/get_next_line_utils.c\
 
@@ -31,6 +32,7 @@ OBJS			=	cub3d.o\
 					raycasting.o\
 					utils.o\
 					player.o\
+					screenshot.o\
 					get_next_line.o\
 					get_next_line_utils.o\
 

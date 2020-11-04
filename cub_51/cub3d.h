@@ -209,4 +209,8 @@ int					draw_background(t_win *w);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void				save_plot(t_plot *dst_plot, t_plot *src_plot);
 
+// screenshot.c
+int					screenshot(t_win *w);
+int					exit_game(t_win *w, int a);
+int					exit_error(t_win *w, int a, char const *str);
 #endif

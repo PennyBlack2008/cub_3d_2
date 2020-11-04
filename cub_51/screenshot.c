@@ -1,89 +1,85 @@
 #include "cub3d.h"
 
-static void				set_int_in_char(unsigned char *start, int value)
+static void	int_to_char(int n, unsigned char *src)
 {
-	start[0] = (unsigned char)(value);
-	start[1] = (unsigned char)(value >> 8);
-	start[2] = (unsigned char)(value >> 16);
-	start[3] = (unsigned char)(value >> 24);
+	src[0] = (unsigned char)n;
+	src[1] = (unsigned char)(n >> 8);
+	src[2] = (unsigned char)(n >> 16);
+	src[3] = (unsigned char)(n >> 24);
 }
 
-static int				write_bmp_header(int fd, int filesize, t_win *win)
+static int	write_bmp_header(int fd, int file_size, t_win *w)
 {
-	int					i;
-	int					tmp;
-	unsigned char		bmpfileheader[54];
+	int				ret;
+	unsigned char	bmp_header[54];
 
-	i = 0;
-	while (i < 54)
-		bmpfileheader[i++] = (unsigned char)(0);
-	bmpfileheader[0] = (unsigned char)('B');
-	bmpfileheader[1] = (unsigned char)('M');
-	set_int_in_char(bmpfileheader + 2, filesize);
-	bmpfileheader[10] = (unsigned char)(54);
-	bmpfileheader[14] = (unsigned char)(40);
-	tmp = win->R_width;
-	set_int_in_char(bmpfileheader + 18, tmp);
-	tmp = win->R_height;
-	set_int_in_char(bmpfileheader + 22, tmp);
-	bmpfileheader[27] = (unsigned char)(1);
-	bmpfileheader[28] = (unsigned char)(24);
-	return (!(write(fd, bmpfileheader, 54) < 0));
+	ft_bzero(bmp_header, 54);
+	ft_memcpy(bmp_header, "BM", sizeof(char) * 2);
+	int_to_char(file_size, bmp_header + 2);
+	bmp_header[10] = (unsigned char)54;
+	bmp_header[14] = (unsigned char)40;
+	int_to_char(w->R_width, bmp_header + 18);
+	int_to_char(w->R_height, bmp_header + 22);
+	bmp_header[26] = (unsigned char)1;
+	bmp_header[28] = (unsigned char)24;
+	ret = write(fd, bmp_header, 54);
+	return (ret);
 }
 
-static int				get_color(t_win *w, int x, int y)
+static int	get_color(t_win *w, int x, int y)
 {
-	int					rgb;
-	int					color;
+	int			color;
+	int			rgb;
 
-	color = *(int*)(w->img.ptr
-			+ (4 * (int)w->R_width * ((int)w->R_height - 1 - y))
-			+ (4 * x));
+	color = w->img.addr[w->R_width * y + x];
+	// color = w->img.addr + (y * w->img.line_length + x * (w->img.bits_per_pixel / 8));
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
 }
 
-static int				write_bmp_data(int file, t_win *w, int pad)
+static int	write_bmp_data(int fd, int pad, t_win *w)
 {
-	const unsigned char	zero[3] = {0, 0, 0};
-	int					i;
-	int					j;
-	int					color;
+	int				i;
+	int				j;
+	int				color;
+	unsigned char	zero[3];
 
-	i = 0;
-	while (i < (int)w->R_height)
+	i = -1;
+	while (++i < 3)
+		zero[i] = 0;
+	i = w->R_height + 1;
+	while (--i > 0)
 	{
-		j = 0;
-		while (j < (int)w->R_width)
+		j = -1;
+		while (++j < w->R_width)
 		{
 			color = get_color(w, j, i);
-			if (write(file, &color, 3) < 0)
+			if (write(fd, &color, 3) < 0)
 				return (0);
-			if (pad > 0 && write(file, &zero, pad) < 0)
+			if (pad > 0 && write(fd, &zero, pad) < 0)
 				return (0);
-			j++;
 		}
-		i++;
 	}
 	return (1);
 }
 
-int						save_bmp(t_win *win)
+int			screenshot(t_win *w)
 {
-	t_win				*w;
-	int					filesize;
-	int					file;
-	int					pad;
+	int		fd;
+	int		file_size;
+	int		pixel_bytes_per_row;
+	int		pad;
 
-	pad = (4 - ((int)w->R_width * 3) % 4) % 4;
-	filesize = 54 + (3 * ((int)w->R_width + pad) * (int)w->R_height);
-	if ((file = open("screenshot.bmp", O_WRONLY | O_CREAT
-									| O_TRUNC | O_APPEND)) < 0)
-		return (0);
-	if (!write_bmp_header(file, filesize, win))
-		return (0);
-	if (!write_bmp_data(file, w, pad))
-		return (0);
-	close(file);
+	cast_rays(w);
+	// mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
+	pixel_bytes_per_row = w->R_width * 3;
+	pad = (4 - pixel_bytes_per_row % 4) % 4;
+	file_size = 14 + 40 + 3 * (w->R_width + pad) * w->R_height;
+	if ((fd = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
+		return (exit_error(w, EXIT_FAILURE, "ERROR\nbmp open failure"));
+	if (!(write_bmp_header(fd, file_size, w)) ||
+			!(write_bmp_data(fd, pad, w)))
+		return (exit_error(w, EXIT_FAILURE, "ERROR\nbmp write failure"));
+	close(fd);
 	return (1);
 }

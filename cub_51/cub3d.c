@@ -1,5 +1,14 @@
 #include "cub3d.h"
 
+int		exit_error(t_win *w, int a, char const *str)
+{
+	printf("여기에 str 이 실행이 안되네;;;\n");
+	if (str)
+		write(1, str, ft_strlen(str));
+	exit_game(w, 0);
+	return (0);
+}
+
 /*
 ** 함수 render_next_frame : 이 함수에 들어 있는 함수 순서대로 윈도우 화면에 랜더링을 시작한다.
 */
@@ -128,17 +137,23 @@ int					init_struct_win(t_win *w)
 	return (0);
 }
 
+int				exit_game(t_win *w, int a)
+{
+	printf("exit_game is activated\n");
+	exit(0);
+}
+
 int					main(int argc, char **argv)
 {
-	t_win	w;
-	int		save_opt;
+	t_win			w;
+	int				save_opt;
 
 	// 나중에 여기 argc 2로 만들고 argv 1로 만들기
-	save_opt = (argc >= 1 && !ft_memcmp(argv[0], "-save", 6));
-	if (argc < (1 + save_opt))
-		return (exit_error(&w, "Error:\nno map specified.\n"));
+	save_opt = (argc == 2 && (ft_memcmp(argv[argc - 1], "--save", 6) == 0));
+	printf("%d\n", ft_memcmp(argv[argc - 1], "--save", 6));
+	printf("save_opt : %d\n", save_opt);
 	init_struct_win(&w);
-	if (save_opt)
+	if (save_opt == 1)
 		return (screenshot(&w));
 	// mlx_key_hook(w.win, key_press, &w); // 여기는 키를 누르는 것만 받고
 	mlx_hook(w.win, 2, 0, key_press, &w);

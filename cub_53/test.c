@@ -65,7 +65,7 @@ unsigned char* createBitmapFileHeader (int height, int stride)
         0,0,     /// signature
         0,0,0,0, /// image file size in bytes
         0,0,0,0, /// reserved
-        0,0,0,0, /// start of pixel array
+        0,0,0,0 /// start of pixel array
     };
 
     // bfType : BMP 파일 매직 넘버, 총 2바이트
@@ -73,7 +73,7 @@ unsigned char* createBitmapFileHeader (int height, int stride)
     fileHeader[ 1] = (unsigned char)('M');
 
     // bfSize : 파일 크기, 총 4바이트
-    fileHeader[ 2] = (unsigned char)(fileSize      );
+    fileHeader[ 2]= (unsigned char)(fileSize      );
     fileHeader[ 3] = (unsigned char)(fileSize >>  8);
     fileHeader[ 4] = (unsigned char)(fileSize >> 16);
     fileHeader[ 5] = (unsigned char)(fileSize >> 24);
@@ -97,20 +97,20 @@ unsigned char* createBitmapInfoHeader (int height, int width)
         0,0,0,0, /// horizontal resolution, biXpelsPerMeter : 그림의 가로 해상도(미터당 픽셀) (int, 4bytes)
         0,0,0,0, /// vertical resolution, biYpelsPerMeter : 그림의 세로 해상도(미터당 픽셀) (int, 4bytes)
         0,0,0,0, /// colors in color table, biClrUsed : 색상 테이블에서 실제 사용되는 색상 수 (unsigned int, 4bytes)
-        0,0,0,0, /// important color count, biClrImportant : 비트맵을 표현하기 위해 필요한 색상 인덱스 수 (unsigned int, 4bytes)
+        0,0,0,0 /// important color count, biClrImportant : 비트맵을 표현하기 위해 필요한 색상 인덱스 수 (unsigned int, 4bytes)
     };
 
     infoHeader[ 0] = (unsigned char)(INFO_HEADER_SIZE); // biSize
     infoHeader[ 4] = (unsigned char)(width      ); // biWidth
-    infoHeader[ 5] = (unsigned char)(width >>  8); // biHeight
-    infoHeader[ 6] = (unsigned char)(width >> 16); // biPlanes
-    infoHeader[ 7] = (unsigned char)(width >> 24); // biBitCount
-    infoHeader[ 8] = (unsigned char)(height      ); // biCompression
-    infoHeader[ 9] = (unsigned char)(height >>  8); // biSizeImage
-    infoHeader[10] = (unsigned char)(height >> 16); // biXpelsPerMeter
-    infoHeader[11] = (unsigned char)(height >> 24); // biYpelsPerMeter
-    infoHeader[12] = (unsigned char)(1); // biClrUsed
-    infoHeader[14] = (unsigned char)(BYTES_PER_PIXEL*8); // biClrImportant
+    infoHeader[ 5] = (unsigned char)(width >>  8); 
+    infoHeader[ 6] = (unsigned char)(width >> 16); 
+    infoHeader[ 7] = (unsigned char)(width >> 24); 
+    infoHeader[ 8] = (unsigned char)(height      ); // biHeight
+    infoHeader[ 9] = (unsigned char)(height >>  8);
+    infoHeader[10] = (unsigned char)(height >> 16);
+    infoHeader[11] = (unsigned char)(height >> 24);
+    infoHeader[12] = (unsigned char)(1);
+    infoHeader[14] = (unsigned char)(BYTES_PER_PIXEL*8);
 
     return infoHeader;
 }

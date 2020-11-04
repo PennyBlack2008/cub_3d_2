@@ -106,9 +106,9 @@ int					init_struct_win(t_win *w)
 
 	init_player(w);
 
-	// 8. minimap
-	w->mini.plot.x = w->R_width - 300;
-	w->mini.plot.y = w->R_height - 300;
+	// // 8. minimap
+	// w->mini.plot.x = w->R_width - 300;
+	// w->mini.plot.y = w->R_height - 300;
 
 	// 9. texture
 	int i, j, k;
@@ -157,7 +157,7 @@ int					main(int argc, char **argv)
 	// 나중에 여기 argc 2로 만들고 argv 1로 만들기
 	save_opt = (argc == 2 && (ft_memcmp(argv[argc - 1], "--save", 6) == 0));
 	// printf("%d\n", ft_memcmp(argv[argc - 1], "--save", 6));
-	// printf("save_opt : %d\n", save_opt);
+	printf("save_opt : %d\n", save_opt);
 	init_struct_win(&w);
 	if (save_opt == 1)
 		return(screenshot(&w));

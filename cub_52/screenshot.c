@@ -9,23 +9,27 @@ unsigned char* createBitmapFileHeader(int height, int stride);
 unsigned char* createBitmapInfoHeader(int height, int width);
 
 
-int screenshot(t_win *w)
+int			screenshot(t_win *w)
 {
-	int color;
-    int height = w->R_height;
+	int	color;
+    int	height = w->R_height;
     int width = w->R_width;
     unsigned char image[height][width][BYTES_PER_PIXEL];
-    char* imageFileName = (char*) "bitmapImage.bmp";
+    char* imageFileName = (char*) "screenshot.bmp";
     int i, j;
+
 	cast_rays(w);
     for (i = 0; i < height; i++) {
         for (j = 0; j < width; j++) {
             // color = my_mlx_pixel_get(&w->img, width - j - 1, height - i - 1);
 			color = my_mlx_pixel_get(&w->img, j, i);
-			printf("color: %0#x\n", color);
+			// printf("color: %0#x\n", color);
             image[i][j][2] = (unsigned char) ( color >> 16 );             ///red
             image[i][j][1] = (unsigned char) ( color >> 8 );              ///green
             image[i][j][0] = (unsigned char) ( color ); ///blue
+			// image[i][j][2] = (unsigned char) ( i * 255 / height );             ///red
+            // image[i][j][1] = (unsigned char) ( j * 255 / width );              ///green
+            // image[i][j][0] = (unsigned char) ( (i+j) * 255 / (height+width) ); ///blue
         }
     }
 
@@ -106,13 +110,13 @@ unsigned char* createBitmapInfoHeader (int height, int width)
 
     infoHeader[ 0] = (unsigned char)(INFO_HEADER_SIZE); // biSize
     infoHeader[ 4] = (unsigned char)(width      ); // biWidth
-    infoHeader[ 5] = (unsigned char)(width >>  8); 
-    infoHeader[ 6] = (unsigned char)(width >> 16); 
-    infoHeader[ 7] = (unsigned char)(width >> 24); 
-    infoHeader[ 8] = (unsigned char)(height * -1     ); // biHeight
-    infoHeader[ 9] = (unsigned char)(height * -1>>  8);
-    infoHeader[10] = (unsigned char)(height * -1>> 16);
-    infoHeader[11] = (unsigned char)(height * -1>> 24);
+    infoHeader[ 5] = (unsigned char)(width >>  8);
+    infoHeader[ 6] = (unsigned char)(width >> 16);
+    infoHeader[ 7] = (unsigned char)(width >> 24);
+    infoHeader[ 8] = (unsigned char)(height * -1      ); // biHeight
+    infoHeader[ 9] = (unsigned char)(height * -1 >>  8);
+    infoHeader[10] = (unsigned char)(height * -1 >> 16);
+    infoHeader[11] = (unsigned char)(height * -1 >> 24);
     infoHeader[12] = (unsigned char)(1);
     infoHeader[14] = (unsigned char)(BYTES_PER_PIXEL*8);
 

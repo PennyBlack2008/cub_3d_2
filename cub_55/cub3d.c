@@ -58,47 +58,23 @@ int				key_press(int keycode, t_win *w)
 	return (0);
 }
 
-void				init_window(t_win *w)
+void				init_player_ang(int i, int j, t_win *w)
 {
-	// 1. mlx 관련 함수 시작
-	w->mlx = mlx_init();
-	w->wall.length = 150;
-	w->wall.height = 600;
-	w->player.width = w->wall.length / 3;
-	
-	// 2. map parsing
-	map_init(w);
-	w->player.height = w->R_height / 2;
-	
-	// 3. player setting
-	init_player(w);
-	
-	// 3. 해상도 설정
-	printf("%d %d\n", w->map.info.R_width, w->map.info.R_height);
-	w->R_width = w->map.info.R_width;
-	w->R_height = w->map.info.R_height;
-	w->aspect_ratio = w->R_height / w->R_width;
-	w->fov_ang = M_PI / 3;
-	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
-
-	// 4. 윈도우 창의 크기 설정
-	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
-
-	// 5. 윈도우에 넣을 이미지 크기 정하기
-	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);
-	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, &w->img.line_length, &w->img.endian);
-	// -> 이미지의 위치
-	w->img.x = 0;
-	w->img.y = 0;
-
+	if (w->map.map[j][i] == 'N')
+		w->player.ang = M_PI_2 * 3;
+	else if (w->map.map[j][i] == 'S')
+		w->player.ang = M_PI_2 * 1;
+	else if (w->map.map[j][i] == 'E')
+		w->player.ang = M_PI_2 * 0;
+	else if (w->map.map[j][i] == 'W')			
+		w->player.ang = M_PI_2 * 2;
 }
 
-void				init_player(t_win *w)
+void				init_player_position(t_win *w)
 {
 	int				i;
 	int				j;
 
-	
 	i = 0;
 	while (i < w->map.map_width)
 	{
@@ -110,54 +86,84 @@ void				init_player(t_win *w)
 				w->player.plot.x = w->wall.length * i + w->wall.length * 0.5;
 				w->player.plot.y = w->wall.length * j + w->wall.length * 0.5;
 			}
-			if (w->map.map[j][i] == 'N')
-				w->player.ang = M_PI_2 * 3;
-			else if (w->map.map[j][i] == 'S')
-				w->player.ang = M_PI_2 * 1;
-			else if (w->map.map[j][i] == 'E')
-				w->player.ang = M_PI_2 * 0;
-			else if (w->map.map[j][i] == 'W')			
-				w->player.ang = M_PI_2 * 2;
+			init_player_ang(i, j, w);
 			j++;
 		}
 		i++;
 	}
 }
 
-int					init_struct_win(t_win *w)
+void				init_window(t_win *w)
 {
-	init_window(w);
+	// 1. mlx 관련 함수 시작
+	w->mlx = mlx_init();
+	w->wall.length = 150;
+	w->wall.height = 600;
+	w->player.width = w->wall.length / 3;
+	// 2. map parsing
+	map_init(w);
+	// 3. player setting
+	init_player_position(w);
+	w->player.height = w->map.info.R_width / 2;
+	// 3. 해상도 설정
+	w->R_width = w->map.info.R_width;
+	w->R_height = w->map.info.R_height;
+	w->aspect_ratio = w->R_height / w->R_width;
+	w->fov_ang = M_PI / 3;
+	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
+	// 4. 윈도우 창의 크기 설정
+	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
+	// 5. 윈도우에 넣을 이미지 크기 정하기
+	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);
+	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, &w->img.line_length, &w->img.endian);
+	w->img.x = 0;
+	w->img.y = 0;
+}
 
-	// 9. texture
-	int i, j, k;
-	char *list[5];
+void				curring_texture(int k, char *list[], t_win *w)
+{
+	int				i;
+	int				j;
 
-	list[0] = w->map.info.NO_texture; // NORTH
-	list[1] = w->map.info.SO_texture; // SOUTH
-	list[2] = w->map.info.EA_texture; // EAST
-	list[3] = w->map.info.WE_texture; // WEST
+	w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, list[k], &w->tex[k].width, &w->tex[k].height);
+	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
+	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
+	i = 0;
+	while (i < w->tex[k].height)
+	{
+		j = 0;
+		while (j < w->tex[k].width)
+		{
+			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
+			j++;
+		}
+		i++;
+	}
+	mlx_destroy_image(w->mlx, w->tex[k].ptr);
+}
+
+void				init_texture(t_win *w)
+{
+	char			*list[5];
+	int				k;
+	
+	list[0] = w->map.info.NO_texture;
+	list[1] = w->map.info.SO_texture;
+	list[2] = w->map.info.EA_texture;
+	list[3] = w->map.info.WE_texture;
 	list[4] = w->map.info.sprite_texture;
-
 	k = 0;
 	while (k < 5)
 	{
-		w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, list[k], &w->tex[k].width, &w->tex[k].height);
-		w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
-		w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
-		i = 0;
-		while (i < w->tex[k].height)
-		{
-			j = 0;
-			while (j < w->tex[k].width)
-			{
-				w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
-				j++;
-			}
-			i++;
-		}
-		mlx_destroy_image(w->mlx, w->tex[k].ptr);
+		curring_texture(k, list, w);
 		k++;
 	}
+}
+
+int					init_struct_win(t_win *w)
+{
+	init_window(w);
+	init_texture(w);
 	return (0);
 }
 

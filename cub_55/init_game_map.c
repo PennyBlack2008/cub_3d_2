@@ -1,11 +1,9 @@
 #include "cub3d.h"
 
-#define ERROR 0
-#define SUCCESS 1
-#define FILEEND 0
-#define NEXT_WHILE 99
+/*
+** only for tab2space, it counts tab as 4 spaces chararector
+*/
 
-// only for tab2space, it counts tab as 4 spaces chararector
 size_t				ft_tab2spacelen(const char *src)
 {
 	char			*str;
@@ -41,13 +39,9 @@ char				*ft_tab2space(char **line)
 	int				i;
 	int				j;
 
-	// 안정적인 프로그램을 위해 src 에 담고 line 은 free 하자
 	src = ft_strdup((const char *)*line);
-	free(*line);
-	line = NULL;
-
-	if (!(str = (char *)malloc(sizeof(char) * (ft_tab2spacelen((const char *)src) + 1))))
-		return (ERROR);
+	safer_free_pp((void **)line);
+	str = (char *)ft_calloc(ft_tab2spacelen((const char *)src) + 1, sizeof(char));
 	i = 0;
 	j = 0;
 	while (src[i] != '\0')
@@ -63,13 +57,15 @@ char				*ft_tab2space(char **line)
 		i++;
 	}
 	str[j] = '\0';
-	free(src);
-	src = NULL;
+	safer_free_p((void *)src);
 	return (str);
 }
 
 
-// 오로지 cub3d 의 map 을 위해 동적 할당 후, space 로 초기화하는 함수
+/*
+** 함수: void	*ft_mapalloc(size_t num, size_t size)
+** 오로지 cub3d 의 map 을 위해 동적 할당 후, space 로 초기화하는 함수
+*/
 void						*ft_mapalloc(size_t num, size_t size)
 {
 	void					*new;
@@ -81,9 +77,10 @@ void						*ft_mapalloc(size_t num, size_t size)
 }
 
 /*
-**
+** 함수 ft_memcat_nl_space(cahr *dst, char *src)
 ** src, dst 는 상위 함수인 map_line 에서 free 및 NULL 처리해줍니다.
 */
+
 char					*ft_memcat_nl_space(char *dst, char *src)
 {
 	char				*str;
@@ -91,14 +88,10 @@ char					*ft_memcat_nl_space(char *dst, char *src)
 	int					len_src;
 	int					i;
 	int					j;
-
 	// 이미 가지고 있는 string 의 길이
 	len_dst = ft_strlen(dst);
-
-	// src 의 길이
 	len_src = ft_strlen(src);
-	if (!(str = (char *)ft_mapalloc(sizeof(char), (len_dst + 1 + len_src))))
-		return (ERROR);
+	str = (char *)ft_mapalloc(sizeof(char), (len_dst + 1 + len_src));
 	i = 0;
 	while (dst[i] != '\0')
 	{
@@ -123,20 +116,18 @@ int							construct_2d_map(t_map *m)
 	int						i;
 	int						j;
 	int						k;
-
 	// 1. char **map 에 동적할당
-	if (!(m->map = (char **)ft_mapalloc(m->map_height, sizeof(char *))))
-		return (ERROR);
+	m->map = (char **)ft_mapalloc(m->map_height, sizeof(char *));
 	i = 0;
 	while (i < m->map_height)
 	{
-		if (!(m->map[i] = (char *)ft_mapalloc(m->map_width, sizeof(char))))
-			return (ERROR);
+		m->map[i] = (char *)ft_mapalloc(m->map_width, sizeof(char));
 		i++;
 	}
-
 	// 2. char **map 에 char *map 집어 넣기
-	i = 0;		j = 0;		k = 0;
+	i = 0;
+	j = 0;
+	k = 0;
 	while (i < m->map_height && (m->map_1d[k] != '\0'))
 	{
 		j = 0;
@@ -150,15 +141,10 @@ int							construct_2d_map(t_map *m)
 				k++;
 			}
 			else
-			{
-				if (m->map_1d[k + 1] == ' ')
-					m->map_1d[k + 1] = '1';
 				m->map[i][j++] = m->map_1d[k++];
-			}
 		}
 		i++;
 	}
-	printf("!!%p\n", m);
 	return (SUCCESS);
 }
 
@@ -188,11 +174,9 @@ int							parse_texture_dir(char **str, char **texture_str)
 		i++;
 	if (i < 1)
 		return (ERROR);
-
 	*texture_str = ft_strdup(arr_by_space[1]);
-
-	free(arr_by_space[0]);
-	free(arr_by_space[1]);
+	safer_free_p(arr_by_space[0]);
+	safer_free_p(arr_by_space[1]);
 
 	return (SUCCESS);
 }
@@ -213,8 +197,8 @@ int							map_line(t_map *m, char **line)
 	m->map_1d = NULL;
 	m->map_1d = ft_strdup(copy);
 	m->map_height++;
-	free(*line);
-	*line = NULL;
+	safer_free_pp(line);
+	safer_free_p(copy);
 
 	// < error 처리 >
 	if (m->map_1d == ERROR)
@@ -235,17 +219,10 @@ int							parse_rgb_spec(char **str, int *r_spec, int *g_spec, int *b_spec)
 
 	arr_by_space = ft_split(*str, ' ');
 	i = 0;
-
-	// error 처리
 	while (arr_by_space[i] != '\0')
 		i++;
-	if (i < 1)
-		return (ERROR);
-
 	arr_by_comma = ft_split(arr_by_space[1], ',');
 	i = 0;
-
-	// error 처리
 	while (arr_by_comma[i] != '\0')
 		i++;
 	if (i < 2)
@@ -253,14 +230,11 @@ int							parse_rgb_spec(char **str, int *r_spec, int *g_spec, int *b_spec)
 	*r_spec = ft_atoi(arr_by_comma[0]);
 	*g_spec = ft_atoi(arr_by_comma[1]);
 	*b_spec = ft_atoi(arr_by_comma[2]);
-
-	free(arr_by_comma[0]);
-	free(arr_by_comma[1]);
-	free(arr_by_comma[2]);
-
-	free(arr_by_space[0]);
-	free(arr_by_space[1]);
-
+	safer_free_p(arr_by_comma[0]);
+	safer_free_p(arr_by_comma[1]);
+	safer_free_p(arr_by_comma[2]);
+	safer_free_p(arr_by_space[0]);
+	safer_free_p(arr_by_space[1]);
 	return (SUCCESS);
 }
 
@@ -376,8 +350,7 @@ int							init_game_map(t_map *m)
 			if (ERROR == map_line(m, &line))
 				write(2, "map_line error\n", 16);
 		}
-		free(line);
-		line = NULL;
+		safer_free_p(line);
 	}
 
 	// note: 1 차원 맵에 잘 들어갔는 지 확인하려면 주석 해제!
@@ -386,7 +359,9 @@ int							init_game_map(t_map *m)
 
 	// 여기서 부터 char *map_1d 를 char **map 에 순서대로 알맞게 넣어주는 작업을 하자
 	construct_2d_map(m);
-
+	free(m->map_1d);
+	m->map_1d = NULL;
+	
 	// note: 2 차원 맵이 잘 생성됬는 지 확인하려면 주석 해제!
 	i = 0;		j = 0;
 	while (i < m->map_height)

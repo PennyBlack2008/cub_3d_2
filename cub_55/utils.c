@@ -84,3 +84,23 @@ int					color_rgb(int r, int g, int b)
 	color += b;
 	return (color);
 }
+
+int					safer_free_pp(void **pp)
+{
+	if (pp != NULL && *pp != NULL)
+	{
+		free(*pp);
+		*pp = NULL;
+	}
+	return (1);
+}
+
+int					safer_free_p(void *p)
+{
+	if (p != NULL)
+	{
+		free(p);
+		p = NULL;
+	}
+	return (1);
+}

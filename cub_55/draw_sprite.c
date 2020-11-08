@@ -81,8 +81,8 @@ void				draw_a_sprite(int i, t_ray *r, t_win *w)
 
 	dist_to_spr = hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y 
 			- w->player.plot.y) * fabs(cos(r[i].ang - w->player.ang));
-	if (dist_to_spr < 20)
-		dist_to_spr = 20;
+	if (dist_to_spr < 30)
+		dist_to_spr = 30;
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_spr;
 	o_pjtd_height = pjtd_height;
 	pjtd_width = 300 * w->player.projected_plane / dist_to_spr;

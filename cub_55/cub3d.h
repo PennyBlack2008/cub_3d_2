@@ -243,6 +243,8 @@ void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void				save_plot(t_plot *dst_plot, t_plot *src_plot);
 unsigned int		my_mlx_pixel_get(t_img *img, int x, int y);
 int					color_rgb(int r, int g, int b);
+int					safer_free_pp(void **pp);
+int					safer_free_p(void *p);
 
 // screenshot.c
 int					screenshot(t_win *w);

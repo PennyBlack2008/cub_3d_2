@@ -255,9 +255,9 @@ int							parse_resolution_spec(char *str, t_map *m)
 		return (ERROR);
 	m->info.R_width = ft_atoi(arr_by_space[1]);
 	m->info.R_height = ft_atoi(arr_by_space[2]);
-	free(arr_by_space[0]);
-	free(arr_by_space[1]);
-	free(arr_by_space[2]);
+	safer_free_p(arr_by_space[0]);
+	safer_free_p(arr_by_space[1]);
+	safer_free_p(arr_by_space[2]);
 	return (SUCCESS);
 }
 
@@ -359,8 +359,7 @@ int							init_game_map(t_map *m)
 
 	// 여기서 부터 char *map_1d 를 char **map 에 순서대로 알맞게 넣어주는 작업을 하자
 	construct_2d_map(m);
-	free(m->map_1d);
-	m->map_1d = NULL;
+	safer_free_p(m->map_1d);
 	
 	// note: 2 차원 맵이 잘 생성됬는 지 확인하려면 주석 해제!
 	i = 0;		j = 0;

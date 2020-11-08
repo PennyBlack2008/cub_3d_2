@@ -1,16 +1,9 @@
-#include "../libft/libft.h"
-#include "../get_next_line/get_next_line.h"
 #include "cub3d.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
 
 #define ERROR 0
 #define SUCCESS 1
 #define FILEEND 0
 #define NEXT_WHILE 99
-// #define INT_MAX 2147483647
 
 // only for tab2space, it counts tab as 4 spaces chararector
 size_t				ft_tab2spacelen(const char *src)
@@ -165,14 +158,12 @@ int							construct_2d_map(t_map *m)
 		}
 		i++;
 	}
+	printf("!!%p\n", m);
 	return (SUCCESS);
 }
 
 t_map							*init_struct_map(t_map *m)
 {
-	if (!(m = malloc(sizeof(t_map))))
-		return (ERROR);
-
 	// t_map members
 	m->map_width = 0;
 	m->map_height = 0;
@@ -422,20 +413,21 @@ int							init_game_map(t_map *m)
 		printf("\n");
 		i++;
 	}
-
+	printf("22%p\n", m);
+	printf("R_width: %d		R_height: %d!\n", m->info.R_width, m->info.R_height);
 	return (SUCCESS);
 }
 
 
-int							main(void)
-{
-	t_map					map;
+// int							main(void)
+// {
+// 	t_map					map;
 
-	if (!init_game_map(&map))
-	{
-		write(1, "init_game_map error!!\n", 23);
-		return (ERROR);
-	}
+// 	if (!init_game_map(&map))
+// 	{
+// 		write(1, "init_game_map error!!\n", 23);
+// 		return (ERROR);
+// 	}
 
-	return (0);
-}
+// 	return (0);
+// }

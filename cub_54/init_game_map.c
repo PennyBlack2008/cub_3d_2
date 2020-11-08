@@ -181,7 +181,7 @@ t_map							*init_struct_map(t_map *m)
 ** parse_resolution_spec(char **str, int *R_width, int *R_height)
 ** resoulution spec 을 받아오는 함수
 */
-int							parse_texture_dir(char **str, char **NO_texture)
+int							parse_texture_dir(char **str, char **texture_str)
 {
 	char					**arr_by_space;
 	int						i;
@@ -195,7 +195,7 @@ int							parse_texture_dir(char **str, char **NO_texture)
 	if (i < 1)
 		return (ERROR);
 
-	*NO_texture = arr_by_space[1];
+	*texture_str = ft_strdup(arr_by_space[1]);
 
 	free(arr_by_space[0]);
 	free(arr_by_space[1]);
@@ -413,21 +413,5 @@ int							init_game_map(t_map *m)
 		printf("\n");
 		i++;
 	}
-	printf("22%p\n", m);
-	printf("R_width: %d		R_height: %d!\n", m->info.R_width, m->info.R_height);
 	return (SUCCESS);
 }
-
-
-// int							main(void)
-// {
-// 	t_map					map;
-
-// 	if (!init_game_map(&map))
-// 	{
-// 		write(1, "init_game_map error!!\n", 23);
-// 		return (ERROR);
-// 	}
-
-// 	return (0);
-// }

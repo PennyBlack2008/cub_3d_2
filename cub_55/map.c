@@ -2,51 +2,11 @@
 
 void				map_init(t_win *w)
 {
-	int i;
-	int	j;
 	if (!init_game_map(&w->map))
 	{
 		write(1, "init_game_map error!!\n", 23);
 		exit(1);
 	}
-	w->wall.length = 150;
-	w->wall.height = 600;
-	i = 0;
-	while (i < w->map.map_width)
-	{
-		j = 0;
-		while (j < w->map.map_height)
-		{
-			if (w->map.map[j][i] == 'N')
-			{
-				w->player.plot.x = w->wall.length * i + w->wall.length * 0.5;
-				w->player.plot.y = w->wall.length * j + w->wall.length * 0.5;
-				w->player.ang = M_PI_2 * 3;
-			}
-			else if (w->map.map[j][i] == 'S')
-			{
-				w->player.plot.x = w->wall.length * i + w->wall.length * 0.5;
-				w->player.plot.y = w->wall.length * j + w->wall.length * 0.5;
-				w->player.ang = M_PI_2 * 1;
-			}
-			else if (w->map.map[j][i] == 'E')
-			{
-				w->player.plot.x = w->wall.length * i + w->wall.length * 0.5;
-				w->player.plot.y = w->wall.length * j + w->wall.length * 0.5;
-				w->player.ang = M_PI_2 * 0;
-			}
-			else if (w->map.map[j][i] == 'W')
-			{
-				w->player.plot.x = w->wall.length * i + w->wall.length * 0.5;
-				w->player.plot.y = w->wall.length * j + w->wall.length * 0.5;
-				w->player.ang = M_PI_2 * 2;
-			}
-			j++;
-		}
-		i++;
-	}
-	printf("w->R_widht: %d\n", w->R_width);
-	printf("w->R_height: %d\n", w->R_height);
 }
 
 /*

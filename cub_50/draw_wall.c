@@ -31,7 +31,7 @@ int					get_color_spr(double x, double y, double scale_w, double scale_h, t_win 
 
 	px = floor(x / scale_w);
 	py = floor(y / scale_h);
-	color = w->map.curr_tex[k][(int)(w->tex[k].height * py + px)];
+	color = w->map.curr_tex[k][(int)(w->tex[k].width * py + px)];
 	return (color);
 }
 

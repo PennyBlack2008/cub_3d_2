@@ -62,16 +62,23 @@ void				init_window(t_win *w)
 {
 	// 1. mlx 관련 함수 시작
 	w->mlx = mlx_init();
-
-	// 2. map_init 시작
+	w->wall.length = 150;
+	w->wall.height = 600;
+	w->player.width = w->wall.length / 3;
+	
+	// 2. map parsing
 	map_init(w);
+	w->player.height = w->R_height / 2;
+	
+	// 3. player setting
+	init_player(w);
 	
 	// 3. 해상도 설정
 	printf("%d %d\n", w->map.info.R_width, w->map.info.R_height);
 	w->R_width = w->map.info.R_width;
 	w->R_height = w->map.info.R_height;
 	w->aspect_ratio = w->R_height / w->R_width;
-	w->fov_ang = M_PI / 3; // 60도
+	w->fov_ang = M_PI / 3;
 	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
 
 	// 4. 윈도우 창의 크기 설정
@@ -88,15 +95,38 @@ void				init_window(t_win *w)
 
 void				init_player(t_win *w)
 {
-	// 7. player
-	w->player.width = w->wall.length / 3;
-	w->player.height = w->R_height / 2;
+	int				i;
+	int				j;
+
+	
+	i = 0;
+	while (i < w->map.map_width)
+	{
+		j = 0;
+		while (j < w->map.map_height)
+		{
+			if (w->map.map[j][i] == 'N' || w->map.map[j][i] == 'S' || w->map.map[j][i] == 'E' || w->map.map[j][i] == 'W')
+			{
+				w->player.plot.x = w->wall.length * i + w->wall.length * 0.5;
+				w->player.plot.y = w->wall.length * j + w->wall.length * 0.5;
+			}
+			if (w->map.map[j][i] == 'N')
+				w->player.ang = M_PI_2 * 3;
+			else if (w->map.map[j][i] == 'S')
+				w->player.ang = M_PI_2 * 1;
+			else if (w->map.map[j][i] == 'E')
+				w->player.ang = M_PI_2 * 0;
+			else if (w->map.map[j][i] == 'W')			
+				w->player.ang = M_PI_2 * 2;
+			j++;
+		}
+		i++;
+	}
 }
 
 int					init_struct_win(t_win *w)
 {
 	init_window(w);
-	init_player(w);
 
 	// 9. texture
 	int i, j, k;

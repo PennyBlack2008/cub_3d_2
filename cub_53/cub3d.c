@@ -91,10 +91,10 @@ void				init_player(t_win *w)
 	// 7. player
 	w->player.width = w->wall.length / 3;
 	w->player.height = w->R_height / 2;
-	w->player.ang = 0 * M_PI / 180;
+	// w->player.ang = 0 * M_PI / 180;
 	// -> player 위치
-	w->player.x = 1.5 * w->wall.length;
-	w->player.y = 2 * w->wall.length;
+	// w->player.x = 1.5 * w->wall.length;
+	// w->player.y = 2 * w->wall.length;
 }
 
 int					init_struct_win(t_win *w)

@@ -1,6 +1,6 @@
 #include "cub3d.h"
-#define ROWS 11
-#define COLS 11
+#define ROWS 14
+#define COLS 33
 
 void				map_init(t_win *w)
 {
@@ -13,7 +13,7 @@ void				map_init(t_win *w)
 	// 	w->map.map[i] = (char *)malloc(sizeof(char) * COLS);
 	// 	i++;
 	// }
-	// w->map.map[0] = "11111";
+	// w->map.map[0] = " 111 ";
 	// w->map.map[1] = "10001";
 	// w->map.map[2] = "10001";
 	// w->map.map[3] = "10101";
@@ -30,18 +30,39 @@ void				map_init(t_win *w)
 	// w->map.map[8] = "1000000001";
 	// w->map.map[9] = "1100000111";
 	// w->map.map[10] = "1111111111";
-	w->map.map[0] = ft_strdup("11111111111");
-	// w->map.map[0] = "11111111111";
-	w->map.map[1] = ft_strdup("10000000011");
-	w->map.map[2] = ft_strdup("10000000011");
-	w->map.map[3] = ft_strdup("10000000011");
-	w->map.map[4] = ft_strdup("10000000011");
-	w->map.map[5] = ft_strdup("10000000011");
-	w->map.map[6] = ft_strdup("10002000011");
-	w->map.map[7] = ft_strdup("10000000001");
-	w->map.map[8] = ft_strdup("10000000001");
-	w->map.map[9] = ft_strdup("11000001011");
-	w->map.map[10] = ft_strdup("11111111111");
+	// w->map.map[0] = ft_strdup("        1111111111111111111111111");
+	// w->map.map[1] = ft_strdup("        1000000000110000000000001");
+	// w->map.map[2] = ft_strdup("        1011000001110000002000001");
+	// w->map.map[3] = ft_strdup("        1001000000000000000000001");
+	// w->map.map[4] = ft_strdup("111111111011000001110000000000001");
+	// w->map.map[5] = ft_strdup("100000000011000001110111111111111");
+	// w->map.map[6] = ft_strdup("11110111111111011100000010001    ");
+	// w->map.map[7] = ft_strdup("11110111111111011101010010001    ");
+	// w->map.map[8] = ft_strdup("11000000110101011100000010001    ");
+	// w->map.map[9] = ft_strdup("10002000000000001100000010001    ");
+	// w->map.map[10] = ft_strdup("10000000000000001101010010001    ");
+	// w->map.map[11] = ft_strdup("11000001110101011111011110N0111  ");
+	// w->map.map[12] = ft_strdup("11110111 1110101 101111010001    ");
+	// w->map.map[13] = ft_strdup("10000000000000001101010010001    ");
+
+	w->map.map[0] = ft_strdup("        1111111111111111111111111");
+	w->map.map[1] = ft_strdup("        1000000000110000000000001");
+	w->map.map[2] = ft_strdup("        1011000001110000002000001");
+	w->map.map[3] = ft_strdup("        1001000000000000000000001");
+	w->map.map[4] = ft_strdup("111111111111111111111111111111111");
+	w->map.map[5] = ft_strdup("100000000011000001110111111111111");
+	w->map.map[6] = ft_strdup("11110111111111011100000010001    ");
+	w->map.map[7] = ft_strdup("11110111111111011101010010001    ");
+	w->map.map[8] = ft_strdup("11000000110101011100000010001    ");
+	w->map.map[9] = ft_strdup("10002000000000001100000010001    ");
+	w->map.map[10] = ft_strdup("10000000000000001101010010001    ");
+	w->map.map[11] = ft_strdup("11000001110101011111011110N0111  ");
+	w->map.map[12] = ft_strdup("11110111 1110101 101111010001    ");
+	w->map.map[13] = ft_strdup("11111111 1111111 111111111111    ");
+
+	w->player.x = 27 * w->wall.length + w->wall.length / 2; 
+	w->player.y = 12 * w->wall.length + w->wall.length / 2;
+	w->player.ang = M_PI_2 * 3;
 }
 
 // void				draw_rectangle(t_win *w, int x, int y, int color)
@@ -131,7 +152,8 @@ void				map_init(t_win *w)
 
 int					is_wall(double x, double y, t_win *w)
 {
-	if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == WALL)
+	if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == WALL || 
+	w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == ' ')
 		return (WALL);
 	else if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == SPRITE)
 	{

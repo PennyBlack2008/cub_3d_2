@@ -59,7 +59,8 @@ void				draw_sprite_pixels(int i, double o_pjtd_width,
 	{	
 		if (i + l > w->R_width)
 			break ;
-		if (i + l >= 0)
+		if (i + l >= 0 && (hypot(r[i + l].hit.x - w->player.plot.x , r[i + l].hit.y - w->player.plot.y) > hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y 
+			- w->player.plot.y)))
 		{
 			draw_part_down(i, l, o_pjtd_height, pjtd_height, o_pjtd_width, scale_w, scale_h, w);
 			draw_part_up(i, l, o_pjtd_height, pjtd_height, o_pjtd_width, scale_w, scale_h, w);	

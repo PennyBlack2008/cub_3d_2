@@ -47,7 +47,7 @@ OBJS			=	cub3d.o\
 
 CC				=	gcc
 
-CFLAG			=	-Wall -Werror -Wextra -g
+CFLAG			=	-Wall -Werror -Wextra -g3
 
 RM				=	rm -f
 

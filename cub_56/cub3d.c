@@ -74,7 +74,6 @@ void				init_window(t_win *w)
 	// 1. mlx 관련 함수 시작
 	w->mlx = mlx_init();
 	w->wall.height = 600;
-	w->num_sprite = 0;
 	w->player.width = w->wall.length / 3;
 	// 2. map parsing
 	map_init(w);
@@ -156,6 +155,7 @@ int					main(int argc, char **argv)
 	printf("save_opt : %d\n", save_opt);
 	w.wall.length = 100;
 	file_parser(&w, argv[1]);
+	// printf("w.num_sprite: %d\n", w.num_sprite);
 	init_struct_win(&w);
 	if (save_opt == 1)
 		return(screenshot(&w));

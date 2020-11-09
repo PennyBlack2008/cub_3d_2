@@ -34,7 +34,7 @@ int					is_wall(double x, double y, t_win *w)
 		return (WALL);
 	else if (w->map.map[(int)(y / w->wall.length)][(int)(x / w->wall.length)] == SPRITE)
 	{
-		if (fabs((int)(y / w->wall.length) * w->wall.length + w->wall.length * 0.5 - y) < 1 && fabs((int)(x / w->wall.length) * w->wall.length + w->wall.length * 0.5 - x) < 1)
+		if (fabs((int)(y / w->wall.length) * w->wall.length + w->wall.length * 0.5 - y) < 0.1 && fabs((int)(x / w->wall.length) * w->wall.length + w->wall.length * 0.5 - x) < 0.1)
 			return (SPRITE);
 	}
 	return (NOT_WALL);

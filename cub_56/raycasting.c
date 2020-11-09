@@ -81,6 +81,7 @@ int					cast_rays(t_win *w)
 		i++;
 	}
 	// sprite 배열 초기화
+	printf("w->num_sprite: %d\n", w->num_sprite);
 	j = 0;
 	while (j < w->num_sprite)
 	{
@@ -93,7 +94,7 @@ int					cast_rays(t_win *w)
 	j = 0;
 	while (i < w->R_width)
 	{
-		if (r[i].spr_hit.x != 0 || r[i].spr_hit.y != 0)
+		if (r[i].spr_hit.x != 0 && r[i].spr_hit.y != 0)
 		{
 			sprite[j].i = i; // 이제 j번째에 i 가 들어있다. 근데 거리 정보가 없을 뿐
 			sprite[j].dist = hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y 

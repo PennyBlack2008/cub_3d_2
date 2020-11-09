@@ -9,16 +9,16 @@ int					find_cardinal_dir_wall(t_ray *r, t_win *w)
 	c = (fabs(r->hit.y - r->wall.y) < 1.5); // SOUTH
 	b = (fabs(r->hit.x - r->wall.x - w->wall.length) < 1.5); // WEST
 	d = (fabs(r->hit.y - r->wall.y - w->wall.length) < 1.5); // NORTH
-	ray_ang = normalize_angle(r->ang);
 	r->wall_NSEW = 5;
-	if (c)
+	
+	if (a)
+		return (EAST); // 빨간 벽
+	if (b)
+		return (WEST); // 회색 벽
+	if (c && r->ang <= M_PI)
 		return (SOUTH); // 노란 벽
-	else if (d)
+	if (d)
 		return (NORTH); // 갈색 벽
-	else if (a)
-		return (EAST); // 회색 벽
-	else if (b)
-		return (WEST); // 빨간 벽
 
 	return (5);
 }

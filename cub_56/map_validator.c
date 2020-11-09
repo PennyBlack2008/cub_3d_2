@@ -98,6 +98,7 @@ void		map_validtator(t_win *win)
 	check_left_right(win);
 	cnt = 0;
 	y = 1;
+	win->num_sprite = 0;
 	while (y < win->map.map_height)
 	{
 		x = 0;

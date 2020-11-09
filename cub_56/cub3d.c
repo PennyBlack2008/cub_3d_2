@@ -74,21 +74,24 @@ void				init_window(t_win *w)
 {
 	// 1. mlx 관련 함수 시작
 	w->mlx = mlx_init();
-	w->num_sprite = 0;
-	w->wall.length = 150;
 	w->wall.height = 600;
+	w->num_sprite = 0;
 	w->player.width = w->wall.length / 3;
 	// 2. map parsing
 	map_init(w);
 	// 3. player setting
 	init_player_ang(w);
-	w->player.height = w->map.info.R_width / 2;
+	w->player.height = w->R_width / 2;
+	printf("w->player.height: %d\n", w->player.height);
 	// 3. 해상도 설정
-	w->R_width = w->map.info.R_width;
-	w->R_height = w->map.info.R_height;
+	printf("w->R_width: %d\n", w->R_width);
 	w->aspect_ratio = w->R_height / w->R_width;
 	w->fov_ang = M_PI / 3;
-	w->player.projected_plane = w->R_width / 2 * atan(w->fov_ang / 2);
+	printf("fovang: %f\n", w->fov_ang * 180 / M_PI);
+	
+	w->player.projected_plane = w->R_width * 0.5 * atan(w->fov_ang * 0.5);
+	
+	printf("w->player.projected_plane: %f\n", w->player.projected_plane);
 	// 4. 윈도우 창의 크기 설정
 	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
 	// 5. 윈도우에 넣을 이미지 크기 정하기
@@ -96,6 +99,8 @@ void				init_window(t_win *w)
 	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, &w->img.line_length, &w->img.endian);
 	w->img.x = 0;
 	w->img.y = 0;
+	printf("hihihi\n");
+	printf("x: %f, y: %f\n", w->player.plot.x, w->player.plot.y);
 }
 
 void				curring_texture(int k, char *list[], t_win *w)
@@ -118,6 +123,7 @@ void				curring_texture(int k, char *list[], t_win *w)
 		i++;
 	}
 	mlx_destroy_image(w->mlx, w->tex[k].ptr);
+	printf("%d\n", k);
 }
 
 void				init_texture(t_win *w)
@@ -160,6 +166,7 @@ int					main(int argc, char **argv)
 	save_opt = (argc == 2 && (ft_memcmp(argv[argc - 1], "--save", 6) == 0));
 	// printf("%d\n", ft_memcmp(argv[argc - 1], "--save", 6));
 	printf("save_opt : %d\n", save_opt);
+	w.wall.length = 100;
 	file_parser(&w, argv[1]);
 	init_struct_win(&w);
 	if (save_opt == 1)

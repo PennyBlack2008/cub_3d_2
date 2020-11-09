@@ -5,8 +5,8 @@ static void	check_spawning_orientation(t_win *win, int x, int y, int *cnt)
 	if (win->map.map[y][x] == 'N' || win->map.map[y][x] == 'S' ||
 		win->map.map[y][x] == 'E' || win->map.map[y][x] == 'W')
 	{
-		win->player.plot.x = y + 0.5;
-		win->player.plot.y = x + 0.5;
+		win->player.plot.x = x * win->wall.length + 0.5 * win->wall.length;
+		win->player.plot.y = y * win->wall.length + 0.5 * win->wall.length;
 		win->player.facing = win->map.map[y][x];
 		win->map.map[y][x] = '0';
 		(*cnt)++;

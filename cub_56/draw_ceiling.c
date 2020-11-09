@@ -5,7 +5,7 @@ void		draw_ceiling(int i, t_ray *r, t_win *w)
 	int		j;
 	int		color;
 
-	color = color_rgb(w->map.info.CL_R, w->map.info.CL_G, w->map.info.CL_B);
+	color = color_rgb(w->map.info.CL_RGB.trgb.r, w->map.info.CL_RGB.trgb.g, w->map.info.CL_RGB.trgb.b);
 	j = w->R_height / 2;
 	while (j >= 0)
 	{

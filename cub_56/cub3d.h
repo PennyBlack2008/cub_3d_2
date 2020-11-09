@@ -134,12 +134,6 @@ typedef struct  	s_img
 
 typedef struct				s_map_info
 {
-	// Resolution
-	char					*R_SPEC;
-	int						R_width;
-	int						R_height;
-
-
 	// texture
 	char					*NO_texture; // North texture
 	char					*SO_texture; // South texture
@@ -148,17 +142,10 @@ typedef struct				s_map_info
 	char					*sprite_texture; // sprite texture
 
 	// FL RGB
-	t_color					*FL_RGB; // Floor color
-	int						FL_R;
-	int						FL_G;
-	int						FL_B;
+	t_color					FL_RGB; // Floor color
 
 	// CL RGB
-	t_color					*CL_RGB; // Ceiling color
-	int						CL_R;
-	int						CL_G;
-	int						CL_B;
-
+	t_color					CL_RGB; // Ceiling color
 }							t_map_info;
 
 typedef struct		s_map
@@ -260,18 +247,21 @@ int					safer_free_pp(void **pp);
 int					safer_free_p(void *p);
 int					ft_isspace(int c);
 int					check_color(char **tmp);
+void				error_handler(char *s, int num);
 
 // screenshot.c
 int					screenshot(t_win *w);
 int					exit_game(t_win *w, int a);
 int					exit_error(t_win *w, int a, char const *str);
 
-void		file_parser(t_win *win, char *file);
-void		map_validtator(t_win *win);
-void		parse_resolution(t_win *win, char *line, char identifier);
-void		parse_texture(t_win *win, char *line, char identifier);
-void		parse_color(t_win *win, char *line, char identifier);
-void		parse_map(t_win *win, t_list *lst);
-static int	get_map_width(t_list *lst);
+void				file_parser(t_win *win, char *file);
+void				map_validtator(t_win *win);
+void				parse_resolution(t_win *win, char *line, char identifier);
+void				parse_texture(t_win *win, char *line, char identifier);
+void				parse_color(t_win *win, char *line, char identifier);
+void				parse_map(t_win *win, t_list *lst);
+static int			get_map_width(t_list *lst);
+
+
 
 #endif

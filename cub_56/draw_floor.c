@@ -5,7 +5,7 @@ void		draw_floor(int i, t_ray *r, t_win *w)
 	int		j;
 	int		color;
 
-	color = color_rgb(w->map.info.FL_R, w->map.info.FL_G, w->map.info.FL_B);
+	color = color_rgb(w->map.info.FL_RGB.trgb.r, w->map.info.FL_RGB.trgb.g, w->map.info.FL_RGB.trgb.b);
 	j = w->R_height / 2;
 	while (j < w->R_height)
 	{

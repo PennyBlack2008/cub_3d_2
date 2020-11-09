@@ -2,6 +2,21 @@
 
 void				map_init(t_win *w)
 {
+	int				i;
+	int				j;
+
+	i = 0;
+	while (i < w->map.map_height)
+	{
+		j = 0;
+		while (j < w->map.map_width)
+		{
+			printf("%c", w->map.map[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
 	return ;
 }
 

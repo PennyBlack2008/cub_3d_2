@@ -89,6 +89,13 @@ typedef struct		s_minimap
 	t_plot			plot;
 }					t_minimap;
 
+typedef struct		s_sprite
+{
+	int				i; // ray 번호
+	double			dist; // 플레이어와 sprite 거리 차이
+}					t_sprite;
+
+
 typedef struct		s_player
 {
 	// player figure
@@ -178,7 +185,6 @@ typedef struct 		s_win
 	int				R_width;
 	int				R_height;
 	double			fov_ang;
-	double			aspect_ratio;
 	int				num_sprite;
 	t_img			img;
 	t_map			map;
@@ -262,6 +268,7 @@ void				parse_color(t_win *win, char *line, char identifier);
 void				parse_map(t_win *win, t_list *lst);
 static int			get_map_width(t_list *lst);
 
-
+// sort_sprite.c
+void				draw_sprites(t_sprite *spr, t_ray *r, t_win *w);
 
 #endif

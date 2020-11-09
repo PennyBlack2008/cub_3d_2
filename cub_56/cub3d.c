@@ -2,7 +2,6 @@
 
 int		exit_error(t_win *w, int a, char const *str)
 {
-	printf("여기에 str 이 실행이 안되네;;;\n");
 	if (str)
 		write(1, str, ft_strlen(str));
 	exit_game(w, 0);
@@ -82,16 +81,9 @@ void				init_window(t_win *w)
 	// 3. player setting
 	init_player_ang(w);
 	w->player.height = w->R_width / 2;
-	printf("w->player.height: %d\n", w->player.height);
 	// 3. 해상도 설정
-	printf("w->R_width: %d\n", w->R_width);
-	w->aspect_ratio = w->R_height / w->R_width;
 	w->fov_ang = M_PI / 3;
-	printf("fovang: %f\n", w->fov_ang * 180 / M_PI);
-	
 	w->player.projected_plane = w->R_width * 0.5 * atan(w->fov_ang * 0.5);
-	
-	printf("w->player.projected_plane: %f\n", w->player.projected_plane);
 	// 4. 윈도우 창의 크기 설정
 	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
 	// 5. 윈도우에 넣을 이미지 크기 정하기
@@ -99,8 +91,6 @@ void				init_window(t_win *w)
 	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, &w->img.line_length, &w->img.endian);
 	w->img.x = 0;
 	w->img.y = 0;
-	printf("hihihi\n");
-	printf("x: %f, y: %f\n", w->player.plot.x, w->player.plot.y);
 }
 
 void				curring_texture(int k, char *list[], t_win *w)
@@ -162,16 +152,13 @@ int					main(int argc, char **argv)
 	t_win			w;
 	int				save_opt;
 
-	// 나중에 여기 argc 2로 만들고 argv 1로 만들기
 	save_opt = (argc == 2 && (ft_memcmp(argv[argc - 1], "--save", 6) == 0));
-	// printf("%d\n", ft_memcmp(argv[argc - 1], "--save", 6));
 	printf("save_opt : %d\n", save_opt);
 	w.wall.length = 100;
 	file_parser(&w, argv[1]);
 	init_struct_win(&w);
 	if (save_opt == 1)
 		return(screenshot(&w));
-	// mlx_key_hook(w.win, key_press, &w); // 여기는 키를 누르는 것만 받고
 	mlx_hook(w.win, 2, 0, key_press, &w);
 	mlx_hook(w.win, 17, 0, shut_down, &w);
 	mlx_loop_hook(w.mlx, render_next_frame, &w);

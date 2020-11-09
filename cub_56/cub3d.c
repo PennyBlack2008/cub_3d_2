@@ -79,7 +79,7 @@ void				init_window(t_win *w)
 	map_init(w);
 	// 3. player setting
 	init_player_ang(w);
-	w->player.height = w->R_width / 2;
+	w->player.height = w->R_height / 2;
 	// 3. 해상도 설정
 	w->fov_ang = M_PI / 3;
 	w->player.projected_plane = w->R_width * 0.5 * atan(w->fov_ang * 0.5);

@@ -153,7 +153,7 @@ int					main(int argc, char **argv)
 
 	save_opt = (argc == 2 && (ft_memcmp(argv[argc - 1], "--save", 6) == 0));
 	printf("save_opt : %d\n", save_opt);
-	w.wall.length = 100;
+	w.wall.length = 150;
 	file_parser(&w, argv[1]);
 	// printf("w.num_sprite: %d\n", w.num_sprite);
 	init_struct_win(&w);

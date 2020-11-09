@@ -81,7 +81,7 @@ int					cast_rays(t_win *w)
 		i++;
 	}
 	// sprite 배열 초기화
-	printf("w->num_sprite: %d\n", w->num_sprite);
+	// printf("w->num_sprite: %d\n", w->num_sprite);
 	j = 0;
 	while (j < w->num_sprite)
 	{
@@ -89,12 +89,15 @@ int					cast_rays(t_win *w)
 		sprite[j].dist = 0;
 		j++;
 	}
-	// sprite 배열에 계산해서 넣기
+	// sprite 배열에 계산해서 넣기. 여기에 sprite 좌표가 너무 차이나면 0으로 만들어버리는 거다.
 	i = 0;
 	j = 0;
 	while (i < w->R_width)
 	{
-		if (r[i].spr_hit.x != 0 && r[i].spr_hit.y != 0)
+		// 여기에 r[i].spr_hit 좌표에서 중복된 좌표 제거하면 좋을 것같다.
+		if (r[i].spr_hit.x != 0 && r[i].spr_hit.y != 0 && 
+		hypot(r[i].spr_hit.x - r[i + 1].spr_hit.x, r[i].spr_hit.y - 
+		r[i + 1].spr_hit.y) > w->wall.length * 0.5)
 		{
 			sprite[j].i = i; // 이제 j번째에 i 가 들어있다. 근데 거리 정보가 없을 뿐
 			sprite[j].dist = hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y 

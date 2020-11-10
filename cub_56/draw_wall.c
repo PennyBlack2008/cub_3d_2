@@ -27,7 +27,7 @@ int					get_color_tex(int i, int j, double scale_h, t_ray *r, t_win *w, int k)
 	scale_w = w->wall.length / (double)w->tex[k].width;
 	px = floor(x / scale_w);
 	py = floor(j / scale_h);
-	color = w->map.curr_tex[k][(int)(w->tex[k].height * py + px)];
+	color = w->map.curr_tex[k][(int)(w->tex[k].width * py + px)];
 
 	return (color);
 }
@@ -53,7 +53,7 @@ static void			draw_part_up(int i, double o_pjtd_height, double pjtd_height, doub
 {
 	int			k;
 	int			color;
-	
+
 	k = pjtd_height / 2;
 	while (k > 0) // 위 쪽
 	{

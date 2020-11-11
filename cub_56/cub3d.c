@@ -1,12 +1,12 @@
 #include "cub3d.h"
 
-int		exit_error(t_win *w, int a, char const *str)
-{
-	if (str)
-		write(1, str, ft_strlen(str));
-	exit_game(w, 0);
-	return (0);
-}
+// int		exit_error(t_win *w, int a, char const *str)
+// {
+// 	if (str)
+// 		write(1, str, ft_strlen(str));
+// 	exit_game(w, 0);
+// 	return (0);
+// }
 
 /*
 ** 함수 render_next_frame : 이 함수에 들어 있는 함수 순서대로 윈도우 화면에 랜더링을 시작한다.
@@ -97,7 +97,8 @@ void				curring_texture(int k, char *list[], t_win *w)
 	int				i;
 	int				j;
 
-	w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, list[k], &w->tex[k].width, &w->tex[k].height);
+	if (!(w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, list[k], &w->tex[k].width, &w->tex[k].height)))
+		return (error_handler("xpm file error!\n", errno));
 	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
 	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
 	i = 0;
@@ -112,7 +113,6 @@ void				curring_texture(int k, char *list[], t_win *w)
 		i++;
 	}
 	mlx_destroy_image(w->mlx, w->tex[k].ptr);
-	printf("%d\n", k);
 }
 
 void				init_texture(t_win *w)
@@ -140,12 +140,6 @@ int					init_struct_win(t_win *w)
 	return (0);
 }
 
-int				exit_game(t_win *w, int a)
-{
-	printf("exit_game is activated\n");
-	exit(0);
-}
-
 int					main(int argc, char **argv)
 {
 	t_win			w;
@@ -155,7 +149,6 @@ int					main(int argc, char **argv)
 	printf("save_opt : %d\n", save_opt);
 	w.wall.length = 150;
 	file_parser(&w, argv[1]);
-	// printf("w.num_sprite: %d\n", w.num_sprite);
 	init_struct_win(&w);
 	if (save_opt == 1)
 		return(screenshot(&w));

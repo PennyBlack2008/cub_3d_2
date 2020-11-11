@@ -270,5 +270,6 @@ static int			get_map_width(t_list *lst);
 
 // sort_sprite.c
 void				draw_sprites(t_sprite *spr, t_ray *r, t_win *w);
+int					check_resol(char **tmp);
 
 #endif

@@ -80,6 +80,13 @@ void		parse_texture(t_win *win, char *line, char identifier)
 
 void		parse_resolution(t_win *win, char *line, char identifier)
 {
+	char	**tmp;
+	int		i;
+
+	if (!(tmp = ft_split(line, ' ')))
+		error_handler("Memory allocation error!", ENOMEM);
+	if (!check_resol(tmp))
+		error_handler("Resolution error!", ENOMEM);
 	if (identifier == 'R')
 	{
 		win->R_width = ft_atoi(line);

@@ -31,7 +31,6 @@ static int	get_color(t_win *w, int x, int y)
 	int			color;
 	int			rgb;
 
-	// color = w->img.data[w->R_width * y + x];
 	color = my_mlx_pixel_get(&w->img, x, y);
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
@@ -76,10 +75,10 @@ int			screenshot(t_win *w)
 	pad = (4 - pixel_bytes_per_row % 4) % 4;
 	file_size = 14 + 40 + 3 * (w->R_width + pad) * w->R_height;
 	if ((fd = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
-		return (exit_error(w, EXIT_FAILURE, "ERROR\nbmp open failure"));
+		return (0);
 	if (!(write_bmp_header(fd, file_size, w)) ||
 			!(write_bmp_data(fd, pad, w)))
-		return (exit_error(w, EXIT_FAILURE, "ERROR\nbmp write failure"));
+		return (0);
 	close(fd);
 	return (1);
 }

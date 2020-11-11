@@ -12,7 +12,9 @@ SRCS			=	cub3d.c\
 					draw_ceiling.c\
 					draw_sprite.c\
 					raycasting.c\
-					utils.c\
+					utils_part_a.c\
+					utils_part_b.c\
+					utils_part_c.c\
 					player.c\
 					screenshot.c\
 					file_parser.c\
@@ -34,7 +36,9 @@ OBJS			=	cub3d.o\
 					draw_ceiling.o\
 					draw_sprite.o\
 					raycasting.o\
-					utils.o\
+					utils_part_a.o\
+					utils_part_b.o\
+					utils_part_c.o\
 					player.o\
 					screenshot.o\
 					file_parser.o\

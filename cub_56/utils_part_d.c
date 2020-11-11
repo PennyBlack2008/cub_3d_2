@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/11 20:15:32 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 20:17:18 by jikang           ###   ########.fr       */
+/*   Created: 2020/11/11 20:28:35 by jikang            #+#    #+#             */
+/*   Updated: 2020/11/11 20:29:28 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,4 @@ void				rightward(t_win *w)
 {
 	w->player.plot.x += 30 * cos(M_PI_2 - (w->player.ang * -1));
 	w->player.plot.y += 30 * sin(M_PI_2 - (w->player.ang * -1));
-}
+} 

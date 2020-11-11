@@ -287,4 +287,6 @@ void				parse_map(t_win *win, t_list *lst);
 void				draw_sprites(t_sprite *spr, t_ray *r, t_win *w);
 int					check_resol(char **tmp);
 
+int					rotate_right(t_win *w);
+int					rotate_left(t_win *w);
 #endif

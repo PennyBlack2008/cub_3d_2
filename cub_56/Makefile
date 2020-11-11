@@ -17,6 +17,7 @@ SRCS			=	cub3d.c\
 					utils_part_c.c\
 					utils_part_d.c\
 					player.c\
+					rotate.c\
 					screenshot.c\
 					file_parser.c\
 					parse.c\
@@ -42,6 +43,7 @@ OBJS			=	cub3d.o\
 					utils_part_c.o\
 					utils_part_d.o\
 					player.o\
+					rotate.o\
 					screenshot.o\
 					file_parser.o\
 					parse.o\

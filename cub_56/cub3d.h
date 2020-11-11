@@ -95,6 +95,17 @@ typedef struct		s_sprite
 	double			dist; // 플레이어와 sprite 거리 차이
 }					t_sprite;
 
+typedef struct		s_sprite_var
+{
+	double			dist_to_spr;
+	double			pjtd_height;
+	double			o_pjtd_height;
+	double			pjtd_width;
+	double			o_pjtd_width;
+	double			scale_h;
+	double			scale_w;
+}					t_sprite_var;
+
 
 typedef struct		s_player
 {

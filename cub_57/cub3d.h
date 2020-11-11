@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:30:10 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 22:05:18 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 22:14:39 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,12 +289,27 @@ int					is_wall(double x, double y, t_win *w);
 ** move.c
 */
 
-int					rotate_right(t_win *w);
-int					rotate_left(t_win *w);
 int					move_forward(t_win *w);
 int					move_back(t_win *w);
 int					move_left(t_win *w);
 int					move_right(t_win *w);
+
+/*
+** rotate.c
+*/
+
+int					rotate_right(t_win *w);
+int					rotate_left(t_win *w);
+
+/*
+** parse.c
+*/
+
+void				parse_resolution(t_win *win, char *line, char identifier);
+void				parse_texture(t_win *win, char *line, char identifier);
+void				parse_color(t_win *win, char *line, char identifier);
+void				parse_map(t_win *win, t_list *lst);
+
 
 /*
 ** raycasting.c
@@ -306,60 +321,64 @@ int					cast_rays(t_win *w);
 ** drawing files
 */
 
-// draw_wall.c
-void				draw_a_wall(int i, t_ray *r, t_win *w);
 /*
-**
+** screenshot.c
 */
 
-/*
-**
-*/
+int					screenshot(t_win *w);
 
 /*
-**
+** sort_sprite.c
 */
-// draw_sprite.c
+
+void				draw_sprites(t_sprite *spr, t_ray *r, t_win *w);
+
+/*
+** draw_sprite.c
+*/
+
 void				draw_a_sprite(int i, t_ray *r, t_win *w);
+
 /*
-**
+** utils 파일
 */
-// utils.c
+
+/*
+** utils_part_a.c
+*/
+
+void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
+unsigned int		my_mlx_pixel_get(t_img *img, int x, int y);
 double				normalize_angle(double ang);
 void				set_plot(t_plot *plot, double x, double y);
 int					draw_background(t_win *w);
-void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+/*
+** utils_part_b.c
+*/
+
 void				save_plot(t_plot *dst_plot, t_plot *src_plot);
-unsigned int		my_mlx_pixel_get(t_img *img, int x, int y);
 int					color_rgb(int r, int g, int b);
 int					safer_free_pp(void **pp);
 int					safer_free_p(void *p);
+void				error_handler(char *s, int num);
+
+/*
+** utils_part_c.c
+*/
+
+int					shut_down(t_win *w);
+int					check_resol(char **tmp);
 int					ft_isspace(int c);
 int					check_color(char **tmp);
-void				error_handler(char *s, int num);
+
+/*
+** utils_part_d.c
+*/
+
 void				forward(t_win *w);
 void				backward(t_win *w);
 void				leftward(t_win *w);
 void				rightward(t_win *w);
-/*
-**
-*/
-// screenshot.c
-int					screenshot(t_win *w);
-int					exit_game(t_win *w, int a);
-int					exit_error(t_win *w, int a, char const *str);
-
-void				parse_resolution(t_win *win, char *line, char identifier);
-void				parse_texture(t_win *win, char *line, char identifier);
-void				parse_color(t_win *win, char *line, char identifier);
-void				parse_map(t_win *win, t_list *lst);
-
-// sort_sprite.c
-void				draw_sprites(t_sprite *spr, t_ray *r, t_win *w);
-int					check_resol(char **tmp);
-
-int					rotate_right(t_win *w);
-int					rotate_left(t_win *w);
-int					shut_down(t_win *w);
 
 #endif

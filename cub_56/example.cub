@@ -1,8 +1,9 @@
-R 500 500
-NO ./texture_new_simpson/wall_1.xpm
-SO ./texture_new_simpson/wall_2.xpm
-WE ./texture_new_simpson/wall_3.xpm
-EA ./texture_new_simpson/wall_4.xpm
+R 1920 1000
+
+NO ./texture/wall_1.xpm
+SO ./texture/wall_2.xpm
+WE ./texture/wall_3.xpm
+EA ./texture/wall_4.xpm
 
 S ./texture/pillar.xpm
 F 220,100,0

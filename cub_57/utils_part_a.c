@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_part_a.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/11 21:25:56 by jikang            #+#    #+#             */
+/*   Updated: 2020/11/11 21:26:28 by jikang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /*
@@ -22,7 +34,7 @@ unsigned int			my_mlx_pixel_get(t_img *img, int x, int y)
 }
 
 /*
-** 함수 normalize_angle: 이 함수를 통해 angle 이 음수이거나 360도를 넘어갈 때 
+** 함수 normalize_angle: 이 함수를 통해 angle 이 음수이거나 360도를 넘어갈 때
 **						생기는 문제점을 해결해줍니다.
 */
 
@@ -36,7 +48,7 @@ double					normalize_angle(double ang)
 }
 
 /*
-** 함수 set_plot: 이 함수는 double x, double y를 t_plot(double x, double y)의 
+** 함수 set_plot: 이 함수는 double x, double y를 t_plot(double x, double y)의
 ** 형식에 맞춰준다.
 */
 
@@ -47,13 +59,14 @@ void					set_plot(t_plot *plot, double x, double y)
 }
 
 /*
-** 함수 draw_background: 이 함수가 있어서 플레이어가 움직일 때, 
+** 함수 draw_background: 이 함수가 있어서 플레이어가 움직일 때,
 ** 움직이기 전의 랜더링을 까맣게 지워줍니다.
 */
 
 int						draw_background(t_win *w)
 {
-	int					x,y;
+	int					x;
+	int					y;
 
 	x = 0;
 	while (x < w->R_width)

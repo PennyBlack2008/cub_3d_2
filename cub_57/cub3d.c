@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/11 21:17:57 by jikang            #+#    #+#             */
+/*   Updated: 2020/11/11 21:22:39 by jikang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /*
@@ -5,7 +17,7 @@
 ** 랜더링을 시작한다.
 */
 
-int     render_next_frame(t_win *w)
+int					render_next_frame(t_win *w)
 {
 	draw_background(w);
 	cast_rays(w);
@@ -16,7 +28,7 @@ int     render_next_frame(t_win *w)
 ** 함수 key_press : 이 함수를 통해 플레이어가 움직이는 것을 알려준다.
 */
 
-int				key_press(int keycode, t_win *w)
+int					key_press(int keycode, t_win *w)
 {
 	if (keycode == KEY_ESC)
 	{
@@ -49,7 +61,7 @@ int					main(int argc, char **argv)
 	file_parser(&w, argv[1]);
 	init_struct_win(&w);
 	if (save_opt == 1)
-		return(screenshot(&w));
+		return (screenshot(&w));
 	mlx_hook(w.win, 2, 0, key_press, &w);
 	mlx_hook(w.win, 17, 0, shut_down, &w);
 	mlx_loop_hook(w.mlx, render_next_frame, &w);

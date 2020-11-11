@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:09:27 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 21:10:05 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 21:22:01 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void				init_player_ang(t_win *w)
 		w->player.ang = M_PI_2 * 1;
 	else if (w->player.facing == 'E')
 		w->player.ang = M_PI_2 * 0;
-	else if (w->player.facing == 'W')			
+	else if (w->player.facing == 'W')
 		w->player.ang = M_PI_2 * 2;
 }
 
@@ -45,7 +45,7 @@ void				init_window(t_win *w)
 	w->player.projected_plane = w->R_width * 0.5 * atan(w->fov_ang * 0.5);
 	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
 	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);
-	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, 
+	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel,
 			&w->img.line_length, &w->img.endian);
 	w->img.x = 0;
 	w->img.y = 0;
@@ -57,11 +57,11 @@ void				curring_texture(int k, char *list[], t_win *w)
 	int				j;
 
 	if (!(w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, list[k],
-				   	&w->tex[k].width, &w->tex[k].height)))
+					&w->tex[k].width, &w->tex[k].height)))
 		return (error_handler("xpm file error!\n", errno));
-	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, 
+	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp,
 			&w->tex[k].len, &w->tex[k].endian);
-	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * 
+	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height *
 				w->tex[k].width), sizeof(int));
 	i = 0;
 	while (i < w->tex[k].height)
@@ -69,7 +69,7 @@ void				curring_texture(int k, char *list[], t_win *w)
 		j = 0;
 		while (j < w->tex[k].width)
 		{
-			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = 
+			w->map.curr_tex[k][(int)w->tex[k].width * i + j] =
 				w->tex[k].addr[(int)w->tex[k].width * i + j];
 			j++;
 		}
@@ -82,7 +82,7 @@ void				init_texture(t_win *w)
 {
 	char			*list[5];
 	int				k;
-	
+
 	list[0] = w->map.info.NO_texture;
 	list[1] = w->map.info.SO_texture;
 	list[2] = w->map.info.EA_texture;

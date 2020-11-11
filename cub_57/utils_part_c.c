@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_part_c.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/11 21:27:41 by jikang            #+#    #+#             */
+/*   Updated: 2020/11/11 21:27:53 by jikang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int					ft_isspace(int c)
@@ -32,7 +44,7 @@ int					check_color(char **tmp)
 	return (1);
 }
 
-int				check_resol(char **tmp)
+int					check_resol(char **tmp)
 {
 	int			i;
 	int			j;
@@ -58,7 +70,7 @@ int				check_resol(char **tmp)
 	return (1);
 }
 
-int				shut_down(t_win *w)
+int					shut_down(t_win *w)
 {
 	exit(0);
 }

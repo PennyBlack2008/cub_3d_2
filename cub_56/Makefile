@@ -40,7 +40,7 @@ OBJS			=	cub3d.o\
 					utils_part_a.o\
 					utils_part_b.o\
 					utils_part_c.o\
-					utils_part_d.c\
+					utils_part_d.o\
 					player.o\
 					screenshot.o\
 					file_parser.o\

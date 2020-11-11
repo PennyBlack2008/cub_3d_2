@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jikang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:30:10 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 21:41:46 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 22:05:18 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,16 @@ typedef struct		s_minimap
 	t_plot			plot;
 }					t_minimap;
 
+/*
+** s_sprite
+** int i : ray 번호
+** double dist : 플레이어와 sprite 거리
+*/
+
 typedef struct		s_sprite
 {
-	int				i; // ray 번호
-	double			dist; // 플레이어와 sprite 거리 차이
+	int				i;
+	double			dist;
 }					t_sprite;
 
 typedef struct		s_sprite_var
@@ -119,19 +125,20 @@ typedef struct		s_sprite_var
 	double			scale_w;
 }					t_sprite_var;
 
+/*
+** s_player
+** 1. player figure: width, height, color
+** 2. player 가 보는 각도 및 plane: ang, projected_plane
+** 3. player 위치: plot, facing
+*/
 
 typedef struct		s_player
 {
-	// player figure
 	int				width;
 	int				height;
 	int				color;
-
-	// 화살표 각도(시야각)
 	double			ang;
 	double			projected_plane;
-
-	// player 위치 <--- int로 바꿔야함
 	t_plot			plot;
 	char			facing;
 }					t_player;
@@ -143,8 +150,6 @@ typedef struct		s_tex
 	int				bpp;
 	int				len;
 	int				endian;
-
-	// xpm image size
 	int				width;
 	int				height;
 }					t_tex;
@@ -153,30 +158,30 @@ typedef struct		s_tex
 typedef struct  	s_img
 {
     void			*ptr;
-    char			*addr; // 이 변수에 image 픽셀의 색을 넣어주는 것이 이미지를 만드는 것이다.
+    char			*addr;
     int				bits_per_pixel;
     int				line_length;
     int				endian;
-
 	int				x;
 	int				y;
 	int				tile_color;
 }            	   t_img;
 
+/*
+** s_map_info
+** 1. texture 벽과 스프라이트
+** 2. 그리고 천장과 바닥의 rgb값
+*/
+
 typedef struct				s_map_info
 {
-	// texture
-	char					*NO_texture; // North texture
-	char					*SO_texture; // South texture
-	char					*WE_texture; // West wall texture
-	char					*EA_texture; // East wall texture
-	char					*sprite_texture; // sprite texture
-
-	// FL RGB
-	t_color					FL_RGB; // Floor color
-
-	// CL RGB
-	t_color					CL_RGB; // Ceiling color
+	char					*NO_texture;
+	char					*SO_texture;
+	char					*WE_texture;
+	char					*EA_texture;
+	char					*sprite_texture;
+	t_color					FL_RGB;
+	t_color					CL_RGB;
 }							t_map_info;
 
 typedef struct		s_map
@@ -189,19 +194,25 @@ typedef struct		s_map
 	t_map_info		info;
 }					t_map;
 
+/*
+** s_ray
+** 1. hit: 벽에 부딛힌 좌표
+** 2. ang: 플레이어 기준에서 ray의 고유한 각도
+** 3. wall_NSEW: 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
+*/
+
 typedef struct		s_ray
 {
-	t_plot			hit; // 벽에 부딛힌 좌표
-	t_plot			wall; // hit 점이 위치한 wall의 왼쪽 위 좌표
+	t_plot			hit;
+	t_plot			wall;
 	t_plot			spr_hit;
 	t_plot			spr_map;
 	double			scale_h;
-	double			ang; // 플레이어 기준에서 ray 의 고유한 각도
-	int				wall_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
+	double			ang;
+	int				wall_NSEW;
 	double			ceiling;
 	double			floor;
 }					t_ray;
-
 
 typedef struct 		s_win
 {
@@ -219,19 +230,65 @@ typedef struct 		s_win
 	t_tex			tex[5];
 }					t_win;
 
-int    				render_next_frame(t_win *w);
+/*
+** bresenhem.c
+*/
 
-// bresenhem.c
 void				draw_line(t_plot p1, t_plot p2, int color, t_win *w);
 
-// map.c
-int					is_wall(double x, double y, t_win *w);
-// void				draw_rectangle(t_win *w, int x, int y, int color);
-// void				draw_map(t_win *w);
-void				map_init(t_win *w);
-// void				draw_sprite_in_minimap(t_win *w);
+/*
+** draw_ceiling.c
+*/
 
-// move.c
+void				draw_ceiling(int i, t_ray *r, t_win *w);
+
+/*
+** draw_floor.c
+*/
+
+void				draw_floor(int i, t_ray *r, t_win *w);
+
+/*
+** draw_sprite.c
+*/
+
+void				draw_a_sprite(int i, t_ray *r, t_win *w);
+
+/*
+** draw_wall.c
+*/
+
+void				draw_a_wall(int i, t_ray *r, t_win *w);
+
+/*
+** file_parser.c
+*/
+
+void				file_parser(t_win *win, char *file);
+
+/*
+** init.c
+*/
+
+int					init_struct_win(t_win *w);
+
+/*
+** map_validator.c
+*/
+
+void				map_validtator(t_win *win);
+
+/*
+** map.c
+*/
+
+void				map_init(t_win *w);
+int					is_wall(double x, double y, t_win *w);
+
+/*
+** move.c
+*/
+
 int					rotate_right(t_win *w);
 int					rotate_left(t_win *w);
 int					move_forward(t_win *w);
@@ -239,8 +296,10 @@ int					move_back(t_win *w);
 int					move_left(t_win *w);
 int					move_right(t_win *w);
 
-// raycasting.c
-int					cast_a_ray(t_ray *r, t_win *w);
+/*
+** raycasting.c
+*/
+
 int					cast_rays(t_win *w);
 
 /*
@@ -249,16 +308,22 @@ int					cast_rays(t_win *w);
 
 // draw_wall.c
 void				draw_a_wall(int i, t_ray *r, t_win *w);
+/*
+**
+*/
 
-// draw_ceiling.c
-void				draw_ceiling(int i, t_ray *r, t_win *w);
+/*
+**
+*/
 
-// draw_floor.c
-void				draw_floor(int i, t_ray *r, t_win *w);
-
+/*
+**
+*/
 // draw_sprite.c
 void				draw_a_sprite(int i, t_ray *r, t_win *w);
-
+/*
+**
+*/
 // utils.c
 double				normalize_angle(double ang);
 void				set_plot(t_plot *plot, double x, double y);
@@ -276,14 +341,14 @@ void				forward(t_win *w);
 void				backward(t_win *w);
 void				leftward(t_win *w);
 void				rightward(t_win *w);
-
+/*
+**
+*/
 // screenshot.c
 int					screenshot(t_win *w);
 int					exit_game(t_win *w, int a);
 int					exit_error(t_win *w, int a, char const *str);
 
-void				file_parser(t_win *win, char *file);
-void				map_validtator(t_win *win);
 void				parse_resolution(t_win *win, char *line, char identifier);
 void				parse_texture(t_win *win, char *line, char identifier);
 void				parse_color(t_win *win, char *line, char identifier);
@@ -297,5 +362,4 @@ int					rotate_right(t_win *w);
 int					rotate_left(t_win *w);
 int					shut_down(t_win *w);
 
-int					init_struct_win(t_win *w);
 #endif

@@ -1,27 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/11 21:30:10 by jikang            #+#    #+#             */
+/*   Updated: 2020/11/11 21:41:46 by jikang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef _CUB3D_H_
 # define _CUB3D_H_
 
-#include "../get_next_line/get_next_line.h"
-#include "../libft/libft.h"
-#include "../minilibx/mlx.h"
-#include <unistd.h>
-#include <math.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <string.h>
+# include "../get_next_line/get_next_line.h"
+# include "../libft/libft.h"
+# include "../minilibx/mlx.h"
+# include <unistd.h>
+# include <math.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <string.h>
 
-// WIN SPEC
-#define WIN_WIDTH	1000
-#define WIN_HEIGHT	1000
-#define fov			60
+# define WIN_WIDTH	1000
+# define WIN_HEIGHT	1000
+# define FOV		60
 
-// DEBUG
-#define ERROR		0
-#define SUCCESS		1
-#define FILEEND		0
+# define ERROR		0
+# define SUCCESS	1
+# define FILEEND	0
 
-// KEY
 # define KEY_W		13
 # define KEY_A		0
 # define KEY_S		1
@@ -36,12 +45,17 @@
 
 # define KEY_ESC	53
 
-// WALL
-# define WALL 		49 // ascii #1
-# define NOT_WALL	48 // ascii #0
-# define SPRITE		50 // ascii #2
+/*
+** WALL
+*/
 
-// NSEW
+# define WALL 		49
+# define NOT_WALL	48
+# define SPRITE		50
+
+/*
+** NSEW
+*/
 # define NORTH		0
 # define SOUTH		1
 # define EAST		2

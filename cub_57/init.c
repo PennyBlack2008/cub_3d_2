@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:09:27 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 21:22:01 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 21:46:08 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void				init_window(t_win *w)
 	map_init(w);
 	init_player_ang(w);
 	w->player.height = w->R_height / 2;
-	w->fov_ang = M_PI / 3;
+	w->fov_ang = M_PI * FOV / 180;
 	w->player.projected_plane = w->R_width * 0.5 * atan(w->fov_ang * 0.5);
 	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
 	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);

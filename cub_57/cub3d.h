@@ -281,4 +281,7 @@ int					check_resol(char **tmp);
 
 int					rotate_right(t_win *w);
 int					rotate_left(t_win *w);
+int					shut_down(t_win *w);
+
+int					init_struct_win(t_win *w);
 #endif

@@ -57,3 +57,8 @@ int				check_resol(char **tmp)
 	}
 	return (1);
 }
+
+int				shut_down(t_win *w)
+{
+	exit(0);
+}

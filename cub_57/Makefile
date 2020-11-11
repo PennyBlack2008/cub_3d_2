@@ -21,6 +21,7 @@ SRCS			=	cub3d.c\
 					parse.c\
 					map_validator.c\
 					sort_sprite.c\
+					init.c\
 					./../get_next_line/get_next_line.c\
 					./../get_next_line/get_next_line_utils.c\
 
@@ -45,6 +46,7 @@ OBJS			=	cub3d.o\
 					parse.o\
 					map_validator.o\
 					sort_sprite.o\
+					init.o\
 					get_next_line.o\
 					get_next_line_utils.o\
 

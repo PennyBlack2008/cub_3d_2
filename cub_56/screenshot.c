@@ -73,6 +73,7 @@ int			screenshot(t_win *w)
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
 	pixel_bytes_per_row = w->R_width * 3;
 	pad = (4 - pixel_bytes_per_row % 4) % 4;
+	// file_size = 14 + 40 + (3 * w->R_width + pad) * w->R_height;
 	file_size = 14 + 40 + 3 * (w->R_width + pad) * w->R_height;
 	if ((fd = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (0);

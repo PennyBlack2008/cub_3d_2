@@ -57,23 +57,26 @@ void				init_player_ang(t_win *w)
 		w->player.ang = M_PI_2 * 2;
 }
 
+/*
+** 함수: void				init_window(t_win *w)
+**  1. mlx 관련 함수 시작
+**  2. map parsing
+**  3. 해상도 설정
+**  4. 윈도우 창의 크기 설정
+**  5. 윈도우에 넣을 이미지 크기 정하기
+*/
+
 void				init_window(t_win *w)
 {
-	// 1. mlx 관련 함수 시작
 	w->mlx = mlx_init();
 	w->wall.height = 600;
 	w->player.width = w->wall.length / 3;
-	// 2. map parsing
 	map_init(w);
-	// 3. player setting
 	init_player_ang(w);
 	w->player.height = w->R_height / 2;
-	// 3. 해상도 설정
 	w->fov_ang = M_PI / 3;
 	w->player.projected_plane = w->R_width * 0.5 * atan(w->fov_ang * 0.5);
-	// 4. 윈도우 창의 크기 설정
 	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
-	// 5. 윈도우에 넣을 이미지 크기 정하기
 	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);
 	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, 
 			&w->img.line_length, &w->img.endian);
@@ -138,8 +141,7 @@ int					main(int argc, char **argv)
 	t_win			w;
 	int				save_opt;
 
-	save_opt = (argc == 2 && (ft_memcmp(argv[argc - 1], "--save", 6) == 0));
-	printf("save_opt : %d\n", save_opt);
+	save_opt = (argc == 3 && (ft_memcmp(argv[argc - 1], "--save", 6) == 0));
 	w.wall.length = 150;
 	file_parser(&w, argv[1]);
 	init_struct_win(&w);
@@ -149,6 +151,5 @@ int					main(int argc, char **argv)
 	mlx_hook(w.win, 17, 0, shut_down, &w);
 	mlx_loop_hook(w.mlx, render_next_frame, &w);
 	mlx_loop(w.mlx);
-
 	return (0);
 }

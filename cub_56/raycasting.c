@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:46:28 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 17:48:55 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 18:57:48 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int					cast_rays(t_win *w)
 		draw_floor(i, r, w);
 		cast_a_ray(&(r[i]), w);
 		draw_a_wall(i, r, w);
-		ray_ang += w->fov_ang / (w->R_width);
+		ray_ang += w->fov_ang / w->R_width;
 		i++;
 	}
 	sprites_calculator(sprite, r, w);

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/11 17:46:28 by jikang            #+#    #+#             */
+/*   Updated: 2020/11/11 17:48:55 by jikang           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int					find_cardinal_dir_wall(t_ray *r, t_win *w)
 {
 	double ray_ang;
-	
+
 	r->wall_NSEW = 5;
 	if (fabs(r->hit.x - r->wall.x) < 1.5)
 		return (EAST);
@@ -13,7 +25,6 @@ int					find_cardinal_dir_wall(t_ray *r, t_win *w)
 		return (SOUTH);
 	if (fabs(r->hit.y - r->wall.y - w->wall.length) < 1.5)
 		return (NORTH);
-
 	return (5);
 }
 
@@ -80,8 +91,9 @@ void				sprites_calculator(t_sprite *sprite, t_ray *r, t_win *w)
 		r[i + 1].spr_hit.y) > w->wall.length * 0.5)
 		{
 			sprite[j].i = i;
-			sprite[j].dist = hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y
-			- w->player.plot.y) * fabs(cos(r[i].ang - w->player.ang));
+			sprite[j].dist = hypot(r[i].spr_hit.x - w->player.plot.x,
+					r[i].spr_hit.y - w->player.plot.y) * fabs(cos(r[i].ang -
+							w->player.ang));
 			j++;
 		}
 		i++;

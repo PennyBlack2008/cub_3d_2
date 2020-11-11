@@ -266,6 +266,10 @@ int					safer_free_p(void *p);
 int					ft_isspace(int c);
 int					check_color(char **tmp);
 void				error_handler(char *s, int num);
+void				forward(t_win *w);
+void				backward(t_win *w);
+void				leftward(t_win *w);
+void				rightward(t_win *w);
 
 // screenshot.c
 int					screenshot(t_win *w);
@@ -278,7 +282,6 @@ void				parse_resolution(t_win *win, char *line, char identifier);
 void				parse_texture(t_win *win, char *line, char identifier);
 void				parse_color(t_win *win, char *line, char identifier);
 void				parse_map(t_win *win, t_list *lst);
-static int			get_map_width(t_list *lst);
 
 // sort_sprite.c
 void				draw_sprites(t_sprite *spr, t_ray *r, t_win *w);

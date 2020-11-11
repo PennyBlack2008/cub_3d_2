@@ -77,8 +77,10 @@ int					move_forward(t_win *w)
 		y = w->player.width / 2 * -1;
 		while (y < w->player.width / 2)
 		{
-			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang) + w->player.plot.x + 30 * cos(w->player.ang);
-			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang) + w->player.plot.y + 30 * sin(w->player.ang);
+			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang)
+				+ w->player.plot.x + 30 * cos(w->player.ang);
+			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang)
+				+ w->player.plot.y + 30 * sin(w->player.ang);
 			if (plot.x >= 0 && plot.y >= 0)
 			{
 				if (is_wall(plot.x, plot.y, w) == WALL)
@@ -88,8 +90,7 @@ int					move_forward(t_win *w)
 		}
 		x++;
 	}
-	w->player.plot.x += 30 * cos(w->player.ang * -1);
-	w->player.plot.y -= 30 * sin(w->player.ang * -1);
+	forward(w);
 	return (NOT_WALL);
 }
 
@@ -105,8 +106,10 @@ int					move_back(t_win *w)
 		y = w->player.width / 2 * -1;
 		while (y < w->player.width / 2)
 		{
-			plot.x = x * cos(w->player.ang) + y * sin(w->player.ang) + w->player.plot.x - 30 * cos(w->player.ang);
-			plot.y = x * sin(w->player.ang) * -1 + y * cos(w->player.ang) + w->player.plot.y - 30 * sin(w->player.ang);
+			plot.x = x * cos(w->player.ang) + y * sin(w->player.ang)
+				+ w->player.plot.x - 30 * cos(w->player.ang);
+			plot.y = x * sin(w->player.ang) * -1 + y * cos(w->player.ang)
+				+ w->player.plot.y - 30 * sin(w->player.ang);
 			if (plot.x >= 0 && plot.y >= 0)
 			{
 				if (is_wall(plot.x, plot.y, w) == WALL)
@@ -116,8 +119,7 @@ int					move_back(t_win *w)
 		}
 		x++;
 	}
-	w->player.plot.x -= 30 * cos(w->player.ang * -1);
-	w->player.plot.y += 30 * sin(w->player.ang * -1);
+	backward(w);
 	return (NOT_WALL);
 }
 
@@ -133,8 +135,10 @@ int					move_left(t_win *w)
 		y = w->player.width / 2 * -1;
 		while (y < w->player.width / 2)
 		{
-			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang) + w->player.plot.x - 30 * cos(M_PI_2 - (w->player.ang * -1));
-			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang) + w->player.plot.y - 30 * sin(M_PI_2 - (w->player.ang * -1));
+			plot.x = x * cos(w->player.ang) - y * sin(w->player.ang)
+				+ w->player.plot.x - 30 * cos(M_PI_2 - (w->player.ang * -1));
+			plot.y = x * sin(w->player.ang) + y * cos(w->player.ang)
+				+ w->player.plot.y - 30 * sin(M_PI_2 - (w->player.ang * -1));
 			if (plot.x >= 0 && plot.y >= 0)
 			{
 				if (is_wall(plot.x, plot.y, w) == WALL)
@@ -144,8 +148,7 @@ int					move_left(t_win *w)
 		}
 		x++;
 	}
-	w->player.plot.x -= 30 * cos(M_PI_2 - (w->player.ang * -1));
-	w->player.plot.y -= 30 * sin(M_PI_2 - (w->player.ang * -1));
+	leftward(w);
 	return (NOT_WALL);
 }
 
@@ -174,7 +177,6 @@ int					move_right(t_win *w)
 		}
 		x++;
 	}
-	w->player.plot.x += 30 * cos(M_PI_2 - (w->player.ang * -1));
-	w->player.plot.y += 30 * sin(M_PI_2 - (w->player.ang * -1));
+	rightward(w);
 	return (NOT_WALL);
 }

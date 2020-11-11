@@ -5,7 +5,7 @@
 #include "../libft/libft.h"
 #include "../minilibx/mlx.h"
 #include <unistd.h>
-#include <stdio.h>
+#include <stdio.h> // 꼭 지우기
 #include <math.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -171,6 +171,7 @@ typedef struct		s_ray
 	t_plot			wall; // hit 점이 위치한 wall의 왼쪽 위 좌표
 	t_plot			spr_hit;
 	t_plot			spr_map;
+	double			scale_h;
 	double			ang; // 플레이어 기준에서 ray 의 고유한 각도
 	int				wall_NSEW; // 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
 	double			ceiling;

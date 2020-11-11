@@ -1,6 +1,7 @@
 #include "cub3d.h"
 
-int					get_color_spr(double x, double y, double scale_w, double scale_h, t_win *w, int k)
+int					get_color_spr(double x, double y, double scale_w, double 
+		scale_h, t_win *w, int k)
 {
 	int				color;
 	double			px;
@@ -32,7 +33,7 @@ static void			draw_part_down(int i, int l, double o_pjtd_height,
 
 static void			draw_part_up(int i, int l, double o_pjtd_height, 
 		double pjtd_height, double o_pjtd_width, double scale_w, double scale_h,
-		t_win *w)
+	   	t_win *w)
 {
 	int				color;
 	int				k;
@@ -64,8 +65,10 @@ void				draw_sprite_pixels(int i, double o_pjtd_width,
 		 w->player.plot.x, r[i].spr_hit.y 
 			- w->player.plot.y)))
 		{
-			draw_part_down(i, l, o_pjtd_height, pjtd_height, o_pjtd_width, scale_w, scale_h, w);
-			draw_part_up(i, l, o_pjtd_height, pjtd_height, o_pjtd_width, scale_w, scale_h, w);	
+			draw_part_down(i, l, o_pjtd_height, pjtd_height, o_pjtd_width, 
+					scale_w, scale_h, w);
+			draw_part_up(i, l, o_pjtd_height, pjtd_height, o_pjtd_width, 
+					scale_w, scale_h, w);	
 		}
 		l++;
 	}

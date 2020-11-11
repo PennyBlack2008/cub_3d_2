@@ -1,15 +1,8 @@
 #include "cub3d.h"
 
-// int		exit_error(t_win *w, int a, char const *str)
-// {
-// 	if (str)
-// 		write(1, str, ft_strlen(str));
-// 	exit_game(w, 0);
-// 	return (0);
-// }
-
 /*
-** 함수 render_next_frame : 이 함수에 들어 있는 함수 순서대로 윈도우 화면에 랜더링을 시작한다.
+** 함수 render_next_frame : 이 함수에 들어 있는 함수 순서대로 윈도우 화면에
+** 랜더링을 시작한다.
 */
 
 int     render_next_frame(t_win *w)
@@ -37,23 +30,18 @@ int				key_press(int keycode, t_win *w)
 		mlx_destroy_window(w->mlx, w->win);
 		exit(0);
 	}
-	if (keycode == KEY_W) // 위로
+	if (keycode == KEY_W)
 		move_forward(w);
-	if (keycode == KEY_A) // 왼쪽으로
+	if (keycode == KEY_A)
 		move_left(w);
-	if (keycode == KEY_S) // 밑으로
+	if (keycode == KEY_S)
 		move_back(w);
-	if (keycode == KEY_D) // 오른쪽으로
+	if (keycode == KEY_D)
 		move_right(w);
-	if (keycode == KEY_LEFT) // 각도 왼쪽으로
+	if (keycode == KEY_LEFT)
 		rotate_left(w);
-	if (keycode == KEY_RIGHT) // 각도 오른쪽으로
+	if (keycode == KEY_RIGHT)
 		rotate_right(w);
-	if (keycode == KEY_H)
-	{
-		color = my_mlx_pixel_get(&w->img, w->R_width/2, w->R_height/2);
-		printf("%0#x\n", color);
-	}
 	return (0);
 }
 
@@ -87,7 +75,8 @@ void				init_window(t_win *w)
 	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
 	// 5. 윈도우에 넣을 이미지 크기 정하기
 	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);
-	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, &w->img.line_length, &w->img.endian);
+	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel, 
+			&w->img.line_length, &w->img.endian);
 	w->img.x = 0;
 	w->img.y = 0;
 }
@@ -97,17 +86,21 @@ void				curring_texture(int k, char *list[], t_win *w)
 	int				i;
 	int				j;
 
-	if (!(w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, list[k], &w->tex[k].width, &w->tex[k].height)))
+	if (!(w->tex[k].ptr = mlx_xpm_file_to_image(w->mlx, list[k],
+				   	&w->tex[k].width, &w->tex[k].height)))
 		return (error_handler("xpm file error!\n", errno));
-	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, &w->tex[k].len, &w->tex[k].endian);
-	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * w->tex[k].width), sizeof(int));
+	w->tex[k].addr = (int *)mlx_get_data_addr(w->tex[k].ptr, &w->tex[k].bpp, 
+			&w->tex[k].len, &w->tex[k].endian);
+	w->map.curr_tex[k] = (int *)ft_calloc((w->tex[k].height * 
+				w->tex[k].width), sizeof(int));
 	i = 0;
 	while (i < w->tex[k].height)
 	{
 		j = 0;
 		while (j < w->tex[k].width)
 		{
-			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = w->tex[k].addr[(int)w->tex[k].width * i + j];
+			w->map.curr_tex[k][(int)w->tex[k].width * i + j] = 
+				w->tex[k].addr[(int)w->tex[k].width * i + j];
 			j++;
 		}
 		i++;

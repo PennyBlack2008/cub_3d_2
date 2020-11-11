@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:09:27 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 21:46:08 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 22:21:42 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void				init_window(t_win *w)
 	w->player.width = w->wall.length / 3;
 	map_init(w);
 	init_player_ang(w);
-	w->player.height = w->R_height / 2;
+	w->player.height = w->r_height / 2;
 	w->fov_ang = M_PI * FOV / 180;
-	w->player.projected_plane = w->R_width * 0.5 * atan(w->fov_ang * 0.5);
-	w->win = mlx_new_window(w->mlx, w->R_width, w->R_height, "cub3D");
-	w->img.ptr = mlx_new_image(w->mlx, w->R_width, w->R_height);
+	w->player.projected_plane = w->r_width * 0.5 * atan(w->fov_ang * 0.5);
+	w->win = mlx_new_window(w->mlx, w->r_width, w->r_height, "cub3D");
+	w->img.ptr = mlx_new_image(w->mlx, w->r_width, w->r_height);
 	w->img.addr = mlx_get_data_addr(w->img.ptr, &w->img.bits_per_pixel,
 			&w->img.line_length, &w->img.endian);
 	w->img.x = 0;
@@ -83,10 +83,10 @@ void				init_texture(t_win *w)
 	char			*list[5];
 	int				k;
 
-	list[0] = w->map.info.NO_texture;
-	list[1] = w->map.info.SO_texture;
-	list[2] = w->map.info.EA_texture;
-	list[3] = w->map.info.WE_texture;
+	list[0] = w->map.info.no_texture;
+	list[1] = w->map.info.so_texture;
+	list[2] = w->map.info.ea_texture;
+	list[3] = w->map.info.we_texture;
 	list[4] = w->map.info.sprite_texture;
 	k = 0;
 	while (k < 5)

@@ -6,12 +6,12 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:30:10 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 22:14:39 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 22:26:49 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef _CUB3D_H_
-# define _CUB3D_H_
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
@@ -23,43 +23,43 @@
 # include <errno.h>
 # include <string.h>
 
-# define WIN_WIDTH	1000
-# define WIN_HEIGHT	1000
-# define FOV		60
+# define WIN_WIDTH		1000
+# define WIN_HEIGHT		1000
+# define FOV			60
 
-# define ERROR		0
-# define SUCCESS	1
-# define FILEEND	0
+# define ERROR			0
+# define SUCCESS		1
+# define FILEEND		0
 
-# define KEY_W		13
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
+# define KEY_W			13
+# define KEY_A			0
+# define KEY_S			1
+# define KEY_D			2
 
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
+# define KEY_LEFT		123
+# define KEY_RIGHT		124
 
-# define KEY_F		3
-# define KEY_G		5
-# define KEY_H		4
+# define KEY_F			3
+# define KEY_G			5
+# define KEY_H			4
 
-# define KEY_ESC	53
+# define KEY_ESC		53
 
 /*
 ** WALL
 */
 
-# define WALL 		49
-# define NOT_WALL	48
-# define SPRITE		50
+# define WALL 			49
+# define NOT_WALL		48
+# define SPRITE			50
 
 /*
 ** NSEW
 */
-# define NORTH		0
-# define SOUTH		1
-# define EAST		2
-# define WEST		3
+# define NORTH			0
+# define SOUTH			1
+# define EAST			2
+# define WEST			3
 
 /*
 ** Center of the Projection Plane = (160,100)
@@ -67,17 +67,17 @@
 ** Angle between subsequent rays = 60/320 degrees
 */
 
-typedef struct		s_plot
+typedef struct			s_plot
 {
-	double			x;
-	double			y;
-}					t_plot;
+	double				x;
+	double				y;
+}						t_plot;
 
-typedef struct		s_plot_int
+typedef struct			s_plot_int
 {
-	double			x;
-	double			y;
-}					t_plot_int;
+	double				x;
+	double				y;
+}						t_plot_int;
 
 typedef union			u_color
 {
@@ -91,16 +91,11 @@ typedef union			u_color
 	}					trgb;
 }						t_color;
 
-typedef struct		s_wall
+typedef struct			s_wall
 {
-	double			length;
-	double			height;
-}					t_wall;
-
-typedef struct		s_minimap
-{
-	t_plot			plot;
-}					t_minimap;
+	double				length;
+	double				height;
+}						t_wall;
 
 /*
 ** s_sprite
@@ -108,22 +103,22 @@ typedef struct		s_minimap
 ** double dist : 플레이어와 sprite 거리
 */
 
-typedef struct		s_sprite
+typedef struct			s_sprite
 {
-	int				i;
-	double			dist;
-}					t_sprite;
+	int					i;
+	double				dist;
+}						t_sprite;
 
-typedef struct		s_sprite_var
+typedef struct			s_sprite_var
 {
-	double			dist_to_spr;
-	double			pjtd_height;
-	double			o_pjtd_height;
-	double			pjtd_width;
-	double			o_pjtd_width;
-	double			scale_h;
-	double			scale_w;
-}					t_sprite_var;
+	double				dist_to_spr;
+	double				pjtd_height;
+	double				o_pjtd_height;
+	double				pjtd_width;
+	double				o_pjtd_width;
+	double				scale_h;
+	double				scale_w;
+}						t_sprite_var;
 
 /*
 ** s_player
@@ -132,40 +127,39 @@ typedef struct		s_sprite_var
 ** 3. player 위치: plot, facing
 */
 
-typedef struct		s_player
+typedef struct			s_player
 {
-	int				width;
-	int				height;
-	int				color;
-	double			ang;
-	double			projected_plane;
-	t_plot			plot;
-	char			facing;
-}					t_player;
+	int					width;
+	int					height;
+	int					color;
+	double				ang;
+	double				projected_plane;
+	t_plot				plot;
+	char				facing;
+}						t_player;
 
-typedef struct		s_tex
+typedef struct			s_tex
 {
-	void			*ptr;
-	int				*addr;
-	int				bpp;
-	int				len;
-	int				endian;
-	int				width;
-	int				height;
-}					t_tex;
+	void				*ptr;
+	int					*addr;
+	int					bpp;
+	int					len;
+	int					endian;
+	int					width;
+	int					height;
+}						t_tex;
 
-
-typedef struct  	s_img
+typedef struct			s_img
 {
-    void			*ptr;
-    char			*addr;
-    int				bits_per_pixel;
-    int				line_length;
-    int				endian;
-	int				x;
-	int				y;
-	int				tile_color;
-}            	   t_img;
+	void				*ptr;
+	char				*addr;
+	int					bits_per_pixel;
+	int					line_length;
+	int					endian;
+	int					x;
+	int					y;
+	int					tile_color;
+}						t_img;
 
 /*
 ** s_map_info
@@ -173,26 +167,26 @@ typedef struct  	s_img
 ** 2. 그리고 천장과 바닥의 rgb값
 */
 
-typedef struct				s_map_info
+typedef struct			s_map_info
 {
-	char					*NO_texture;
-	char					*SO_texture;
-	char					*WE_texture;
-	char					*EA_texture;
-	char					*sprite_texture;
-	t_color					FL_RGB;
-	t_color					CL_RGB;
-}							t_map_info;
+	char				*no_texture;
+	char				*so_texture;
+	char				*we_texture;
+	char				*ea_texture;
+	char				*sprite_texture;
+	t_color				fl_rgb;
+	t_color				cl_rgb;
+}						t_map_info;
 
-typedef struct		s_map
+typedef struct			s_map
 {
-	char			**map;
-	char			*map_1d;
-	int				map_width;
-	int				map_height;
-	int				*curr_tex[5];
-	t_map_info		info;
-}					t_map;
+	char				**map;
+	char				*map_1d;
+	int					map_width;
+	int					map_height;
+	int					*curr_tex[5];
+	t_map_info			info;
+}						t_map;
 
 /*
 ** s_ray
@@ -201,143 +195,138 @@ typedef struct		s_map
 ** 3. wall_NSEW: 부딛힌 벽 방향 NO: 0, SO: 1, EA: 2, WE: 3
 */
 
-typedef struct		s_ray
+typedef struct			s_ray
 {
-	t_plot			hit;
-	t_plot			wall;
-	t_plot			spr_hit;
-	t_plot			spr_map;
-	double			scale_h;
-	double			ang;
-	int				wall_NSEW;
-	double			ceiling;
-	double			floor;
-}					t_ray;
+	t_plot				hit;
+	t_plot				wall;
+	t_plot				spr_hit;
+	t_plot				spr_map;
+	double				scale_h;
+	double				ang;
+	int					wall_nsew;
+	double				ceiling;
+	double				floor;
+}						t_ray;
 
-typedef struct 		s_win
+typedef struct			s_win
 {
-	void			*mlx;
-	void			*win;
-	int				R_width;
-	int				R_height;
-	double			fov_ang;
-	int				num_sprite;
-	t_img			img;
-	t_map			map;
-	t_player		player;
-	t_wall			wall;
-	t_minimap		mini;
-	t_tex			tex[5];
-}					t_win;
+	void				*mlx;
+	void				*win;
+	int					r_width;
+	int					r_height;
+	double				fov_ang;
+	int					num_sprite;
+	t_img				img;
+	t_map				map;
+	t_player			player;
+	t_wall				wall;
+	t_tex				tex[5];
+}						t_win;
 
 /*
 ** bresenhem.c
 */
 
-void				draw_line(t_plot p1, t_plot p2, int color, t_win *w);
+void					draw_line(t_plot p1, t_plot p2, int color, t_win *w);
 
 /*
 ** draw_ceiling.c
 */
 
-void				draw_ceiling(int i, t_ray *r, t_win *w);
+void					draw_ceiling(int i, t_ray *r, t_win *w);
 
 /*
 ** draw_floor.c
 */
 
-void				draw_floor(int i, t_ray *r, t_win *w);
+void					draw_floor(int i, t_ray *r, t_win *w);
 
 /*
 ** draw_sprite.c
 */
 
-void				draw_a_sprite(int i, t_ray *r, t_win *w);
+void					draw_a_sprite(int i, t_ray *r, t_win *w);
 
 /*
 ** draw_wall.c
 */
 
-void				draw_a_wall(int i, t_ray *r, t_win *w);
+void					draw_a_wall(int i, t_ray *r, t_win *w);
 
 /*
 ** file_parser.c
 */
 
-void				file_parser(t_win *win, char *file);
+void					file_parser(t_win *win, char *file);
 
 /*
 ** init.c
 */
 
-int					init_struct_win(t_win *w);
+int						init_struct_win(t_win *w);
 
 /*
 ** map_validator.c
 */
 
-void				map_validtator(t_win *win);
+void					map_validtator(t_win *win);
 
 /*
 ** map.c
 */
 
-void				map_init(t_win *w);
-int					is_wall(double x, double y, t_win *w);
+void					map_init(t_win *w);
+int						is_wall(double x, double y, t_win *w);
 
 /*
 ** move.c
 */
 
-int					move_forward(t_win *w);
-int					move_back(t_win *w);
-int					move_left(t_win *w);
-int					move_right(t_win *w);
+int						move_forward(t_win *w);
+int						move_back(t_win *w);
+int						move_left(t_win *w);
+int						move_right(t_win *w);
 
 /*
 ** rotate.c
 */
 
-int					rotate_right(t_win *w);
-int					rotate_left(t_win *w);
+int						rotate_right(t_win *w);
+int						rotate_left(t_win *w);
 
 /*
 ** parse.c
 */
 
-void				parse_resolution(t_win *win, char *line, char identifier);
-void				parse_texture(t_win *win, char *line, char identifier);
-void				parse_color(t_win *win, char *line, char identifier);
-void				parse_map(t_win *win, t_list *lst);
-
+void					parse_resolution(t_win *win, char *line,
+								char identifier);
+void					parse_texture(t_win *win, char *line, char identifier);
+void					parse_color(t_win *win, char *line, char identifier);
+void					parse_map(t_win *win, t_list *lst);
 
 /*
 ** raycasting.c
 */
 
-int					cast_rays(t_win *w);
-
-/*
-** drawing files
-*/
+int						cast_rays(t_win *w);
 
 /*
 ** screenshot.c
 */
 
-int					screenshot(t_win *w);
+int						screenshot(t_win *w);
 
 /*
 ** sort_sprite.c
 */
 
-void				draw_sprites(t_sprite *spr, t_ray *r, t_win *w);
+void					draw_sprites(t_sprite *spr, t_ray *r, t_win *w);
 
 /*
 ** draw_sprite.c
 */
 
-void				draw_a_sprite(int i, t_ray *r, t_win *w);
+void					draw_a_sprite(int i, t_ray *r, t_win *w);
 
 /*
 ** utils 파일
@@ -347,38 +336,38 @@ void				draw_a_sprite(int i, t_ray *r, t_win *w);
 ** utils_part_a.c
 */
 
-void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
-unsigned int		my_mlx_pixel_get(t_img *img, int x, int y);
-double				normalize_angle(double ang);
-void				set_plot(t_plot *plot, double x, double y);
-int					draw_background(t_win *w);
+void					my_mlx_pixel_put(t_img *img, int x, int y, int color);
+unsigned int			my_mlx_pixel_get(t_img *img, int x, int y);
+double					normalize_angle(double ang);
+void					set_plot(t_plot *plot, double x, double y);
+int						draw_background(t_win *w);
 
 /*
 ** utils_part_b.c
 */
 
-void				save_plot(t_plot *dst_plot, t_plot *src_plot);
-int					color_rgb(int r, int g, int b);
-int					safer_free_pp(void **pp);
-int					safer_free_p(void *p);
-void				error_handler(char *s, int num);
+void					save_plot(t_plot *dst_plot, t_plot *src_plot);
+int						color_rgb(int r, int g, int b);
+int						safer_free_pp(void **pp);
+int						safer_free_p(void *p);
+void					error_handler(char *s, int num);
 
 /*
 ** utils_part_c.c
 */
 
-int					shut_down(t_win *w);
-int					check_resol(char **tmp);
-int					ft_isspace(int c);
-int					check_color(char **tmp);
+int						shut_down(t_win *w);
+int						check_resol(char **tmp);
+int						ft_isspace(int c);
+int						check_color(char **tmp);
 
 /*
 ** utils_part_d.c
 */
 
-void				forward(t_win *w);
-void				backward(t_win *w);
-void				leftward(t_win *w);
-void				rightward(t_win *w);
+void					forward(t_win *w);
+void					backward(t_win *w);
+void					leftward(t_win *w);
+void					rightward(t_win *w);
 
 #endif

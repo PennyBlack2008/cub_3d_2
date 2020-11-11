@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:09:17 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 17:18:44 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 22:21:16 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void			draw_part_down(int i, int l, t_sprite_var *var, t_win *w)
 	{
 		color = get_color_spr(var->o_pjtd_width / 2 + l, var->o_pjtd_height / 2
 				+ j, var, w);
-		if (color != 0 && i + l < w->R_width)
+		if (color != 0 && i + l < w->r_width)
 			my_mlx_pixel_put(&w->img, i + l, w->player.height + j, color);
 		j++;
 	}
@@ -65,7 +65,7 @@ void				draw_sprite_pixels(int i, t_sprite_var *var, t_ray *r,
 	l = -1 * var->pjtd_width / 2;
 	while (l < var->pjtd_width / 2)
 	{
-		if (i + l > w->R_width)
+		if (i + l > w->r_width)
 			break ;
 		if (i + l >= 0 && (hypot(r[i + l].hit.x - w->player.plot.x,
 		r[i + l].hit.y - w->player.plot.y) > hypot(r[i].spr_hit.x -
@@ -94,9 +94,9 @@ void				draw_a_sprite(int i, t_ray *r, t_win *w)
 	var.o_pjtd_width = var.pjtd_width;
 	var.scale_h = var.o_pjtd_height / 64.0;
 	var.scale_w = var.o_pjtd_width / 64.0;
-	if (var.pjtd_height > w->R_height)
-		var.pjtd_height = w->R_height;
-	if (var.pjtd_width > w->R_width)
-		var.pjtd_width = w->R_width;
+	if (var.pjtd_height > w->r_height)
+		var.pjtd_height = w->r_height;
+	if (var.pjtd_width > w->r_width)
+		var.pjtd_width = w->r_width;
 	draw_sprite_pixels(i, &var, r, w);
 }

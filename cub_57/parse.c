@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:26:54 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 22:05:20 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/11 22:21:21 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void		parse_color(t_win *win, char *line, char identifier)
 	if (!check_color(tmp))
 		error_handler("Color error in .cub file!", 0);
 	if (identifier == 'F')
-		color = &win->map.info.FL_RGB;
+		color = &win->map.info.fl_RGB;
 	else
-		color = &win->map.info.CL_RGB;
+		color = &win->map.info.cl_RGB;
 	color->trgb.r = ft_atoi(tmp[0]);
 	color->trgb.g = ft_atoi(tmp[1]);
 	color->trgb.b = ft_atoi(tmp[2]);
@@ -79,13 +79,13 @@ void		parse_texture(t_win *win, char *line, char identifier)
 	while (ft_isspace(*line))
 		line++;
 	if (identifier == 'N')
-		win->map.info.NO_texture = ft_strdup(line);
+		win->map.info.no_texture = ft_strdup(line);
 	else if (identifier == 'S')
-		win->map.info.SO_texture = ft_strdup(line);
+		win->map.info.so_texture = ft_strdup(line);
 	else if (identifier == 'W')
-		win->map.info.WE_texture = ft_strdup(line);
+		win->map.info.we_texture = ft_strdup(line);
 	else if (identifier == 'E')
-		win->map.info.EA_texture = ft_strdup(line);
+		win->map.info.ea_texture = ft_strdup(line);
 	else if (identifier == 's')
 		win->map.info.sprite_texture = ft_strdup(line);
 }
@@ -101,11 +101,11 @@ void		parse_resolution(t_win *win, char *line, char identifier)
 		error_handler("Resolution error!", ENOMEM);
 	if (identifier == 'R')
 	{
-		win->R_width = ft_atoi(line);
+		win->r_width = ft_atoi(line);
 		while (ft_isspace(*line))
 			line++;
 		while (ft_isdigit(*line))
 			line++;
-		win->R_height = ft_atoi(line);
+		win->r_height = ft_atoi(line);
 	}
 }

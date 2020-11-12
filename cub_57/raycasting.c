@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:46:28 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 13:51:27 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 16:57:57 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ void				sprites_calculator(t_sprite *sprite, t_ray *r, t_win *w)
 	while (i < w->r_width - 1)
 	{
 		if (r[i].spr_hit.x != 0 && r[i].spr_hit.y != 0 &&
-		hy_pot(r[i].spr_hit.x - r[i + 1].spr_hit.x, r[i].spr_hit.y -
+		hypot(r[i].spr_hit.x - r[i + 1].spr_hit.x, r[i].spr_hit.y -
 		r[i + 1].spr_hit.y) > w->wall.length * 0.5)
 		{
 			sprite[j].i = i;
-			sprite[j].dist = hy_pot(r[i].spr_hit.x - w->player.plot.x,
+			sprite[j].dist = hypot(r[i].spr_hit.x - w->player.plot.x,
 					r[i].spr_hit.y - w->player.plot.y) * fabs(cos(r[i].ang -
 							w->player.ang));
 			j++;

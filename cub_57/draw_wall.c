@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 16:06:17 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 13:51:01 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 16:56:44 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int				get_color_tex(int i, int j, t_ray *r, t_win *w)
 
 	x = get_render_spot(i, r, w);
 	scale_w = w->wall.length / (double)w->tex[r[i].wall_nsew].width;
-	px = ft_floor(x / scale_w);
-	py = ft_floor(j / r[i].scale_h);
+	px = floor(x / scale_w);
+	py = floor(j / r[i].scale_h);
 	color = w->map.curr_tex[r[i].wall_nsew][(int)(w->tex[r[i].wall_nsew].width *
 			py + px)];
 	return (color);
@@ -112,7 +112,7 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 	double		scale_h;
 	int			color;
 
-	dist_to_wall = hy_pot(r[i].hit.x - w->player.plot.x, r[i].hit.y -
+	dist_to_wall = hypot(r[i].hit.x - w->player.plot.x, r[i].hit.y -
 			w->player.plot.y) * fabs(cos(r[i].ang - w->player.ang));
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_wall;
 	o_pjtd_height = pjtd_height;

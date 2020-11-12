@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 20:22:35 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 21:29:31 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 16:46:18 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int					rotate_right(t_win *w)
 	t_plot			plot;
 	double			new_angle;
 
-	new_angle = w->player.ang - 30 * M_PI / 180;
+	new_angle = w->player.ang + 31 * M_PI / 180;
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{
@@ -56,7 +56,7 @@ int					rotate_left(t_win *w)
 	t_plot			plot;
 	double			new_angle;
 
-	new_angle = w->player.ang - 30 * M_PI / 180;
+	new_angle = w->player.ang - 31 * M_PI / 180;
 	x = w->player.width / 2 * -1;
 	while (x < w->player.width / 2)
 	{

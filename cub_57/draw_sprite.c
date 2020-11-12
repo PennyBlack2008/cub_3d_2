@@ -6,11 +6,12 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:09:17 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 14:18:20 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 17:08:41 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 int					get_color_spr(double x, double y, t_sprite_var *var,
 		t_win *w)
@@ -19,8 +20,8 @@ int					get_color_spr(double x, double y, t_sprite_var *var,
 	double			px;
 	double			py;
 
-	px = ft_floor(x / var->scale_w);
-	py = ft_floor(y / var->scale_h);
+	px = floor(x / var->scale_w);
+	py = floor(y / var->scale_h);
 	color = w->map.curr_tex[4][(int)(w->tex[4].width * py + px)];
 	return (color);
 }
@@ -67,8 +68,8 @@ void				draw_sprite_pixels(int i, t_sprite_var *var, t_ray *r,
 	{
 		if (i + l > w->r_width)
 			break ;
-		if (i + l >= 0 && (hy_pot(r[i + l].hit.x - w->player.plot.x,
-		r[i + l].hit.y - w->player.plot.y) > hy_pot(r[i].spr_hit.x -
+		if (i + l >= 0 && (hypot(r[i + l].hit.x - w->player.plot.x,
+		r[i + l].hit.y - w->player.plot.y) > hypot(r[i].spr_hit.x -
 		w->player.plot.x, r[i].spr_hit.y - w->player.plot.y)))
 		{
 			draw_part_down(i, l, var, w);
@@ -83,20 +84,21 @@ void				draw_a_sprite(int i, t_ray *r, t_win *w)
 	t_sprite_var	var;
 	int				color;
 
-	var.dist_to_spr = hy_pot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y
+	var.dist_to_spr = hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y
 			- w->player.plot.y) * fabs(cos(r[i].ang - w->player.ang));
-	if (var.dist_to_spr < 30)
-		var.dist_to_spr = 30;
-	var.pjtd_height = w->wall.height * w->player.projected_plane /
-		var.dist_to_spr;
-	var.o_pjtd_height = var.pjtd_height;
-	var.pjtd_width = 300 * w->player.projected_plane / var.dist_to_spr;
-	var.o_pjtd_width = var.pjtd_width;
-	var.scale_h = var.o_pjtd_height / 64.0;
-	var.scale_w = var.o_pjtd_width / 64.0;
-	if (var.pjtd_height > w->r_height)
-		var.pjtd_height = w->r_height;
-	if (var.pjtd_width > w->r_width)
-		var.pjtd_width = w->r_width;
-	draw_sprite_pixels(i, &var, r, w);
+	printf("var.dist_to_spr: %f\n", var.dist_to_spr);
+	// if (var.dist_to_spr < 30)
+	// 	var.dist_to_spr = 30;
+	// var.pjtd_height = w->wall.height * w->player.projected_plane /
+	// 	var.dist_to_spr;
+	// var.o_pjtd_height = var.pjtd_height;
+	// var.pjtd_width = 300 * w->player.projected_plane / var.dist_to_spr;
+	// var.o_pjtd_width = var.pjtd_width;
+	// var.scale_h = var.o_pjtd_height / w->tex[4].height;
+	// var.scale_w = var.o_pjtd_width / w->tex[4].width;
+	// if (var.pjtd_height > w->r_height)
+	// 	var.pjtd_height = w->r_height;
+	// if (var.pjtd_width > w->r_width)
+	// 	var.pjtd_width = w->r_width;
+	// draw_sprite_pixels(i, &var, r, w);
 }

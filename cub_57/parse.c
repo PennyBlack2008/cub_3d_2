@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:26:54 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 16:04:57 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 16:17:05 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,10 @@ void		parse_resolution(t_win *win, char *line, char identifier)
 		while (ft_isdigit(*line))
 			line++;
 		win->r_height = ft_atoi(line);
-		if (win->r_width >= 2050)
-			win->r_width = 2050;
-		if (win->r_height >= 1200)
-			win->r_height = 1200;
+		if (win->r_width >= 2030)
+			win->r_width = 2030;
+		if (win->r_height >= 1100)
+			win->r_height = 1100;
 	}
 	i = 0;
 	while (tmp[i])

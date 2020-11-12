@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:27:41 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 13:45:48 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 16:56:52 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,4 @@ int					check_resol(char **tmp)
 int					shut_down(t_win *w)
 {
 	exit(0);
-}
-
-double				hy_pot(double x, double y)
-{
-	double			result;
-
-	result = sqrt(x * x + y * y);
-	return (result);
 }

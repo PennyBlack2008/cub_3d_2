@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:30:10 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 13:51:22 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 17:12:12 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,7 +360,6 @@ int						shut_down(t_win *w);
 int						check_resol(char **tmp);
 int						ft_isspace(int c);
 int						check_color(char **tmp);
-double					hy_pot(double x, double y);
 
 /*
 ** utils_part_d.c
@@ -370,6 +369,5 @@ void					forward(t_win *w);
 void					backward(t_win *w);
 void					leftward(t_win *w);
 void					rightward(t_win *w);
-double					ft_floor(double x);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:26:54 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 22:21:21 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:33:19 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ void		parse_color(t_win *win, char *line, char identifier)
 	if (!check_color(tmp))
 		error_handler("Color error in .cub file!", 0);
 	if (identifier == 'F')
-		color = &win->map.info.fl_RGB;
+		color = &win->map.info.fl_rgb;
 	else
-		color = &win->map.info.cl_RGB;
+		color = &win->map.info.cl_rgb;
 	color->trgb.r = ft_atoi(tmp[0]);
 	color->trgb.g = ft_atoi(tmp[1]);
 	color->trgb.b = ft_atoi(tmp[2]);

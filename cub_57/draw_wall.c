@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 16:06:17 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 17:52:01 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:29:48 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ double			get_render_spot(int i, t_ray *r, t_win *w)
 	double		x;
 
 	x = 0;
-	if (r[i].wall_NSEW == EAST)
+	if (r[i].wall_nsew == EAST)
 		x = r[i].hit.y - r[i].wall.y;
-	else if (r[i].wall_NSEW == SOUTH)
+	else if (r[i].wall_nsew == SOUTH)
 		x = r[i].hit.x - r[i].wall.x;
-	else if (r[i].wall_NSEW == WEST)
+	else if (r[i].wall_nsew == WEST)
 		x = r[i].hit.y - r[i].wall.y;
-	else if (r[i].wall_NSEW == NORTH)
+	else if (r[i].wall_nsew == NORTH)
 		x = r[i].hit.x - r[i].wall.x;
 	return (x);
 }
@@ -37,10 +37,10 @@ int				get_color_tex(int i, int j, t_ray *r, t_win *w)
 	double		scale_w;
 
 	x = get_render_spot(i, r, w);
-	scale_w = w->wall.length / (double)w->tex[r[i].wall_NSEW].width;
+	scale_w = w->wall.length / (double)w->tex[r[i].wall_nsew].width;
 	px = floor(x / scale_w);
 	py = floor(j / r[i].scale_h);
-	color = w->map.curr_tex[r[i].wall_NSEW][(int)(w->tex[r[i].wall_NSEW].width *
+	color = w->map.curr_tex[r[i].wall_nsew][(int)(w->tex[r[i].wall_nsew].width *
 			py + px)];
 	return (color);
 }
@@ -52,12 +52,12 @@ static void		draw_part_down(int i, double o_pjtd_height, t_ray *r, t_win *w)
 	double		pjtd_height;
 
 	pjtd_height = o_pjtd_height;
-	if (o_pjtd_height > w->R_height)
-		pjtd_height = w->R_height;
+	if (o_pjtd_height > w->r_height)
+		pjtd_height = w->r_height;
 	j = 0;
 	while (j < pjtd_height / 2)
 	{
-		if (r[i].wall_NSEW != 5)
+		if (r[i].wall_nsew != 5)
 			color = get_color_tex(i, o_pjtd_height / 2 + j, r, w);
 		else
 			color = 0;
@@ -73,12 +73,12 @@ static void		draw_part_up(int i, double o_pjtd_height, t_ray *r, t_win *w)
 	double		pjtd_height;
 
 	pjtd_height = o_pjtd_height;
-	if (o_pjtd_height > w->R_height)
-		pjtd_height = w->R_height;
+	if (o_pjtd_height > w->r_height)
+		pjtd_height = w->r_height;
 	k = pjtd_height / 2;
 	while (k > 0)
 	{
-		if (r[i].wall_NSEW != 5)
+		if (r[i].wall_nsew != 5)
 			color = get_color_tex(i, o_pjtd_height / 2 - k, r, w);
 		else
 			color = 0;
@@ -116,10 +116,10 @@ void			draw_a_wall(int i, t_ray *r, t_win *w)
 			w->player.plot.y) * fabs(cos(r[i].ang - w->player.ang));
 	pjtd_height = w->wall.height * w->player.projected_plane / dist_to_wall;
 	o_pjtd_height = pjtd_height;
-	r[i].scale_h = o_pjtd_height / w->tex[r[i].wall_NSEW].height;
-	if (pjtd_height > w->R_height)
-		pjtd_height = w->R_height;
-	r[i].ceiling = (w->R_height - o_pjtd_height) / 2.0;
+	r[i].scale_h = o_pjtd_height / w->tex[r[i].wall_nsew].height;
+	if (pjtd_height > w->r_height)
+		pjtd_height = w->r_height;
+	r[i].ceiling = (w->r_height - o_pjtd_height) / 2.0;
 	draw_part_down(i, o_pjtd_height, r, w);
 	draw_part_up(i, o_pjtd_height, r, w);
 	r[i].floor = o_pjtd_height + r[i].ceiling;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   screenshot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jikang <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:19:18 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 21:19:34 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:30:41 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static int	write_bmp_header(int fd, int file_size, t_win *w)
 	int_to_char(file_size, bmp_header + 2);
 	bmp_header[10] = (unsigned char)54;
 	bmp_header[14] = (unsigned char)40;
-	int_to_char(w->R_width, bmp_header + 18);
-	int_to_char(w->R_height, bmp_header + 22);
+	int_to_char(w->r_width, bmp_header + 18);
+	int_to_char(w->r_height, bmp_header + 22);
 	bmp_header[26] = (unsigned char)1;
 	bmp_header[28] = (unsigned char)24;
 	ret = write(fd, bmp_header, 54);
@@ -58,11 +58,11 @@ static int	write_bmp_data(int fd, int pad, t_win *w)
 	i = -1;
 	while (++i < 3)
 		zero[i] = 0;
-	i = w->R_height + 1;
+	i = w->r_height + 1;
 	while (--i > 0)
 	{
 		j = -1;
-		while (++j < w->R_width)
+		while (++j < w->r_width)
 		{
 			color = get_color(w, j, i);
 			if (write(fd, &color, 3) < 0)
@@ -83,9 +83,9 @@ int			screenshot(t_win *w)
 
 	cast_rays(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.ptr, 0, 0);
-	pixel_bytes_per_row = w->R_width * 3;
+	pixel_bytes_per_row = w->r_width * 3;
 	pad = (4 - pixel_bytes_per_row % 4) % 4;
-	file_size = 14 + 40 + 3 * (w->R_width + pad) * w->R_height;
+	file_size = 14 + 40 + 3 * (w->r_width + pad) * w->r_height;
 	if ((fd = open("screenshot.bmp", O_RDWR | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (0);
 	if (!(write_bmp_header(fd, file_size, w)) ||

@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:46:28 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 21:55:26 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:31:07 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int					find_cardinal_dir_wall(t_ray *r, t_win *w)
 {
 	double ray_ang;
 
-	r->wall_NSEW = 5;
+	r->wall_nsew = 5;
 	if (fabs(r->hit.x - r->wall.x) < 1.5)
 		return (EAST);
 	if (fabs(r->hit.x - r->wall.x - w->wall.length) < 1.5)
@@ -59,7 +59,7 @@ int					cast_a_ray(t_ray *r, t_win *w)
 	save_plot(&r->hit, &plot_player);
 	r->wall.x = (int)(r->hit.x / w->wall.length) * w->wall.length;
 	r->wall.y = (int)(r->hit.y / w->wall.length) * w->wall.length;
-	r->wall_NSEW = find_cardinal_dir_wall(r, w);
+	r->wall_nsew = find_cardinal_dir_wall(r, w);
 	return (0);
 }
 
@@ -84,7 +84,7 @@ void				sprites_calculator(t_sprite *sprite, t_ray *r, t_win *w)
 	init_sprite_arr(sprite, w);
 	i = 0;
 	j = 0;
-	while (i < w->R_width - 1)
+	while (i < w->r_width - 1)
 	{
 		if (r[i].spr_hit.x != 0 && r[i].spr_hit.y != 0 &&
 		hypot(r[i].spr_hit.x - r[i + 1].spr_hit.x, r[i].spr_hit.y -
@@ -103,7 +103,7 @@ void				sprites_calculator(t_sprite *sprite, t_ray *r, t_win *w)
 
 int					cast_rays(t_win *w)
 {
-	t_ray			r[w->R_width];
+	t_ray			r[w->r_width];
 	int				i;
 	double			ray_ang;
 	t_sprite		sprite[w->num_sprite];
@@ -111,7 +111,7 @@ int					cast_rays(t_win *w)
 
 	ray_ang = -1 * w->fov_ang / 2;
 	i = 0;
-	while (ray_ang < w->fov_ang / 2 && i < w->R_width)
+	while (ray_ang < w->fov_ang / 2 && i < w->r_width)
 	{
 		r[i].spr_hit.x = 0;
 		r[i].spr_hit.y = 0;
@@ -120,7 +120,7 @@ int					cast_rays(t_win *w)
 		draw_floor(i, r, w);
 		cast_a_ray(&(r[i]), w);
 		draw_a_wall(i, r, w);
-		ray_ang += w->fov_ang / w->R_width;
+		ray_ang += w->fov_ang / w->r_width;
 		i++;
 	}
 	sprites_calculator(sprite, r, w);

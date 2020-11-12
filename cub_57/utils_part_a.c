@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:25:56 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 22:09:13 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 13:31:48 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int						draw_background(t_win *w)
 	int					y;
 
 	x = 0;
-	while (x < w->R_width)
+	while (x < w->r_width)
 	{
 		x++;
 		y = 0;
-		while (y < w->R_height)
+		while (y < w->r_height)
 		{
 			my_mlx_pixel_put(&w->img, x, y, 0x000000);
 			y++;

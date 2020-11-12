@@ -3,11 +3,11 @@ R 600 600
 NO ./images/NO.xpm
 SO ./images/SO.xpm
 WE ./images/WE.xpm
-EA ./images/EA.xpm
+EA ./images/spare.xpm
 
 S ./images/ITEM.xpm
-F 220,100,0
-C 225,30,0
+F 237,201,175
+C 255,255,240
 
         1111111111111111111111111
         1000000000000000000000021

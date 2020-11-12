@@ -1,0 +1,15 @@
+R 600 600
+
+NO ./images/NO.xpm
+SO ./images/SO.xpm
+WE ./images/WE.xpm
+EA ./images/EA.xpm
+
+S ./images/ITEM.xpm
+F 220,100,0
+C 225,30,0
+
+111111111111
+1N0000002001
+100002002001
+111111111111

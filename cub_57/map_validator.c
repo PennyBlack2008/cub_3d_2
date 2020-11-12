@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:25:25 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 22:20:22 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 19:30:56 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		map_validtator(t_win *win)
 	check_left_right(win);
 	cnt = 0;
 	y = 1;
-	win->num_sprite = 0;
+	win->num_sprite = 1;
 	while (y < win->map.map_height)
 	{
 		x = 0;

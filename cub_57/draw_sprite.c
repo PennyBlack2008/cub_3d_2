@@ -6,12 +6,11 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:09:17 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 17:08:41 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 19:27:14 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
 int					get_color_spr(double x, double y, t_sprite_var *var,
 		t_win *w)
@@ -86,19 +85,18 @@ void				draw_a_sprite(int i, t_ray *r, t_win *w)
 
 	var.dist_to_spr = hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y
 			- w->player.plot.y) * fabs(cos(r[i].ang - w->player.ang));
-	printf("var.dist_to_spr: %f\n", var.dist_to_spr);
-	// if (var.dist_to_spr < 30)
-	// 	var.dist_to_spr = 30;
-	// var.pjtd_height = w->wall.height * w->player.projected_plane /
-	// 	var.dist_to_spr;
-	// var.o_pjtd_height = var.pjtd_height;
-	// var.pjtd_width = 300 * w->player.projected_plane / var.dist_to_spr;
-	// var.o_pjtd_width = var.pjtd_width;
-	// var.scale_h = var.o_pjtd_height / w->tex[4].height;
-	// var.scale_w = var.o_pjtd_width / w->tex[4].width;
-	// if (var.pjtd_height > w->r_height)
-	// 	var.pjtd_height = w->r_height;
-	// if (var.pjtd_width > w->r_width)
-	// 	var.pjtd_width = w->r_width;
-	// draw_sprite_pixels(i, &var, r, w);
+	if (var.dist_to_spr < 30)
+		var.dist_to_spr = 30;
+	var.pjtd_height = w->wall.height * w->player.projected_plane /
+		var.dist_to_spr;
+	var.o_pjtd_height = var.pjtd_height;
+	var.pjtd_width = 300 * w->player.projected_plane / var.dist_to_spr;
+	var.o_pjtd_width = var.pjtd_width;
+	var.scale_h = var.o_pjtd_height / w->tex[4].height;
+	var.scale_w = var.o_pjtd_width / w->tex[4].width;
+	if (var.pjtd_height > w->r_height)
+		var.pjtd_height = w->r_height;
+	if (var.pjtd_width > w->r_width)
+		var.pjtd_width = w->r_width;
+	draw_sprite_pixels(i, &var, r, w);
 }

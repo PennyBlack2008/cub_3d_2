@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 16:03:50 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 17:06:16 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 19:27:04 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			draw_sprites(t_sprite *spr, t_ray *r, t_win *w)
 
 	sort_sprite(spr, w);
 	k = 0;
-	while (spr[k].dist != 0)
+	while (k < w->num_sprite)
 	{
 		draw_a_sprite(spr[k].i, r, w);
 		k++;

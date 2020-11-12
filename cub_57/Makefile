@@ -53,7 +53,7 @@ OBJS			=	cub3d.o\
 
 CC				=	gcc
 
-CFLAG			=	-Wall -Werror -Wextra -fsanitize=address -g3
+CFLAG			=	-Wall -Werror -Wextra -g3
 
 RM				=	rm -f
 

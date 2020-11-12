@@ -15,6 +15,7 @@ SRCS			=	cub3d.c\
 					utils_part_b.c\
 					utils_part_c.c\
 					utils_part_d.c\
+					utils_part_e.c\
 					rotate.c\
 					screenshot.c\
 					file_parser.c\
@@ -40,6 +41,7 @@ OBJS			=	cub3d.o\
 					utils_part_b.o\
 					utils_part_c.o\
 					utils_part_d.o\
+					utils_part_e.o\
 					rotate.o\
 					screenshot.o\
 					file_parser.o\
@@ -53,7 +55,7 @@ OBJS			=	cub3d.o\
 
 CC				=	gcc
 
-CFLAG			=	-Wall -Werror -Wextra -g3
+CFLAG			=	-Wall -Werror -Wextra
 
 RM				=	rm -f
 

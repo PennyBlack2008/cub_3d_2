@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 17:09:17 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/11 22:21:16 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 14:18:20 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int					get_color_spr(double x, double y, t_sprite_var *var,
 	double			px;
 	double			py;
 
-	px = floor(x / var->scale_w);
-	py = floor(y / var->scale_h);
+	px = ft_floor(x / var->scale_w);
+	py = ft_floor(y / var->scale_h);
 	color = w->map.curr_tex[4][(int)(w->tex[4].width * py + px)];
 	return (color);
 }
@@ -67,8 +67,8 @@ void				draw_sprite_pixels(int i, t_sprite_var *var, t_ray *r,
 	{
 		if (i + l > w->r_width)
 			break ;
-		if (i + l >= 0 && (hypot(r[i + l].hit.x - w->player.plot.x,
-		r[i + l].hit.y - w->player.plot.y) > hypot(r[i].spr_hit.x -
+		if (i + l >= 0 && (hy_pot(r[i + l].hit.x - w->player.plot.x,
+		r[i + l].hit.y - w->player.plot.y) > hy_pot(r[i].spr_hit.x -
 		w->player.plot.x, r[i].spr_hit.y - w->player.plot.y)))
 		{
 			draw_part_down(i, l, var, w);
@@ -83,7 +83,7 @@ void				draw_a_sprite(int i, t_ray *r, t_win *w)
 	t_sprite_var	var;
 	int				color;
 
-	var.dist_to_spr = hypot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y
+	var.dist_to_spr = hy_pot(r[i].spr_hit.x - w->player.plot.x, r[i].spr_hit.y
 			- w->player.plot.y) * fabs(cos(r[i].ang - w->player.ang));
 	if (var.dist_to_spr < 30)
 		var.dist_to_spr = 30;

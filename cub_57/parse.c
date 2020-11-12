@@ -6,7 +6,7 @@
 /*   By: jikang <jikang@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/11 21:26:54 by jikang            #+#    #+#             */
-/*   Updated: 2020/11/12 14:26:46 by jikang           ###   ########.fr       */
+/*   Updated: 2020/11/12 14:32:30 by jikang           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		parse_resolution(t_win *win, char *line, char identifier)
 {
 	char	**tmp;
 	int		i;
-	
+
 	if (!(tmp = ft_split(line, ' ')))
 		error_handler("Memory allocation error!", ENOMEM);
 	if (!check_resol(tmp))
